@@ -67,4 +67,4 @@ find . -type f ! -name '.DS_Store' ! -name '._*' ! -path './__MACOSX/*' \
 
 ## 可视化站
 
-<https://gjzqdesign.netlify.app> —— 对外橱窗,**非事实源**。站上的「下载 Skill 包」即指向本仓。
+<https://gjzq-design-mobile.netlify.app> —— 对外橱窗,**非事实源**。站上的「下载 Skill 包」即指向本仓。
