@@ -45,4 +45,4 @@
 | `logo.svg` | 国金出品 | 40×40 | icf_func_btn-btm-logo |
 | `accmp.svg` | 暖心陪伴 | 40×40 | icf_func_btn-btm-accmp |
 
-浅灰圆底 + 描边 + 图形三层,颜色全部用 `currentColor`(不同透明度),使用时把 `color` 设为 `--CT4`。这组图标转成 iconfont 单色字形后圆底和图形会糊成一块,所以只用这里的 SVG,不用字体。
+浅灰圆底 + 描边 + 图形三层,颜色全部用 `currentColor`(不同透明度),使用时把 `color` 设为 `--CI3`(与 skill 页脚组件一致)。这组图标转成 iconfont 单色字形后圆底和图形会糊成一块,所以只用这里的 SVG,不用字体。
