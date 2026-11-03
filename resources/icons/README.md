@@ -33,3 +33,16 @@
 | `voice.svg` | 语音 tab 图标 | 32×32 | 键盘icon/语音 13018:7596 |
 | `collapse.svg` | 键盘收起 | 36×36 | 键盘/键盘icon/键盘收起 16531:3513 |
 | `logo.svg` | 安全提示 logo(多色) | 32×32 | 键盘logo 16530:2989 |
+
+## footer(C22 页脚)
+
+| 文件 | 内容 | 尺寸 | 原名 |
+|---|---|---|---|
+| `hot.svg` | 客服热线 | 40×40 | icf_func_btn-btm-hot |
+| `feed.svg` | 意见反馈 | 40×40 | icf_func_btn-btm-feed |
+| `serv.svg` | 在线客服 | 40×40 | icf_func_btn-btm-serv |
+| `prof.svg` | 专业团队 | 40×40 | icf_func_btn-btm-prof |
+| `logo.svg` | 国金出品 | 40×40 | icf_func_btn-btm-logo |
+| `accmp.svg` | 暖心陪伴 | 40×40 | icf_func_btn-btm-accmp |
+
+浅灰圆底 + 描边 + 图形三层,颜色全部用 `currentColor`(不同透明度),使用时把 `color` 设为 `--CT4`。这组图标转成 iconfont 单色字形后圆底和图形会糊成一块,所以只用这里的 SVG,不用字体。
