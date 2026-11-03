@@ -4,6 +4,8 @@
 
 `https://raw.githubusercontent.com/haoyun101/gjzq-design-mobile/main/resources/icons/<组件>/<文件名>`
 
+skill 包 `assets/icons/components/<组件>/` 里有同一份,**生成页面默认用包内那份**(不依赖网络);这里用于单独拿图和换图,换图后两边同步。
+
 均为 Figma 组件直接导出的 SVG,颜色为 Figma 原值;单色图标使用时按章节规定的颜色 token 覆盖。
 
 ## input-box(C24 输入框)
