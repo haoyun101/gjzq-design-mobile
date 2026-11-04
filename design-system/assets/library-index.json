@@ -3,330 +3,461 @@
   "_优先级": "图标:单色先查 iconfont,再查 svg;组件:先查 components 参考实现(每条带 quickcard 锚点;形态/变体/辨识单一真源在 references/component-quickcards.md,index 不重述);颜色/字体:先查 tokens。",
   "icons": {
     "iconfont": {
-      "tianjia": {
-        "class": "icon-tianjia",
-        "unicode": "e631",
-        "gloss": "添加/加自选"
+      "icf_func_adv-opin": {
+        "class": "icf_func_adv-opin",
+        "unicode": "e665",
+        "gloss": "投顾观点"
       },
-      "qiehuanheiban": {
-        "class": "icon-qiehuanheiban",
-        "unicode": "e632",
-        "gloss": "切换黑版"
+      "icf_func_sort-asc": {
+        "class": "icf_func_sort-asc",
+        "unicode": "e65d",
+        "gloss": "表头排序·升序"
       },
-      "shibai": {
-        "class": "icon-shibai",
-        "unicode": "e633",
-        "gloss": "失败"
+      "icf_func_sort-def": {
+        "class": "icf_func_sort-def",
+        "unicode": "e660",
+        "gloss": "表头排序·默认"
       },
-      "shuoming": {
-        "class": "icon-shuoming",
-        "unicode": "e634",
-        "gloss": "说明"
+      "icf_func_sort-desc": {
+        "class": "icf_func_sort-desc",
+        "unicode": "e663",
+        "gloss": "表头排序·降序"
       },
-      "shixinjiantou-shang": {
-        "class": "icon-shixinjiantou-shang",
-        "unicode": "e635",
-        "gloss": "实心箭头上"
+      "icf_gen_AI-inv": {
+        "class": "icf_gen_AI-inv",
+        "unicode": "e625",
+        "gloss": "AI(Figma 未填描述)"
       },
-      "licaishouye": {
-        "class": "icon-licaishouye",
-        "unicode": "e636",
-        "gloss": "理财首页"
+      "icf_gen_add": {
+        "class": "icf_gen_add",
+        "unicode": "e65c",
+        "gloss": "添加"
       },
-      "huanyihuan": {
-        "class": "icon-huanyihuan",
-        "unicode": "e637",
-        "gloss": "换一换"
+      "icf_gen_add-wl": {
+        "class": "icf_gen_add-wl",
+        "unicode": "e657",
+        "gloss": "加自选/添加自选"
       },
-      "gengduo": {
-        "class": "icon-gengduo",
-        "unicode": "e638",
-        "gloss": "更多"
+      "icf_gen_bg-close": {
+        "class": "icf_gen_bg-close",
+        "unicode": "e726",
+        "gloss": "搜索关闭/清空(实心圆叉)"
       },
-      "shezhi": {
-        "class": "icon-shezhi",
-        "unicode": "e639",
-        "gloss": "设置"
+      "icf_gen_camera": {
+        "class": "icf_gen_camera",
+        "unicode": "e655",
+        "gloss": "相机/拍照"
       },
-      "guanbi": {
-        "class": "icon-guanbi",
-        "unicode": "e63a",
+      "icf_gen_captcha": {
+        "class": "icf_gen_captcha",
+        "unicode": "e65a",
+        "gloss": "验证码(盾牌)"
+      },
+      "icf_gen_clock": {
+        "class": "icf_gen_clock",
+        "unicode": "e725",
+        "gloss": "时钟"
+      },
+      "icf_gen_close": {
+        "class": "icf_gen_close",
+        "unicode": "e654",
         "gloss": "关闭"
       },
-      "jiesuo": {
-        "class": "icon-jiesuo",
-        "unicode": "e63b",
-        "gloss": "解锁"
-      },
-      "changwaizhuanchangnei": {
-        "class": "icon-changwaizhuanchangnei",
-        "unicode": "e609",
-        "gloss": "场外转场内"
-      },
-      "dingtoujisuanqi": {
-        "class": "icon-dingtoujisuanqi",
-        "unicode": "e63c",
-        "gloss": "定投计算器"
-      },
-      "cebianlan": {
-        "class": "icon-cebianlan",
-        "unicode": "e63d",
-        "gloss": "侧边栏"
-      },
-      "biaotouguanli": {
-        "class": "icon-biaotouguanli",
-        "unicode": "e63e",
-        "gloss": "表头管理"
-      },
-      "chenggong": {
-        "class": "icon-chenggong",
-        "unicode": "e63f",
-        "gloss": "成功"
-      },
-      "biaodelianjie": {
-        "class": "icon-biaodelianjie",
-        "unicode": "e640",
-        "gloss": "表单链接"
-      },
-      "dingyue": {
-        "class": "icon-dingyue",
-        "unicode": "e641",
-        "gloss": "订阅"
-      },
-      "bangzhu": {
-        "class": "icon-bangzhu",
-        "unicode": "e642",
-        "gloss": "帮助"
-      },
-      "bianji": {
-        "class": "icon-bianji",
-        "unicode": "e643",
-        "gloss": "编辑"
-      },
-      "qiehuanbaiban": {
-        "class": "icon-qiehuanbaiban",
-        "unicode": "e61b",
-        "gloss": "切换白版"
-      },
-      "honglizaitouzi": {
-        "class": "icon-honglizaitouzi",
-        "unicode": "e61d",
-        "gloss": "红利再投资"
-      },
-      "xiaoxi": {
-        "class": "icon-xiaoxi",
-        "unicode": "e61e",
-        "gloss": "消息"
-      },
-      "shouyijisuanqi": {
-        "class": "icon-shouyijisuanqi",
-        "unicode": "e61f",
-        "gloss": "收益计算器"
-      },
-      "fenxiang": {
-        "class": "icon-fenxiang",
-        "unicode": "e620",
-        "gloss": "分享"
-      },
-      "pengyouquan": {
-        "class": "icon-pengyouquan",
-        "unicode": "e621",
-        "gloss": "朋友圈"
-      },
-      "guanhuaibanqiehuan": {
-        "class": "icon-guanhuaibanqiehuan",
-        "unicode": "e622",
-        "gloss": "关怀版切换"
-      },
-      "rili": {
-        "class": "icon-rili",
-        "unicode": "e623",
-        "gloss": "日历"
-      },
-      "pinglun": {
-        "class": "icon-pinglun",
-        "unicode": "e624",
+      "icf_gen_cmt": {
+        "class": "icf_gen_cmt",
+        "unicode": "e658",
         "gloss": "评论"
       },
-      "zhiding": {
-        "class": "icon-zhiding",
-        "unicode": "e625",
-        "gloss": "置顶"
-      },
-      "sousuo": {
-        "class": "icon-sousuo",
-        "unicode": "e626",
-        "gloss": "搜索"
-      },
-      "xianshi": {
-        "class": "icon-xianshi",
-        "unicode": "e627",
-        "gloss": "显示"
-      },
-      "shixinjiantou-you": {
-        "class": "icon-shixinjiantou-you",
-        "unicode": "e628",
-        "gloss": "实心箭头右"
-      },
-      "shouqi": {
-        "class": "icon-shouqi",
-        "unicode": "e629",
+      "icf_gen_coll": {
+        "class": "icf_gen_coll",
+        "unicode": "e659",
         "gloss": "收起"
       },
-      "weixin": {
-        "class": "icon-weixin",
-        "unicode": "e62a",
-        "gloss": "微信"
+      "icf_gen_dca-calc": {
+        "class": "icf_gen_dca-calc",
+        "unicode": "e64f",
+        "gloss": "定投计算器"
       },
-      "shijian": {
-        "class": "icon-shijian",
-        "unicode": "e62b",
-        "gloss": "时间"
+      "icf_gen_desc": {
+        "class": "icf_gen_desc",
+        "unicode": "e656",
+        "gloss": "说明"
       },
-      "guanzhu": {
-        "class": "icon-guanzhu",
-        "unicode": "e62c",
-        "gloss": "关注"
+      "icf_gen_description": {
+        "class": "icf_gen_description",
+        "unicode": "e651",
+        "gloss": "提示/错误提示/惊叹"
       },
-      "jiazixuan": {
-        "class": "icon-jiazixuan",
-        "unicode": "e62d",
-        "gloss": "加自选"
-      },
-      "qupinglun": {
-        "class": "icon-qupinglun",
-        "unicode": "e62e",
-        "gloss": "去评论"
-      },
-      "shixinjiantou-zuo": {
-        "class": "icon-shixinjiantou-zuo",
-        "unicode": "e62f",
-        "gloss": "实心箭头左"
-      },
-      "saoyisao": {
-        "class": "icon-saoyisao",
-        "unicode": "e630",
-        "gloss": "扫一扫"
-      },
-      "suoding": {
-        "class": "icon-suoding",
-        "unicode": "e60b",
-        "gloss": "锁定"
-      },
-      "zhihuitou": {
-        "class": "icon-zhihuitou",
-        "unicode": "e60c",
-        "gloss": "指回头"
-      },
-      "tongzhi": {
-        "class": "icon-tongzhi",
-        "unicode": "e60d",
-        "gloss": "通知"
-      },
-      "tiaozhuangengduo-juzhongduiqi": {
-        "class": "icon-tiaozhuangengduo-juzhongduiqi",
-        "unicode": "e60e",
-        "gloss": "跳转更多(居中)"
-      },
-      "zhankai": {
-        "class": "icon-zhankai",
-        "unicode": "e60f",
-        "gloss": "展开"
-      },
-      "zixuanzijin": {
-        "class": "icon-zixuanzijin",
-        "unicode": "e610",
-        "gloss": "自选资金/资金"
-      },
-      "xianjinfenhong": {
-        "class": "icon-xianjinfenhong",
-        "unicode": "e611",
+      "icf_gen_div": {
+        "class": "icf_gen_div",
+        "unicode": "e646",
         "gloss": "现金分红"
       },
-      "shixinjiantou-xia": {
-        "class": "icon-shixinjiantou-xia",
-        "unicode": "e612",
-        "gloss": "实心箭头下"
+      "icf_gen_edit": {
+        "class": "icf_gen_edit",
+        "unicode": "e64e",
+        "gloss": "编辑"
       },
-      "tiaozhuangengduo-youduiqi": {
-        "class": "icon-tiaozhuangengduo-youduiqi",
-        "unicode": "e613",
-        "gloss": "跳转更多(右对齐)"
+      "icf_gen_exch": {
+        "class": "icf_gen_exch",
+        "unicode": "e647",
+        "gloss": "场外转场内"
       },
-      "zixuanzixun": {
-        "class": "icon-zixuanzixun",
-        "unicode": "e614",
-        "gloss": "自选资讯/资讯"
+      "icf_gen_exit": {
+        "class": "icf_gen_exit",
+        "unicode": "e643",
+        "gloss": "返回/退出(线性 <)"
       },
-      "sousuoguanbi": {
-        "class": "icon-sousuoguanbi",
-        "unicode": "e615",
-        "gloss": "搜索关闭"
+      "icf_gen_exp": {
+        "class": "icf_gen_exp",
+        "unicode": "e626",
+        "gloss": "展开"
       },
-      "tuichu": {
-        "class": "icon-tuichu",
-        "unicode": "e616",
-        "gloss": "退出"
+      "icf_gen_failure": {
+        "class": "icf_gen_failure",
+        "unicode": "e652",
+        "gloss": "失败/叉"
       },
-      "yincang": {
-        "class": "icon-yincang",
-        "unicode": "e617",
-        "gloss": "隐藏"
-      },
-      "shezixuan": {
-        "class": "icon-shezixuan",
-        "unicode": "e60a",
-        "gloss": "设自选"
-      },
-      "guandian": {
-        "class": "icon-guandian",
-        "unicode": "e618",
-        "gloss": "观点"
-      },
-      "shoucang": {
-        "class": "icon-shoucang",
-        "unicode": "e619",
+      "icf_gen_fav": {
+        "class": "icf_gen_fav",
+        "unicode": "e64d",
         "gloss": "收藏"
       },
-      "shanchuzixuan": {
-        "class": "icon-shanchuzixuan",
-        "unicode": "e61a",
+      "icf_gen_funds": {
+        "class": "icf_gen_funds",
+        "unicode": "e640",
+        "gloss": "自选资金/资金"
+      },
+      "icf_gen_fw": {
+        "class": "icf_gen_fw",
+        "unicode": "e63d",
+        "gloss": "关注"
+      },
+      "icf_gen_go-cmt": {
+        "class": "icf_gen_go-cmt",
+        "unicode": "e64b",
+        "gloss": "去评论"
+      },
+      "icf_gen_help": {
+        "class": "icf_gen_help",
+        "unicode": "e648",
+        "gloss": "帮助"
+      },
+      "icf_gen_hide": {
+        "class": "icf_gen_hide",
+        "unicode": "e63f",
+        "gloss": "隐藏"
+      },
+      "icf_gen_home": {
+        "class": "icf_gen_home",
+        "unicode": "e627",
+        "gloss": "理财首页/首页"
+      },
+      "icf_gen_img-src": {
+        "class": "icf_gen_img-src",
+        "unicode": "e727",
+        "gloss": "搜图片"
+      },
+      "icf_gen_link": {
+        "class": "icf_gen_link",
+        "unicode": "e644",
+        "gloss": "标的链接/链接"
+      },
+      "icf_gen_locked": {
+        "class": "icf_gen_locked",
+        "unicode": "e64a",
+        "gloss": "锁定"
+      },
+      "icf_gen_moments": {
+        "class": "icf_gen_moments",
+        "unicode": "e63c",
+        "gloss": "朋友圈"
+      },
+      "icf_gen_more-ctr": {
+        "class": "icf_gen_more-ctr",
+        "unicode": "e650",
+        "gloss": "跳转更多(居中对齐)"
+      },
+      "icf_gen_more-horiz": {
+        "class": "icf_gen_more-horiz",
+        "unicode": "e723",
+        "gloss": "更多(横向)"
+      },
+      "icf_gen_more-rt": {
+        "class": "icf_gen_more-rt",
+        "unicode": "e653",
+        "gloss": "跳转更多(右对齐)"
+      },
+      "icf_gen_more-vert": {
+        "class": "icf_gen_more-vert",
+        "unicode": "e721",
+        "gloss": "更多(竖向)"
+      },
+      "icf_gen_news": {
+        "class": "icf_gen_news",
+        "unicode": "e63a",
+        "gloss": "自选资讯/资讯"
+      },
+      "icf_gen_notif": {
+        "class": "icf_gen_notif",
+        "unicode": "e62e",
+        "gloss": "通知/消息"
+      },
+      "icf_gen_opn": {
+        "class": "icf_gen_opn",
+        "unicode": "e64c",
+        "gloss": "观点"
+      },
+      "icf_gen_phone": {
+        "class": "icf_gen_phone",
+        "unicode": "e628",
+        "gloss": "手机"
+      },
+      "icf_gen_pk": {
+        "class": "icf_gen_pk",
+        "unicode": "e649",
+        "gloss": "基金PK"
+      },
+      "icf_gen_radio": {
+        "class": "icf_gen_radio",
+        "unicode": "e635",
+        "gloss": "列表勾选"
+      },
+      "icf_gen_ref": {
+        "class": "icf_gen_ref",
+        "unicode": "e63b",
+        "gloss": "换一换"
+      },
+      "icf_gen_reinv": {
+        "class": "icf_gen_reinv",
+        "unicode": "e639",
+        "gloss": "红利再投资"
+      },
+      "icf_gen_ret-calc": {
+        "class": "icf_gen_ret-calc",
+        "unicode": "e632",
+        "gloss": "收益计算器"
+      },
+      "icf_gen_rm-wl": {
+        "class": "icf_gen_rm-wl",
+        "unicode": "e637",
         "gloss": "删除自选"
+      },
+      "icf_gen_set-wl": {
+        "class": "icf_gen_set-wl",
+        "unicode": "e63e",
+        "gloss": "设自选"
+      },
+      "icf_gen_show": {
+        "class": "icf_gen_show",
+        "unicode": "e629",
+        "gloss": "显示"
+      },
+      "icf_gen_smart": {
+        "class": "icf_gen_smart",
+        "unicode": "e630",
+        "gloss": "智慧投"
+      },
+      "icf_gen_sol-dn": {
+        "class": "icf_gen_sol-dn",
+        "unicode": "e642",
+        "gloss": "实心箭头下"
+      },
+      "icf_gen_sol-lt": {
+        "class": "icf_gen_sol-lt",
+        "unicode": "e645",
+        "gloss": "实心箭头左"
+      },
+      "icf_gen_sol-rt": {
+        "class": "icf_gen_sol-rt",
+        "unicode": "e631",
+        "gloss": "实心箭头右"
+      },
+      "icf_gen_sol-up": {
+        "class": "icf_gen_sol-up",
+        "unicode": "e62f",
+        "gloss": "实心箭头上"
+      },
+      "icf_gen_sub": {
+        "class": "icf_gen_sub",
+        "unicode": "e633",
+        "gloss": "订阅"
+      },
+      "icf_gen_success": {
+        "class": "icf_gen_success",
+        "unicode": "e638",
+        "gloss": "成功/勾"
+      },
+      "icf_gen_tbl-mg": {
+        "class": "icf_gen_tbl-mg",
+        "unicode": "e62b",
+        "gloss": "表头管理"
+      },
+      "icf_gen_time": {
+        "class": "icf_gen_time",
+        "unicode": "e636",
+        "gloss": "时间"
+      },
+      "icf_gen_top": {
+        "class": "icf_gen_top",
+        "unicode": "e62d",
+        "gloss": "置顶"
+      },
+      "icf_gen_unlocked": {
+        "class": "icf_gen_unlocked",
+        "unicode": "e641",
+        "gloss": "解锁"
+      },
+      "icf_gen_username": {
+        "class": "icf_gen_username",
+        "unicode": "e62a",
+        "gloss": "用户名"
+      },
+      "icf_gen_verify-cd": {
+        "class": "icf_gen_verify-cd",
+        "unicode": "e722",
+        "gloss": "验证码"
+      },
+      "icf_gen_wechat": {
+        "class": "icf_gen_wechat",
+        "unicode": "e62c",
+        "gloss": "微信"
+      },
+      "icf_nav_cal": {
+        "class": "icf_nav_cal",
+        "unicode": "e66a",
+        "gloss": "日历"
+      },
+      "icf_nav_clear": {
+        "class": "icf_nav_clear",
+        "unicode": "e724",
+        "gloss": "清除 / 清理(导航栏)"
+      },
+      "icf_nav_msg": {
+        "class": "icf_nav_msg",
+        "unicode": "e66d",
+        "gloss": "消息/信息"
+      },
+      "icf_nav_refr": {
+        "class": "icf_nav_refr",
+        "unicode": "e66e",
+        "gloss": "刷新"
+      },
+      "icf_nav_scan": {
+        "class": "icf_nav_scan",
+        "unicode": "e66b",
+        "gloss": "扫一扫"
+      },
+      "icf_nav_sett": {
+        "class": "icf_nav_sett",
+        "unicode": "e669",
+        "gloss": "设置"
+      },
+      "icf_nav_share": {
+        "class": "icf_nav_share",
+        "unicode": "e623",
+        "gloss": "分享"
+      },
+      "icf_nav_side": {
+        "class": "icf_nav_side",
+        "unicode": "e66c",
+        "gloss": "侧边栏/更多"
+      },
+      "icf_nav_src": {
+        "class": "icf_nav_src",
+        "unicode": "e668",
+        "gloss": "搜索"
+      },
+      "icf_nav_sw-b": {
+        "class": "icf_nav_sw-b",
+        "unicode": "e622",
+        "gloss": "切换黑版"
+      },
+      "icf_nav_sw-care": {
+        "class": "icf_nav_sw-care",
+        "unicode": "e667",
+        "gloss": "关怀版切换/适老版"
+      },
+      "icf_nav_sw-w": {
+        "class": "icf_nav_sw-w",
+        "unicode": "e666",
+        "gloss": "切换白版"
       }
     },
     "svg": {
-      "common/sort-triangle-down.svg": "",
-      "common/sort-triangle-up.svg": "",
-      "common/sort-triangle.svg": "",
-      "market/add-stock.svg": "",
-      "market/edit.svg": "",
-      "market/image-recognition.svg": "",
-      "market/multi-column.svg": "",
+      "common/fallback-logo-b-lg.svg": "",
+      "common/fallback-logo-b-std.svg": "",
+      "common/fallback-logo-w-lg.svg": "",
+      "common/fallback-logo-w-std.svg": "",
+      "common/icf_func_sort-asc.svg": "",
+      "common/icf_func_sort-def.svg": "",
+      "common/icf_func_sort-desc.svg": "",
+      "common/icf_gen_fallback-img-b.svg": "",
+      "common/icf_gen_fallback-img-w.svg": "",
+      "common/icf_nav_fallback-img-b.svg": "",
+      "common/icf_nav_fallback-img-w.svg": "",
+      "common/slice_all-func_fallback-img-b.svg": "",
+      "common/slice_all-func_fallback-img-w.svg": "",
+      "common/slice_list_fallback-img-b.svg": "",
+      "common/slice_list_fallback-img-w.svg": "",
+      "common/slice_news_follow.svg": "",
+      "common/slice_other_live-24px.svg": "",
+      "common/slice_other_toast-failure.svg": "",
+      "common/slice_other_toast-loading.svg": "",
+      "common/slice_other_toast-success.svg": "",
+      "common/slice_other_toast-warning.svg": "",
+      "common/slice_tab_shadow-vip-m-sel.svg": "",
+      "common/slice_tab_shadow-vip-m-un.svg": "",
+      "common/slice_tab_shadow-vip-s-sel.svg": "",
+      "common/slice_tab_shadow-vip-s-un.svg": "",
+      "common/slice_tab_vip-sel.svg": "",
+      "common/slice_tab_vip-un.svg": "",
+      "common/slice_title_lurker-32px.svg": "",
+      "common/slice_vip-serv_fallback-img.svg": "",
       "market/shishi.svg": "",
-      "market/signal-disabled-dark.svg": "",
-      "market/signal-disabled-light.svg": "",
-      "market/signal-off-dark.svg": "",
-      "market/signal-off-light.svg": "",
-      "market/signal-on-dark.svg": "",
-      "market/signal-on-light.svg": "",
-      "market/trend-off.svg": "",
-      "market/trend-on.svg": "",
-      "bottom-nav/finance-active.svg": "",
-      "bottom-nav/finance-inactive.svg": "",
-      "bottom-nav/home-active.svg": "",
-      "bottom-nav/home-inactive.svg": "",
-      "bottom-nav/home-refresh.svg": "",
-      "bottom-nav/mine-active.svg": "",
-      "bottom-nav/mine-inactive.svg": "",
-      "bottom-nav/trade-active.svg": "",
-      "bottom-nav/trade-inactive.svg": "",
-      "bottom-nav/watchlist-active.svg": "",
-      "bottom-nav/watchlist-inactive.svg": "",
+      "market/slice_watch_add-stk.svg": "",
+      "market/slice_watch_chart-off.svg": "",
+      "market/slice_watch_chart-on.svg": "",
+      "market/slice_watch_edit.svg": "",
+      "market/slice_watch_img-recog.svg": "",
+      "market/slice_watch_multi-col.svg": "",
+      "market/slice_watch_signal-disab-b.svg": "",
+      "market/slice_watch_signal-disab-w.svg": "",
+      "market/slice_watch_signal-ena-b.svg": "",
+      "market/slice_watch_signal-ena-w.svg": "",
+      "market/slice_watch_signal-off-b.svg": "",
+      "market/slice_watch_signal-off-w.svg": "",
+      "bottom-nav/slice_bot-nav_home-ref.svg": "",
+      "bottom-nav/slice_bot-nav_home-sel.svg": "",
+      "bottom-nav/slice_bot-nav_home-unsel.svg": "",
+      "bottom-nav/slice_bot-nav_me-sel.svg": "",
+      "bottom-nav/slice_bot-nav_me-unsel.svg": "",
+      "bottom-nav/slice_bot-nav_trade-sel.svg": "",
+      "bottom-nav/slice_bot-nav_trade-unsel.svg": "",
+      "bottom-nav/slice_bot-nav_watchlist-sel.svg": "",
+      "bottom-nav/slice_bot-nav_watchlist-unsel.svg": "",
+      "bottom-nav/slice_bot-nav_wealth-sel.svg": "",
+      "bottom-nav/slice_bot-nav_wealth-unsel.svg": "",
       "gradient/agent-close.svg": "",
-      "gradient/agent-orb-wave.svg": "",
       "gradient/dajia-zaikan.svg": "",
-      "gradient/xiaobao-thinking.svg": "",
-      "gradient/xiaobao.svg": ""
+      "gradient/xiaobao.svg": "",
+      "components/floating-entry/pause.svg": "",
+      "components/floating-entry/play.svg": "",
+      "components/floating-entry/podcast.svg": "",
+      "components/footer/accmp.svg": "",
+      "components/footer/feed.svg": "",
+      "components/footer/hot.svg": "",
+      "components/footer/logo.svg": "",
+      "components/footer/prof.svg": "",
+      "components/footer/serv.svg": "",
+      "components/input-box/doc-info.svg": "",
+      "components/input-box/step-add.svg": "",
+      "components/input-box/step-sub.svg": "",
+      "components/keyboard/collapse.svg": "",
+      "components/keyboard/delete.svg": "",
+      "components/keyboard/logo.svg": "",
+      "components/keyboard/shift.svg": "",
+      "components/keyboard/voice.svg": ""
     }
   },
   "components": {
@@ -336,15 +467,15 @@
       "quickcard": "references/component-quickcards.md#C01",
       "self_contained": true,
       "requires": "无(自包含:内联 iconfont woff2 + token 定义)",
-      "note": "DS v3.30.0 新增;六档 × 四风格 × 三状态 + XL 胶囊组合;运营气泡仅留槽位未画"
+      "note": "六档 × 五样式(主色/浅色/线框/灰色/胶囊·仅XL)× 三状态,共 75 变体;Figma 3685:33305,编码见 assets/figma-codes.json;按钮气泡仅留开关未画"
     },
     "C02 文字按钮": {
       "ref": "references/components.md#二、文字按钮",
-      "html": null,
+      "html": "assets/components/text-button.html",
       "quickcard": "references/component-quickcards.md#C02",
-      "self_contained": "n/a",
-      "requires": "无独立参考实现;按 components.md 规格生成",
-      "note": "待补 text-button.html"
+      "self_contained": true,
+      "requires": "无(自包含:内联 iconfont woff2 + token 定义)",
+      "note": "5 类型 × 4 字号共 20 变体;Figma 4282:23581,编码见 assets/figma-codes.json"
     },
     "C03 导航栏-顶部": {
       "ref": "references/components.md#三、导航栏",
@@ -368,8 +499,8 @@
       "usage": "assets/components/bottom-info-bar.usage.md",
       "quickcard": "references/component-quickcards.md#C03-导航栏-底部",
       "self_contained": "partial",
-      "requires": "优先读 bottom-info-bar.usage.md;整包相对路径;单文件时谨慎处理 agent-orb-wave 大资产",
-      "note": "大型参考实现不默认全文读取;agent-orb-wave 约197KB,勿 base64 内联"
+      "requires": "优先读 bottom-info-bar.usage.md;整包相对路径;智能体球从发布仓库外链拉取(avatar-agent-orb.png)",
+      "note": "大型参考实现不默认全文读取;智能体球外链,勿 base64 内联"
     },
     "C04 标题栏&tab": {
       "ref": "references/components.md#四、标题栏",
@@ -400,8 +531,8 @@
       "html": "assets/components/timeline.html",
       "quickcard": "references/component-quickcards.md#C07",
       "self_contained": true,
-      "requires": "无额外资产",
-      "note": "可直接复用参考实现"
+      "requires": "已内嵌数字字体",
+      "note": "竖版 资讯 / 常规 / 带状态 + 横版 原子 / 两步~五步;Figma Timeline 时间轴页"
     },
     "C08 单复选框": {
       "ref": "references/components.md#八、单复选",
@@ -416,8 +547,8 @@
       "html": "assets/components/progress.html",
       "quickcard": "references/component-quickcards.md#C09",
       "self_contained": "partial",
-      "requires": "整包相对路径; 依赖 assets/fonts/GJType-Medium.ttf",
-      "note": "可直接复用参考实现; 进度值使用 GJType Medium"
+      "requires": "整包相对路径; 依赖 assets/fonts/GJTypeDisplay-Medium.ttf",
+      "note": "可直接复用参考实现; 进度值使用 GJTypeDisplay Medium"
     },
     "C10 分页符": {
       "ref": "references/components.md#十、分页符",
@@ -448,16 +579,16 @@
       "html": "assets/components/tag.html",
       "quickcard": "references/component-quickcards.md#C13",
       "self_contained": true,
-      "requires": "无额外资产",
-      "note": "可直接复用参考实现"
+      "requires": "已内嵌数字字体与直播图标",
+      "note": "小标签:常规 / 涨跌 / 排序 / 浅色反白;Figma Tag 标签页"
     },
     "C13 标签-个股": {
       "ref": "references/components.md#十三、标签",
       "html": "assets/components/stock-tag.html",
       "quickcard": "references/component-quickcards.md#C13",
       "self_contained": true,
-      "requires": "无额外资产",
-      "note": "可直接复用参考实现"
+      "requires": "已内嵌图标字体与数字字体",
+      "note": "线性标签(曾用名 个股标签)举例;Figma 15287:12678"
     },
     "C14 列表表头": {
       "ref": "references/components.md#十四、列表表头",
@@ -475,6 +606,158 @@
       "requires": "无额外资产",
       "note": "可直接复用参考实现"
     },
+    "C16 红点与气泡": {
+      "ref": "references/components.md#十六、红点与气泡",
+      "html": "assets/components/red-dot-bubble.html",
+      "quickcard": "references/component-quickcards.md#C16",
+      "self_contained": true,
+      "requires": "已内嵌图标字体与数字字体",
+      "note": "可直接复用参考实现"
+    },
+    "C17 链接": {
+      "ref": "references/components.md#十七、链接",
+      "html": "assets/components/link.html",
+      "quickcard": "references/component-quickcards.md#C17",
+      "self_contained": true,
+      "requires": "已内嵌数字字体",
+      "note": "可直接复用参考实现"
+    },
+    "C18 分割线": {
+      "ref": "references/components.md#十八、分割线",
+      "html": "assets/components/divider.html",
+      "quickcard": "references/component-quickcards.md#C18",
+      "self_contained": true,
+      "requires": "无额外资产",
+      "note": "可直接复用参考实现"
+    },
+    "C19 底部操作栏": {
+      "ref": "references/components.md#十九、底部操作栏",
+      "html": "assets/components/bottom-operation.html",
+      "quickcard": "references/component-quickcards.md#C19",
+      "self_contained": true,
+      "requires": "已内嵌图标字体",
+      "note": "可直接复用参考实现"
+    },
+    "C20 列表": {
+      "ref": "references/components.md#二十、列表",
+      "html": "assets/components/list.html",
+      "quickcard": "references/component-quickcards.md#C20",
+      "self_contained": true,
+      "requires": "已内嵌图标字体与数字字体",
+      "note": "功能 / 信息 / 数据 / 卡片内 / 资讯 / 自选 / 搜索列表 + 列表元素;Figma List 列表页"
+    },
+    "C21 倒计时": {
+      "ref": "references/components.md#二十一、倒计时",
+      "html": "assets/components/countdown.html",
+      "quickcard": "references/component-quickcards.md#C21",
+      "self_contained": true,
+      "requires": "已内嵌数字字体",
+      "note": "时间区间 / 天数倒计时 / 日期倒计时;Figma 25092:96799"
+    },
+    "C22 页脚": {
+      "ref": "references/components.md#二十二、页脚",
+      "html": "assets/components/footer.html",
+      "quickcard": "references/component-quickcards.md#C22",
+      "self_contained": true,
+      "requires": "已内联页脚 SVG",
+      "note": "基础样式 6 种 + 组合 1/2/3 + 免责声明;Figma Footer 页脚页"
+    },
+    "C23 搜索框": {
+      "ref": "references/components.md#二十三、搜索框",
+      "html": "assets/components/search-bar.html",
+      "quickcard": "references/component-quickcards.md#C23",
+      "self_contained": true,
+      "requires": "已内嵌图标字体",
+      "note": "通用 / 综合搜索 × 4 态 + 浮层内 + 顶部标题栏-搜索;Figma Search Bar 搜索框页"
+    },
+    "C24 输入框": {
+      "ref": "references/components.md#二十四、输入框",
+      "html": "assets/components/input.html",
+      "quickcard": "references/component-quickcards.md#C24",
+      "self_contained": true,
+      "requires": "已内嵌图标字体与数字字体",
+      "note": "交易输入框 / 左右结构 / 快捷输入 / 交易买卖 / 加减 / 边框居中 / 两列 / 三列 / 弹窗两列 / 登录 / 验证码 / 用户场景;Figma Input Box 输入框页;加减与信息说明见 icons/components/input-box/"
+    },
+    "C25 时间选择": {
+      "ref": "references/components.md#二十五、时间选择",
+      "html": "assets/components/time-picker.html",
+      "quickcard": "references/component-quickcards.md#C25",
+      "self_contained": true,
+      "requires": "已内嵌数字字体",
+      "note": "时间选择器 + 初始日期外层 / 内层 + 年月日滚轮;Figma 20599:3805"
+    },
+    "C26 通知条": {
+      "ref": "references/components.md#二十六、通知条",
+      "html": "assets/components/notification.html",
+      "quickcard": "references/component-quickcards.md#C26",
+      "self_contained": true,
+      "requires": "已内嵌图标字体与中签 / 清算插图",
+      "note": "通栏通知 / 公告卡 / 注意事项 / 运营提示;Figma Notification 通知条页"
+    },
+    "C27 空状态": {
+      "ref": "references/components.md#二十七、空状态",
+      "html": "assets/components/empty.html",
+      "quickcard": "references/component-quickcards.md#C27",
+      "self_contained": "partial",
+      "requires": "缺省图为示意,实际从发布仓库 resources/illustrations/empty/ 引用",
+      "note": "大 / 小 × 白版 / 黑版,元素可开关"
+    },
+    "C28 贴边控件": {
+      "ref": "references/components.md#二十八、贴边控件",
+      "html": "assets/components/welt-button.html",
+      "quickcard": "references/component-quickcards.md#C28",
+      "self_contained": true,
+      "requires": "已内嵌图标字体",
+      "note": "红色 / 灰色 × 右侧箭头 / 左侧图标 / 纯文字;Figma 22807:19734"
+    },
+    "C29 弹窗": {
+      "ref": "references/components.md#二十九、弹窗",
+      "html": "assets/components/dialog.html",
+      "quickcard": "references/component-quickcards.md#C29",
+      "self_contained": true,
+      "requires": "无额外资产",
+      "note": "插槽框架 + 常用样式;Figma Dialog 弹窗页"
+    },
+    "C30 半浮层": {
+      "ref": "references/components.md#三十、半浮层",
+      "html": "assets/components/sheet.html",
+      "quickcard": "references/component-quickcards.md#C30",
+      "self_contained": true,
+      "requires": "已内嵌图标字体",
+      "note": "插槽框架 + 顶部标题 5 种 + 列表选择器;Figma Dialog 半浮层页"
+    },
+    "C31 刷新与加载": {
+      "ref": "references/components.md#三十一、刷新与加载",
+      "html": null,
+      "quickcard": "references/component-quickcards.md#C31",
+      "self_contained": "partial",
+      "requires": "GIF 按 components.md 第三十一章 §4 外部地址引用",
+      "note": "只有规则,无参考实现"
+    },
+    "C32 悬浮入口": {
+      "ref": "references/components.md#三十二、悬浮入口",
+      "html": "assets/components/floating-entry.html",
+      "quickcard": "references/component-quickcards.md#C32",
+      "self_contained": "partial",
+      "requires": "顾问照片 / 运营图为示意;图片上关闭用 icf_gen_bg-close 染 --CB19",
+      "note": "投顾浮窗 / 活动入口 / AI 播客浮窗 + 位置规则;播客与播放 / 暂停图标见 icons/components/floating-entry/"
+    },
+    "C33 安全键盘": {
+      "ref": "references/components.md#三十三、安全键盘",
+      "html": "assets/components/keyboard.html",
+      "quickcard": "references/component-quickcards.md#C33",
+      "self_contained": "partial",
+      "requires": "logo / 语音为位图示意,正式用 icons/components/keyboard/ 的 SVG",
+      "note": "搜索 / 登录 / 交易 / 信用 / 期权;Figma Keyboard 页右侧原件;键盘图标与 logo 见 icons/components/keyboard/"
+    },
+    "C34 头像": {
+      "ref": "references/components.md#三十四、头像",
+      "html": "assets/components/avatar.html",
+      "quickcard": "references/component-quickcards.md#C34",
+      "self_contained": "partial",
+      "requires": "图片直连发布仓库 resources/avatars/,需联网",
+      "note": "头像母版 80 + AI 投顾形象 100;Figma Avatar 头像页 3615:43430"
+    },
     "通用-状态栏": {
       "ref": "references/components.md#三、导航栏",
       "html": "assets/components/status-bar.html",
@@ -489,7 +772,7 @@
       "quickcard": "references/component-quickcards.md#业务组件",
       "self_contained": false,
       "requires": "整包相对路径或粘贴 assets/components/sandbox-header.html",
-      "note": "依赖字体/标签等库片段"
+      "note": "曾用名,已并入 C20 自选列表;本文件为单组件示例"
     },
     "行情/指数行情卡片": {
       "ref": "references/scenarios/market.md#3.2",
@@ -530,7 +813,7 @@
     "描边红/CL3": "--cl3 #f93838",
     "描边橙/CL4": "--cl4 #ff8533",
     "描边蓝/CL5": "--cl5 #2b73ff",
-    "数字字体": "GJType(C端统一;Figma 的 D-DIN 入库一律改 GJType)",
+    "数字字体": "GJTypeDisplay(C端统一;Figma 的 D-DIN 入库一律改 GJTypeDisplay)",
     "中文字体": "PingFang SC",
     "间距/SP0": "--SP0 0px",
     "间距/SP1": "--SP1 4px",

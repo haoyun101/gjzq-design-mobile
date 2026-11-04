@@ -1,74 +1,74 @@
 <!-- ============================================================
  sandbox-header · 纯骨架版(SKELETON · 随 DS v3.21.0)
  用途:供 AI 低成本 view 结构 / 类名 / use 示例,**不含** base64 字体与 sprite 长 path,可放心 grep。
- 实际产出请粘**真** sandbox-header.html(进 <body> 开头,iconfont/GJType/底导sprite/小宝/tokens 即就绪)。本骨架仅供读结构,勿用于产出。
+ 实际产出请粘**真** sandbox-header.html(进 <body> 开头,iconfont/GJTypeDisplay/底导sprite/小宝/tokens 即就绪)。本骨架仅供读结构,勿用于产出。
 ============================================================ -->
 <style>
-/* —— GJType 数字字体(base64 内嵌)—— */
-@font-face{font-family:'GJType';font-weight:400;font-display:swap;src:url(data:font/woff2;base64,__省略·见 assets/icons/fonts/iconfont.woff2__) format('truetype');}
-@font-face{font-family:'GJType';font-weight:500;font-display:swap;src:url(data:font/woff2;base64,__省略·见 assets/icons/fonts/iconfont.woff2__) format('truetype');}
-@font-face{font-family:'GJType';font-weight:700;font-display:swap;src:url(data:font/woff2;base64,__省略·见 assets/icons/fonts/iconfont.woff2__) format('truetype');}
+/* —— GJTypeDisplay 数字字体(base64 内嵌)—— */
+@font-face{font-family:'GJTypeDisplay';font-weight:400;font-display:swap;src:url(data:font/woff2;base64,__省略·见 assets/icons/fonts/iconfont.woff2__) format('truetype');}
+@font-face{font-family:'GJTypeDisplay';font-weight:500;font-display:swap;src:url(data:font/woff2;base64,__省略·见 assets/icons/fonts/iconfont.woff2__) format('truetype');}
+@font-face{font-family:'GJTypeDisplay';font-weight:700;font-display:swap;src:url(data:font/woff2;base64,__省略·见 assets/icons/fonts/iconfont.woff2__) format('truetype');}
 /* —— iconfont(base64 内嵌)—— */
 @font-face{font-family:'iconfont';font-display:swap;src:url(data:font/woff2;base64,__省略·见 assets/icons/fonts/iconfont.woff2__) format('woff2');}
-.iconfont,[class^="icon-"],[class*=" icon-"]{font-family:'iconfont'!important;font-style:normal;-webkit-font-smoothing:antialiased;}
-.icon-tianjia:before { content: "\e631"; }
-.icon-qiehuanheiban:before { content: "\e632"; }
-.icon-shibai:before { content: "\e633"; }
-.icon-shuoming:before { content: "\e634"; }
-.icon-shixinjiantou-shang:before { content: "\e635"; }
-.icon-licaishouye:before { content: "\e636"; }
-.icon-huanyihuan:before { content: "\e637"; }
-.icon-gengduo:before { content: "\e638"; }
-.icon-shezhi:before { content: "\e639"; }
-.icon-guanbi:before { content: "\e63a"; }
-.icon-jiesuo:before { content: "\e63b"; }
-.icon-changwaizhuanchangnei:before { content: "\e609"; }
-.icon-dingtoujisuanqi:before { content: "\e63c"; }
-.icon-cebianlan:before { content: "\e63d"; }
-.icon-biaotouguanli:before { content: "\e63e"; }
-.icon-chenggong:before { content: "\e63f"; }
-.icon-biaodelianjie:before { content: "\e640"; }
-.icon-dingyue:before { content: "\e641"; }
-.icon-bangzhu:before { content: "\e642"; }
-.icon-bianji:before { content: "\e643"; }
-.icon-qiehuanbaiban:before { content: "\e61b"; }
-.icon-honglizaitouzi:before { content: "\e61d"; }
-.icon-xiaoxi:before { content: "\e61e"; }
-.icon-shouyijisuanqi:before { content: "\e61f"; }
-.icon-fenxiang:before { content: "\e620"; }
-.icon-pengyouquan:before { content: "\e621"; }
-.icon-guanhuaibanqiehuan:before { content: "\e622"; }
-.icon-rili:before { content: "\e623"; }
-.icon-pinglun:before { content: "\e624"; }
-.icon-zhiding:before { content: "\e625"; }
-.icon-sousuo:before { content: "\e626"; }
-.icon-xianshi:before { content: "\e627"; }
-.icon-shixinjiantou-you:before { content: "\e628"; }
-.icon-shouqi:before { content: "\e629"; }
-.icon-weixin:before { content: "\e62a"; }
-.icon-shijian:before { content: "\e62b"; }
-.icon-guanzhu:before { content: "\e62c"; }
-.icon-jiazixuan:before { content: "\e62d"; }
-.icon-qupinglun:before { content: "\e62e"; }
-.icon-shixinjiantou-zuo:before { content: "\e62f"; }
-.icon-saoyisao:before { content: "\e630"; }
-.icon-suoding:before { content: "\e60b"; }
-.icon-zhihuitou:before { content: "\e60c"; }
-.icon-tongzhi:before { content: "\e60d"; }
-.icon-tiaozhuangengduo-juzhongduiqi:before { content: "\e60e"; }
-.icon-zhankai:before { content: "\e60f"; }
-.icon-zixuanzijin:before { content: "\e610"; }
-.icon-xianjinfenhong:before { content: "\e611"; }
-.icon-shixinjiantou-xia:before { content: "\e612"; }
-.icon-tiaozhuangengduo-youduiqi:before { content: "\e613"; }
-.icon-zixuanzixun:before { content: "\e614"; }
-.icon-sousuoguanbi:before { content: "\e615"; }
-.icon-tuichu:before { content: "\e616"; }
-.icon-yincang:before { content: "\e617"; }
-.icon-shezixuan:before { content: "\e60a"; }
-.icon-guandian:before { content: "\e618"; }
-.icon-shoucang:before { content: "\e619"; }
-.icon-shanchuzixuan:before { content: "\e61a"; }
+.iconfont,[class^="icf_"],[class*=" icf_"]{font-family:'iconfont'!important;font-style:normal;-webkit-font-smoothing:antialiased;}
+.icf_gen_add:before{content:"\e65c"}
+.icf_nav_sw-b:before{content:"\e622"}
+.icf_gen_failure:before{content:"\e652"}
+.icf_gen_desc:before{content:"\e656"}
+.icf_gen_sol-up:before{content:"\e62f"}
+.icf_gen_home:before{content:"\e627"}
+.icf_gen_ref:before{content:"\e63b"}
+.icf_gen_more-horiz:before{content:"\e723"}
+.icf_nav_sett:before{content:"\e669"}
+.icf_gen_close:before{content:"\e654"}
+.icf_gen_unlocked:before{content:"\e641"}
+.icf_gen_exch:before{content:"\e647"}
+.icf_gen_dca-calc:before{content:"\e64f"}
+.icf_nav_side:before{content:"\e66c"}
+.icf_gen_tbl-mg:before{content:"\e62b"}
+.icf_gen_success:before{content:"\e638"}
+.icf_gen_link:before{content:"\e644"}
+.icf_gen_sub:before{content:"\e633"}
+.icf_gen_help:before{content:"\e648"}
+.icf_gen_edit:before{content:"\e64e"}
+.icf_nav_sw-w:before{content:"\e666"}
+.icf_gen_reinv:before{content:"\e639"}
+.icf_nav_msg:before{content:"\e66d"}
+.icf_gen_ret-calc:before{content:"\e632"}
+.icf_nav_share:before{content:"\e623"}
+.icf_gen_moments:before{content:"\e63c"}
+.icf_nav_sw-care:before{content:"\e667"}
+.icf_nav_cal:before{content:"\e66a"}
+.icf_gen_cmt:before{content:"\e658"}
+.icf_gen_top:before{content:"\e62d"}
+.icf_nav_src:before{content:"\e668"}
+.icf_gen_show:before{content:"\e629"}
+.icf_gen_sol-rt:before{content:"\e631"}
+.icf_gen_coll:before{content:"\e659"}
+.icf_gen_wechat:before{content:"\e62c"}
+.icf_gen_time:before{content:"\e636"}
+.icf_gen_fw:before{content:"\e63d"}
+.icf_gen_add-wl:before{content:"\e657"}
+.icf_gen_go-cmt:before{content:"\e64b"}
+.icf_gen_sol-lt:before{content:"\e645"}
+.icf_nav_scan:before{content:"\e66b"}
+.icf_gen_locked:before{content:"\e64a"}
+.icf_gen_smart:before{content:"\e630"}
+.icf_gen_notif:before{content:"\e62e"}
+.icf_gen_more-ctr:before{content:"\e650"}
+.icf_gen_exp:before{content:"\e626"}
+.icf_gen_funds:before{content:"\e640"}
+.icf_gen_div:before{content:"\e646"}
+.icf_gen_sol-dn:before{content:"\e642"}
+.icf_gen_more-rt:before{content:"\e653"}
+.icf_gen_news:before{content:"\e63a"}
+.icf_gen_bg-close:before{content:"\e726"}
+.icf_gen_exit:before{content:"\e643"}
+.icf_gen_hide:before{content:"\e63f"}
+.icf_gen_set-wl:before{content:"\e63e"}
+.icf_gen_opn:before{content:"\e64c"}
+.icf_gen_fav:before{content:"\e64d"}
+.icf_gen_rm-wl:before{content:"\e637"}
 /* —— design tokens —— */
 :root {
   /* SP/RD · 750px */
@@ -78,7 +78,7 @@
   /* R · 品牌红(★R6 主色/涨红) */
   --R1:#FFF2F0; --R2:#FFE0DB; --R3:#FFBAB3; --R4:#FF928A; --R5:#FF6661; --R6:#F93838; --R7:#D4242A; --R8:#AD151F; --R9:#870916; --R10:#610612; --R11:#281B26; --R12:#551313; --R13:#7E1C1C; --R14:#A72626; --R15:#D02F2F; --R16:#FA6060; --R17:#FB8888; --R18:#FDAFAF; --R19:#FED7D7;
   /* O · 辅色橙 */
-  --O1:#FFF8F0; --O2:#FFECD6; --O3:#FFD6AD; --O4:#FFBE85; --O5:#FFA35C; --O6:#FF8533; --O7:#D96421; --O8:#B34712; --O9:#8C2F07; --O10:#661E04; --O11:#282024; --O12:#572D11; --O13:#81431A; --O14:#AB5922; --O15:#D56F2B; --O16:#FF9D5C; --O17:#FFB685; --O18:#FFCEAD; --O19:#FFE7D6;
+  --O1:#FFF8F0; --O2:#FFECD6; --O3:#FFD6AD; --O4:#FFBE85; --O5:#FFA35C; --O6:#FF8533; --O7:#FF7015; --O8:#C65519; --O9:#8C2F07; --O10:#661E04; --O11:#282024; --O12:#572D11; --O13:#81431A; --O14:#AB5922; --O15:#D56F2B; --O16:#FF9D5C; --O17:#FFB685; --O18:#FFCEAD; --O19:#FFE7D6;
   /* Y · 辅色黄 */
   --Y1:#FFFBE6; --Y2:#FFF2B8; --Y3:#FFE78F; --Y4:#FFD966; --Y5:#FFC83D; --Y6:#FFB415; --Y7:#D98F07; --Y8:#B36E00; --Y9:#8C5200; --Y10:#663800; --Y11:#291D1C; --Y12:#543313; --Y13:#7D4F1B; --Y14:#A66E26; --Y15:#CC8C1E; --Y16:#FDC74E; --Y17:#FADB87; --Y18:#FCEAAC; --Y19:#FFF7D6;
   /* J · 辅色金(广告/会员) */
@@ -104,8 +104,8 @@
   /* 750 基准(v1.6.2 起全系统统一 750,不再 ÷2;间距 SP0–SP10;圆角 RD0–RD10) */
   --s-48:48px; --s-64:64px; /* 既有例外,不属SP档 */
   /* ---------- 字体 ---------- */
-  --font-sans:"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-num:"GJType", "PingFang SC", system-ui, sans-serif;
+  --font-sans:-apple-system,"PingFang SC",system-ui,"HarmonyOS Sans SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --font-num:"GJTypeDisplay", "PingFang SC", system-ui, sans-serif;
 
   /* ===================================================
    * 语义 token(白版/默认)— 按用途取用,而非按颜色
@@ -120,9 +120,9 @@
   --CT2:var(--H9); /* 大面积主要文本的黑肤特殊处理（例：资讯） */
   --CT3:var(--H8); /* 次要文本 / 副标题 */
   --CT4:var(--H7); /* 辅助文本 / 提示说明 */
-  --CT5:var(--H8); /* 弱文本 / 失效文本 */
+  --CT5:var(--H6); /* 弱文本 / 失效文本 */
   --CT6:var(--H1); /* 反白文字 */
-  --CT7:var(--H1); /* 顶部标题栏文字 */
+  --CT7:var(--H9); /* 顶部标题栏文字 */
   --CT8:rgba(255,255,255,0.3); /* 禁用按钮上的反白文字 */
   /* 03 涨跌色 · CS · Rise / Fall */
   --CS1:var(--R6); /* 涨红 */
@@ -135,7 +135,7 @@
   --CF3:var(--B6); /* 成功 / 链接色 */
   --CF4:#059BB0; /* 市场情绪-大盘指数-"偏低"功能色 */
   --CF5:#32BFDE; /* 市场情绪-北向净卖入-"深股通"线条 / 选中色值 */
-  --CF6:var(--J6); /* 辅助棕 - 广告词 */
+  --CF6:var(--J7); /* 辅助棕 - 广告词 */
   /* 05 线框色 · CL · Line / Border */
   --CL1:var(--H5); /* 一级分割线 / 默认描边 */
   --CL2:var(--H4); /* 常规分割线 */
@@ -197,7 +197,7 @@
   --CB6:var(--B1); /* 蓝色标签背景 */
   --CB45:var(--B2); /* 蓝色标签背景（深） */
   --CB9:var(--G1); /* 绿色标签背景 */
-  --CB37:#FBF4EE; /* 金色标签背景 */
+  --CB37:var(--J1); /* 金色标签背景 */
   --CB10:rgba(249,56,56,0.05); /* 指数涨背景 */
   --CB11:rgba(5,176,99,0.05); /* 指数跌背景 */
   --CB12:rgba(85,85,94,0.05); /* 指数平背景 */

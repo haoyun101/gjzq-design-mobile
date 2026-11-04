@@ -1,133 +1,91 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=750">
-<title>Toast · 参考实现(设计系统 v3.1.0)</title>
+<meta name="gj-bom" content="C06 Toast; Figma 2897:33172 / slice_other_toast 18542:31411; references/components.md 第六章; assets/figma-codes.json; design-tokens.css; iconfont icf_gen_success icf_gen_failure; assets/icons/common/slice_other_toast-*.svg; 复用 C02 文字按钮-更多-32(只留文字)">
+<title>C06 Toast · 参考实现</title>
 <style>
-  :root{
-  /* SP/RD · 750px */
+@font-face{font-family:"iconfont";font-display:swap;src:url(data:font/woff2;base64,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) format("woff2")}
+:root{
   --SP0:0px; --SP1:4px; --SP2:8px; --SP3:12px; --SP4:16px; --SP5:20px; --SP6:24px; --SP7:32px; --SP8:40px; --SP9:60px; --SP10:80px; --RD0:0px; --RD1:4px; --RD2:8px; --RD3:12px; --RD4:16px; --RD5:20px; --RD6:24px; --RD7:32px; --RD8:40px; --RD9:999px; --RD10:6px;
+  --CT1:#0F0F1B;--CT3:#55555E;--CT4:#87878D;--CT6:#FFFFFF;--CI5:#FFFFFF;--CF1:#F93838;--CN1:#F93838;
+  --CB1:#FFFFFF;--CB2:#F2F4F8;--CL1:#DDDDDD;
+  --CB19:rgba(0,0,0,.6);   /* 白肤底 */
+  --toast-dark:#282A35;    /* 黑版底:固定值,不随主题翻转 */
+  --font-sans:-apple-system,"PingFang SC",system-ui,"HarmonyOS Sans SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:750px;margin:0 auto;background:var(--CB2);color:var(--CT1);font-family:var(--font-sans);padding-bottom:var(--SP9)}
+.iconfont{font-family:"iconfont"!important;font-style:normal;line-height:1}
+.icf_gen_success:before{content:"\e638"}.icf_gen_failure:before{content:"\e652"}
+.demo{font-size:24px;line-height:36px;color:var(--CT4);padding:var(--SP7) var(--SP6) var(--SP3)}
+.demo b{color:var(--CT1);font-weight:500}
+.row{display:flex;flex-wrap:wrap;gap:var(--SP6);align-items:center;padding:0 var(--SP6)}
+.sw{display:flex;flex-wrap:wrap;gap:var(--SP2) var(--SP5);padding:0 var(--SP6) var(--SP4);font-size:22px;color:var(--CT3)}
+.sw label{display:inline-flex;align-items:center;gap:var(--SP1);cursor:pointer}
+.sw select{font:inherit;font-size:22px}
 
+/* ===== Toast ===== */
+.toast{display:inline-flex;align-items:center;gap:var(--SP4);padding:0 var(--SP8);border-radius:var(--RD5);background:var(--CB19);color:var(--CT6);font-size:32px;line-height:48px;font-weight:400;white-space:nowrap}
+.toast.dark{background:var(--toast-dark)}
+.toast.one{height:120px}
+.toast.two{height:168px}.toast.two .tx{width:384px;white-space:normal}
+.toast .iconfont{font-size:36px;color:var(--CI5)}
+.toast .op{color:var(--CN1);cursor:pointer}
+.toast[data-off~="图标"] .ic,.toast[data-off~="操作"] .op{display:none}
+.toast.st{flex-direction:column;justify-content:center;height:244px;padding:var(--SP8);min-width:260px}
+.toast.st .big{width:180px;height:100px;display:flex;justify-content:center}.toast.st .big svg{display:block;width:100px;height:100px}
+.toast.st .big.loading svg{animation:tl-spin 1s linear infinite}
+@keyframes tl-spin{to{transform:rotate(360deg)}}
 
-    --H9:#0F0F1B;--H7:#87878D;--H2:#F2F4F8;--H1:#FFFFFF;
-    --CP0:#F93838;
-    --CB19:rgba(0,0,0,.6);   /* 白版背景(#000000 60%) */
-    --CB8:#282A35;            /* 黑版背景(已拍板) */
-    --CT6:#FFFFFF;            /* 反白文字 */
-    --CI5:#FFFFFF;            /* 反白图标 */
-                  /* 新增圆角档(已拍板) */
-  }
-  *{box-sizing:border-box;margin:var(--SP0);padding:var(--SP0);}
-  body{font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;background:var(--H2);width:750px;padding:var(--SP6);}
-  .blk{font-size:32px;font-weight:600;color:var(--H9);margin:var(--SP7) var(--SP0) var(--SP1);padding-left:var(--SP3);border-left:8px solid var(--CP0);}
-  .blk:first-child{margin-top:var(--SP0);}
-  .cap{font-size:19px;color:var(--H7);margin:var(--SP1) var(--SP0) var(--SP3);line-height:1.6;}
-  .card{background:var(--H1);border-radius:var(--RD4);margin-bottom:var(--SP4);overflow:hidden;}
-  .lab{font-size:19px;color:var(--H7);padding:var(--SP3) var(--SP6) var(--SP0);}
-  .lab b{color:var(--H9);font-weight:600;}
-  .stage{padding:var(--SP5) var(--SP6) var(--SP6);display:flex;flex-wrap:wrap;gap:var(--SP5) var(--SP7);align-items:flex-start;}
-  .cell{display:flex;flex-direction:column;gap:var(--SP2);align-items:flex-start;}
-  .tag{font-size:18px;color:var(--H7);}
-
-  /* ===== Toast(全部 750 实测真值) ===== */
-  .toast{display:inline-flex;align-items:center;justify-content:center;gap:var(--SP4);
-    padding:36px var(--SP8);border-radius:var(--RD5);color:var(--CT6);
-    font-size:32px;line-height:48px;font-weight:400;white-space:nowrap;}
-  .toast.dark{background:var(--CB8);}
-  .toast:not(.dark){background:var(--CB19);}
-  .toast .ico{width:36px;height:36px;flex:0 0 auto;}
-  .toast .ico svg{display:block;width:100%;height:100%;}
-  /* 纯文字:无图标 */
-  .toast.text{gap:var(--SP0);}
-  /* 双行:高168 */
-  .toast.two{white-space:normal;max-width:520px;text-align:left;}
-  /* 上下图文:纵排,高244,图标100 */
-  .toast.vert{flex-direction:column;gap:var(--SP4);padding:var(--SP8);min-width:260px;}
-  .toast.vert .ico{width:100px;height:100px;}
-  /* loading 旋转 */
-  .spin{transform-origin:50% 50%;animation:sp 1s linear infinite;}
-  @keyframes sp{to{transform:rotate(360deg);}}
-
-  /* 摆放示意 mini phone */
-  .phone{position:relative;width:300px;height:600px;background:var(--CB1);border:2px solid var(--H3);border-radius:var(--RD7);overflow:hidden;flex:0 0 auto;}
-  .phone .bar{height:36px;background:var(--CB2);}
-  .phone .bottombar{position:absolute;left:0;right:0;bottom:0;height:60px;background:var(--CB2);border-top:1px solid var(--H3);}
-  .mini{display:inline-flex;align-items:center;gap:var(--SP2);background:var(--CB19);color:var(--CT6);border-radius:var(--RD3);padding:var(--SP3) var(--SP5);font-size:15px;white-space:nowrap;}
-  .mini .d{width:18px;height:18px;}
-  .pos-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
-  .pos-bottom{position:absolute;left:50%;bottom:90px;transform:translateX(-50%);}
-  .mk{font-size:15px;color:var(--H7);position:absolute;}
-</style>
-<style>
-/* 本文件引用到的颜色 token(值同 assets/design-tokens.css 浅色) */
-:root{--CB1:#FFFFFF;--CB2:#F2F4F8;--H3:#E2E8F2;}
+/* 摆放示意 */
+.phone{zoom:.5;position:relative;width:750px;height:1334px;background:var(--CB1);border:2px solid var(--CL1);border-radius:var(--RD7);overflow:hidden;flex:none}
+.phone .pz{position:absolute;left:50%;transform:translateX(-50%)}
+.phone .pz.mid{top:50%;transform:translate(-50%,-50%)}
+.phone .pz.btm{bottom:calc(98px + 68px + 30px)}  /* 底导 98 + Home 条 68 之上再留 30 */
+.phone .zone{position:absolute;left:0;right:0;bottom:0;height:166px;background:var(--CB2);border-top:1px solid var(--CL1)}
+.fire{font:inherit;font-size:24px;height:56px;padding:0 var(--SP6);border:1px solid var(--CL1);border-radius:var(--RD2);background:var(--CB1);color:var(--CT1);cursor:pointer}
+#live{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:99;transition:opacity .2s}
+#live[hidden]{display:none}
 </style>
 </head>
 <body>
-
-<div class="blk">Toast(节点 86:2124 · 母组件直读)</div>
-<div class="cap">族=toast · 命名 toast-{纯文字|左右图文|上下图文}-{白版|黑版}(-{状态})。通用真值:背景 白版 --CB19(#000000 60%)/ 黑版 --CB8(#282A35);圆角 --RD5(新增档);padding 40/36(上下图文 40/40);文字↔图标间距 16;文字 PingFang SC Regular 32(S4)行高48 反白 --CT6;图标反白 --CI5;内容最多 12 字。多场景复用,归通用组件层。</div>
-
-<div class="card">
-  <div class="lab"><b>toast-纯文字</b>　无图标 · 单行高 120 / 双行高 168(超 12 字换行)· 左右内容间距 40</div>
-  <div class="stage">
-    <div class="cell"><span class="tag">纯文字-单行 · 白版</span><span class="toast text">提示文案不超过十二个字</span></div>
-    <div class="cell"><span class="tag">纯文字-单行 · 黑版</span><span class="toast text dark">提示文案不超过十二个字</span></div>
-    <div class="cell"><span class="tag">纯文字-双行 · 白版</span><span class="toast text two">提示文案较长时自动换行最多展示到第二行结束位置</span></div>
-    <div class="cell"><span class="tag">纯文字-双行 · 黑版</span><span class="toast text two dark">提示文案较长时自动换行最多展示到第二行结束位置</span></div>
-  </div>
-</div>
-
-<div class="card">
-  <div class="lab"><b>toast-左右图文</b>(母组件「常规」)　高 120 · 图标 36 + 文字 · 间距 16 · 状态:成功 / 失败</div>
-  <div class="stage">
-    <div class="cell"><span class="tag">左右图文-成功 · 白版</span><span class="toast"><span class="ico" data-ic="ok"></span><span>操作成功的提示文案</span></span></div>
-    <div class="cell"><span class="tag">左右图文-失败 · 白版</span><span class="toast"><span class="ico" data-ic="no"></span><span>操作失败的提示文案</span></span></div>
-    <div class="cell"><span class="tag">左右图文-成功 · 黑版</span><span class="toast dark"><span class="ico" data-ic="ok"></span><span>操作成功的提示文案</span></span></div>
-    <div class="cell"><span class="tag">左右图文-失败 · 黑版</span><span class="toast dark"><span class="ico" data-ic="no"></span><span>操作失败的提示文案</span></span></div>
-  </div>
-</div>
-
-<div class="card">
-  <div class="lab"><b>toast-上下图文</b>　高 244 · 最小宽 260(6字),超 6 字按固定边距放大 · 图标 100 + 文字 · 间距 16 · 状态:成功 / 失败 / 警告 / 加载中</div>
-  <div class="stage">
-    <div class="cell"><span class="tag">成功 · 白版</span><span class="toast vert"><span class="ico" data-ic="ok"></span><span>操作成功</span></span></div>
-    <div class="cell"><span class="tag">失败 · 白版</span><span class="toast vert"><span class="ico" data-ic="no"></span><span>操作失败</span></span></div>
-    <div class="cell"><span class="tag">警告 · 白版</span><span class="toast vert"><span class="ico" data-ic="warn"></span><span>警告提示</span></span></div>
-    <div class="cell"><span class="tag">加载中 · 白版</span><span class="toast vert"><span class="ico" data-ic="load"></span><span>加载中</span></span></div>
-    <div class="cell"><span class="tag">成功 · 黑版</span><span class="toast vert dark"><span class="ico" data-ic="ok"></span><span>操作成功</span></span></div>
-    <div class="cell"><span class="tag">加载中 · 黑版</span><span class="toast vert dark"><span class="ico" data-ic="load"></span><span>加载中</span></span></div>
-  </div>
-  <div class="cap" style="padding:var(--SP0) var(--SP6) var(--SP4);">状态图标为占位示意(✓/✕/!/◌),实际走图标体系(iconfont/SVG)。</div>
-</div>
-
-<div class="card">
-  <div class="lab"><b>摆放</b>　居中(屏幕中间)/ 底部(距底部内容 30)</div>
-  <div class="stage">
-    <div class="cell"><span class="tag">居中摆放</span>
-      <div class="phone"><div class="bar"></div><div class="bottombar"></div>
-        <span class="mini pos-center"><span class="d" data-ic="ok"></span>操作成功</span>
-      </div>
-    </div>
-    <div class="cell"><span class="tag">底部摆放(距底部内容 30)</span>
-      <div class="phone"><div class="bar"></div><div class="bottombar"></div>
-        <span class="mini pos-bottom"><span class="d" data-ic="ok"></span>操作成功</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="cap" style="margin-top:var(--SP5);">参考实现 · 设计系统 v3.1.0 · 规格见 references/components.md「六、Toast」· 黑版背景固定 #282A35(方案1,不随主题翻转)。</div>
-
+<div class="demo"><b>toast-重内容-单行</b> · 白肤 / 黑版(勾选 = 开关打开;图标、操作默认关)</div>
+<div class="sw" id="sw"><label><input type="checkbox" value="图标">图标</label><label><input type="checkbox" value="操作">操作</label><label>状态 <select id="state"><option value="success">成功 icf_gen_success</option><option value="failure">失败 icf_gen_failure</option></select></label></div>
+<div class="row"><span class="toast one" data-ctl data-off="图标 操作"><i class="ic iconfont icf_gen_success"></i><span class="tx">常规单行文字不超过十二个</span><span class="op">操作</span></span><span class="toast one dark" data-ctl data-off="图标 操作"><i class="ic iconfont icf_gen_success"></i><span class="tx">常规单行文字不超过十二个</span><span class="op">操作</span></span></div>
+<div class="demo">图标=开 · 状态=成功 / 失败;图标=开 · 操作=开</div><div class="row"><span class="toast one" data-off="操作"><i class="ic iconfont icf_gen_success"></i><span class="tx">操作成功的提示文案</span><span class="op">操作</span></span><span class="toast one dark" data-off="操作"><i class="ic iconfont icf_gen_failure"></i><span class="tx">操作失败的提示文案</span><span class="op">操作</span></span><span class="toast one" data-off=""><i class="ic iconfont icf_gen_success"></i><span class="tx">常规单行文字不超过十二个</span><span class="op">撤销</span></span></div>
+<div class="demo"><b>toast-重内容-双行</b>(文字区 384 = 12 字,最多两行;无图标、无操作)</div><div class="row"><span class="toast two"><span class="tx">单行文字不超过十二个，最多展示两行</span></span><span class="toast two dark"><span class="tx">单行文字不超过十二个，最多展示两行</span></span></div>
+<div class="demo"><b>toast-重状态-单行</b> · 成功 / 失败 / 警告 / 加载中(加载中旋转)</div><div class="row"><span class="toast st"><span class="big success"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M93 50C93 26.2518 73.7482 7 50 7C26.2518 7 7 26.2518 7 50C7 73.7482 26.2518 93 50 93C73.7482 93 93 73.7482 93 50ZM71.5215 32.6533C72.2651 31.8369 73.53 31.778 74.3467 32.5215C75.1631 33.2651 75.222 34.53 74.4785 35.3467L45.3457 67.3467C44.9728 67.7563 44.4465 67.9928 43.8926 68C43.3386 68.0071 42.8062 67.7838 42.4229 67.3838L25.5557 49.7842C24.7914 48.9867 24.8187 47.7203 25.6162 46.9561C26.4137 46.1918 27.6801 46.2191 28.4443 47.0166L43.8281 63.0693L71.5215 32.6533ZM97 50C97 75.9574 75.9574 97 50 97C24.0426 97 3 75.9574 3 50C3 24.0426 24.0426 3 50 3C75.9574 3 97 24.0426 97 50Z" fill="white"/>
+</svg></span><span>操作成功</span></span><span class="toast st"><span class="big failure"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M64.5859 32.5859C65.367 31.8049 66.633 31.8049 67.4141 32.5859C68.1951 33.367 68.1951 34.633 67.4141 35.4141L52.8281 50L67.4141 64.5859C68.1951 65.367 68.1951 66.633 67.4141 67.4141C66.633 68.1951 65.367 68.1951 64.5859 67.4141L50 52.8281L35.4141 67.4141C34.633 68.1951 33.367 68.1951 32.5859 67.4141C31.8049 66.633 31.8049 65.367 32.5859 64.5859L47.1719 50L32.5859 35.4141C31.8049 34.633 31.8049 33.367 32.5859 32.5859C33.367 31.8049 34.633 31.8049 35.4141 32.5859L50 47.1719L64.5859 32.5859Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M50 3C75.9574 3 97 24.0426 97 50C97 75.9574 75.9574 97 50 97C24.0426 97 3 75.9574 3 50C3 24.0426 24.0426 3 50 3ZM50 7C26.2518 7 7 26.2518 7 50C7 73.7482 26.2518 93 50 93C73.7482 93 93 73.7482 93 50C93 26.2518 73.7482 7 50 7Z" fill="white"/>
+</svg></span><span>操作失败</span></span><span class="toast st"><span class="big warning"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M50 65C51.1046 65 52 65.8954 52 67C52 68.1046 51.1046 69 50 69C48.8954 69 48 68.1046 48 67C48 65.8954 48.8954 65 50 65Z" fill="white"/>
+<path d="M50 31C51.1046 31 52 31.8954 52 33V61C52 62.1046 51.1046 63 50 63C48.8954 63 48 62.1046 48 61V33C48 31.8954 48.8954 31 50 31Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M50 3C75.9574 3 97 24.0426 97 50C97 75.9574 75.9574 97 50 97C24.0426 97 3 75.9574 3 50C3 24.0426 24.0426 3 50 3ZM50 7C26.2518 7 7 26.2518 7 50C7 73.7482 26.2518 93 50 93C73.7482 93 93 73.7482 93 50C93 26.2518 73.7482 7 50 7Z" fill="white"/>
+</svg></span><span>警告提示</span></span><span class="toast st"><span class="big loading"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#tl_clip_4)" data-figma-skip-parse="true"><g transform="matrix(0.045 -9.99218e-09 9.99218e-09 0.045 50 50)"><foreignObject x="-1133.33" y="-1133.33" width="2266.67" height="2266.67"><div xmlns="http://www.w3.org/1999/xhtml" style="background:conic-gradient(from 90deg,rgba(255, 255, 255, 1) 0deg,rgba(255, 255, 255, 0) 39.6deg,rgba(255, 255, 255, 0.5) 107.586deg,rgba(255, 255, 255, 1) 360deg);height:100%;width:100%;opacity:1"></div></foreignObject></g></g><path d="M93 50C93 26.2518 73.7482 7 50 7C26.2518 7 7 26.2518 7 50C7 73.7482 26.2518 93 50 93C62.5029 93 73.7574 87.6666 81.6172 79.1445C82.366 78.3326 83.6314 78.2814 84.4434 79.0303C85.2549 79.7791 85.3061 81.0436 84.5576 81.8555C75.9724 91.1643 63.6661 97 50 97C24.0426 97 3 75.9574 3 50C3 24.0426 24.0426 3 50 3C75.9574 3 97 24.0426 97 50C97 51.1046 96.1046 52 95 52C93.8954 52 93 51.1046 93 50Z" data-figma-gradient-fill="{&#34;type&#34;:&#34;GRADIENT_ANGULAR&#34;,&#34;stops&#34;:[{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:0.0},&#34;position&#34;:0.10999999940395355},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:0.50},&#34;position&#34;:0.29884955286979675},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:1.0},&#34;position&#34;:1.0}],&#34;transform&#34;:{&#34;m00&#34;:89.999992370605469,&#34;m01&#34;:1.9984367099823430e-05,&#34;m02&#34;:5.0,&#34;m10&#34;:-1.9984361642855220e-05,&#34;m11&#34;:89.999992370605469,&#34;m12&#34;:5.0000247955322266},&#34;opacity&#34;:1.0,&#34;blendMode&#34;:&#34;NORMAL&#34;,&#34;stopsVar&#34;:[{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:0.0},&#34;position&#34;:0.10999999940395355},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:0.50},&#34;position&#34;:0.29884955286979675},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:1.0},&#34;colorVar&#34;:{&#34;type&#34;:3,&#34;resolvedType&#34;:3,&#34;value&#34;:&#34;VariableID:15689:11883&#34;},&#34;position&#34;:1.0}],&#34;visible&#34;:true}"/>
+<defs>
+<clipPath id="tl_clip_4"><path d="M93 50C93 26.2518 73.7482 7 50 7C26.2518 7 7 26.2518 7 50C7 73.7482 26.2518 93 50 93C62.5029 93 73.7574 87.6666 81.6172 79.1445C82.366 78.3326 83.6314 78.2814 84.4434 79.0303C85.2549 79.7791 85.3061 81.0436 84.5576 81.8555C75.9724 91.1643 63.6661 97 50 97C24.0426 97 3 75.9574 3 50C3 24.0426 24.0426 3 50 3C75.9574 3 97 24.0426 97 50C97 51.1046 96.1046 52 95 52C93.8954 52 93 51.1046 93 50Z"/></clipPath></defs>
+</svg></span><span>加载中</span></span></div>
+<div class="demo">黑版</div><div class="row"><span class="toast st dark"><span class="big success"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M93 50C93 26.2518 73.7482 7 50 7C26.2518 7 7 26.2518 7 50C7 73.7482 26.2518 93 50 93C73.7482 93 93 73.7482 93 50ZM71.5215 32.6533C72.2651 31.8369 73.53 31.778 74.3467 32.5215C75.1631 33.2651 75.222 34.53 74.4785 35.3467L45.3457 67.3467C44.9728 67.7563 44.4465 67.9928 43.8926 68C43.3386 68.0071 42.8062 67.7838 42.4229 67.3838L25.5557 49.7842C24.7914 48.9867 24.8187 47.7203 25.6162 46.9561C26.4137 46.1918 27.6801 46.2191 28.4443 47.0166L43.8281 63.0693L71.5215 32.6533ZM97 50C97 75.9574 75.9574 97 50 97C24.0426 97 3 75.9574 3 50C3 24.0426 24.0426 3 50 3C75.9574 3 97 24.0426 97 50Z" fill="white"/>
+</svg></span><span>操作成功</span></span><span class="toast st dark"><span class="big loading"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#tl_clip_6)" data-figma-skip-parse="true"><g transform="matrix(0.045 -9.99218e-09 9.99218e-09 0.045 50 50)"><foreignObject x="-1133.33" y="-1133.33" width="2266.67" height="2266.67"><div xmlns="http://www.w3.org/1999/xhtml" style="background:conic-gradient(from 90deg,rgba(255, 255, 255, 1) 0deg,rgba(255, 255, 255, 0) 39.6deg,rgba(255, 255, 255, 0.5) 107.586deg,rgba(255, 255, 255, 1) 360deg);height:100%;width:100%;opacity:1"></div></foreignObject></g></g><path d="M93 50C93 26.2518 73.7482 7 50 7C26.2518 7 7 26.2518 7 50C7 73.7482 26.2518 93 50 93C62.5029 93 73.7574 87.6666 81.6172 79.1445C82.366 78.3326 83.6314 78.2814 84.4434 79.0303C85.2549 79.7791 85.3061 81.0436 84.5576 81.8555C75.9724 91.1643 63.6661 97 50 97C24.0426 97 3 75.9574 3 50C3 24.0426 24.0426 3 50 3C75.9574 3 97 24.0426 97 50C97 51.1046 96.1046 52 95 52C93.8954 52 93 51.1046 93 50Z" data-figma-gradient-fill="{&#34;type&#34;:&#34;GRADIENT_ANGULAR&#34;,&#34;stops&#34;:[{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:0.0},&#34;position&#34;:0.10999999940395355},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:0.50},&#34;position&#34;:0.29884955286979675},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:1.0},&#34;position&#34;:1.0}],&#34;transform&#34;:{&#34;m00&#34;:89.999992370605469,&#34;m01&#34;:1.9984367099823430e-05,&#34;m02&#34;:5.0,&#34;m10&#34;:-1.9984361642855220e-05,&#34;m11&#34;:89.999992370605469,&#34;m12&#34;:5.0000247955322266},&#34;opacity&#34;:1.0,&#34;blendMode&#34;:&#34;NORMAL&#34;,&#34;stopsVar&#34;:[{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:0.0},&#34;position&#34;:0.10999999940395355},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:0.50},&#34;position&#34;:0.29884955286979675},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:1.0},&#34;colorVar&#34;:{&#34;type&#34;:3,&#34;resolvedType&#34;:3,&#34;value&#34;:&#34;VariableID:15689:11883&#34;},&#34;position&#34;:1.0}],&#34;visible&#34;:true}"/>
+<defs>
+<clipPath id="tl_clip_6"><path d="M93 50C93 26.2518 73.7482 7 50 7C26.2518 7 7 26.2518 7 50C7 73.7482 26.2518 93 50 93C62.5029 93 73.7574 87.6666 81.6172 79.1445C82.366 78.3326 83.6314 78.2814 84.4434 79.0303C85.2549 79.7791 85.3061 81.0436 84.5576 81.8555C75.9724 91.1643 63.6661 97 50 97C24.0426 97 3 75.9574 3 50C3 24.0426 24.0426 3 50 3C75.9574 3 97 24.0426 97 50C97 51.1046 96.1046 52 95 52C93.8954 52 93 51.1046 93 50Z"/></clipPath></defs>
+</svg></span><span>加载中</span></span></div>
+<div class="demo"><b>摆放</b> · 默认屏幕居中;底部(距底部内容 30)目前只有自选页在用,其他页面尽量不用 · 示意手机按 0.5 缩小</div><div class="row"><div class="phone"><span class="pz mid"><span class="toast one" data-off="图标 操作"><i class="ic iconfont icf_gen_success"></i><span class="tx">操作成功的提示文案</span><span class="op">操作</span></span></span><div class="zone"></div></div><div class="phone"><span class="pz btm"><span class="toast one" data-off="图标 操作"><i class="ic iconfont icf_gen_success"></i><span class="tx">操作成功的提示文案</span><span class="op">操作</span></span></span><div class="zone"></div></div></div>
+<div class="demo"><b>行为</b> · 点按钮弹出,5 秒后自动消失</div><div class="row"><button class="fire" id="fire">弹出 toast-重内容-单行-黑版</button></div>
+<div id="live" hidden><span class="toast one dark" data-off="操作"><i class="ic iconfont icf_gen_success"></i><span class="tx">操作成功的提示文案</span><span class="op">操作</span></span></div>
 <script>
-  const ICONS = {
-    ok:'<svg viewBox="0 0 36 36" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="15"/><path d="M11 18.5l4.5 4.5L25 13"/></svg>',
-    no:'<svg viewBox="0 0 36 36" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="15"/><path d="M12.5 12.5l11 11M23.5 12.5l-11 11"/></svg>',
-    warn:'<svg viewBox="0 0 36 36" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="15"/><path d="M18 10v10"/><circle cx="18" cy="25.5" r="1.4" fill="#fff" stroke="none"/></svg>',
-    load:'<svg class="spin" viewBox="0 0 36 36" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><circle cx="18" cy="18" r="15" stroke="rgba(255,255,255,.3)"/><path d="M18 3a15 15 0 0 1 15 15"/></svg>'
-  };
-  document.querySelectorAll('[data-ic]').forEach(el=>{ el.innerHTML = ICONS[el.getAttribute('data-ic')] || ''; });
+const sw=document.getElementById('sw'),stSel=document.getElementById('state');
+function sync(){const off=[...sw.querySelectorAll('input')].filter(i=>!i.checked).map(i=>i.value).join(' ');
+  document.querySelectorAll('[data-ctl]').forEach(t=>{t.dataset.off=off;const ic=t.querySelector('.ic');ic.className='ic iconfont icf_gen_'+stSel.value;});}
+sw.addEventListener('change',sync);sync();
+let tm;document.getElementById('fire').addEventListener('click',()=>{const l=document.getElementById('live');l.hidden=false;clearTimeout(tm);tm=setTimeout(()=>l.hidden=true,5000);});
 </script>
 </body>
 </html>

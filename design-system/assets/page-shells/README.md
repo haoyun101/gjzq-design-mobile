@@ -9,7 +9,7 @@
 |---|---|---|
 | `base-mobile.html` | 通用移动端页面外壳 | `data-level=1` 用一级页面 SP4(16px) 间距;`data-level=2` 用二级页面 SP6(24px) 间距 |
 | `home-ops-shell.html` | 首页 / 运营长页 | 适合运营卡片、图标宫格、横向模块的纵向堆叠 |
-| `detail-tab-shell.html` | 二级详情 + 吸顶 tab | 吸顶 tab 复用 C04 `tab-下划线-二级` |
+| `detail-tab-shell.html` | 二级详情 + 吸顶 tab | 吸顶 tab 复用 C04 `标签栏-二级-等分` |
 | `list-shell.html` | 列表 / 榜单页 | 吸顶表头 + 列表项;涨跌色用 `--CS1` / `--CS2` |
 
 ## 使用规则

@@ -3,205 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=750">
-<meta name="gj-bom" content="C09 进度条; references/components.md 第九章; design-tokens.css: --CP0, --CB1, [待] --CB2, --font-num; assets/fonts/GJType-Medium.ttf; 图标: 无">
-<title>C09 进度条 Progress Bar · 参考实现 · DS v4.1.1</title>
-<style>
-@font-face{
-  font-family:"GJType";
-  font-display:swap;
-  font-weight:500;
-  src:url("../fonts/GJType-Medium.ttf") format("truetype");
-}
-:root{
-  /* SP/RD · 750px */
-  --SP0:0px; --SP1:4px; --SP2:8px; --SP3:12px; --SP4:16px; --SP5:20px; --SP6:24px; --SP7:32px; --SP8:40px; --SP9:60px; --SP10:80px; --RD0:0px; --RD1:4px; --RD2:8px; --RD3:12px; --RD4:16px; --RD5:20px; --RD6:24px; --RD7:32px; --RD8:40px; --RD9:999px; --RD10:6px;
-
-
-  --CP0:#F93838;
-  --CT1:#0F0F1B;
-  --CT3:#55555E;
-  --CB1:#FFFFFF;
-  --CB2:#F2F4F8;
-  --CL1:#DDDDDD;
-  --font-sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --font-num:"GJType","PingFang SC",system-ui,sans-serif;
-  
-}
-[data-theme="dark"]{
-  --CT1:#FFFFFF;
-  --CT3:#87878D;
-  --CB1:#161824;
-  --CB2:#0F0F1B;
-  --CL1:#373746;
-}
-*{box-sizing:border-box}
-html,body{margin:var(--SP0);min-height:100%;background:var(--CB2);color:var(--CT1);font-family:var(--font-sans)}
-body{width:100%;max-width:750px;margin:var(--SP0) auto;padding:var(--SP6)}
-button,input{font:inherit}
-.demo-main{display:flex;flex-direction:column;gap:var(--SP6)}
-.demo-head,.demo-section{background:var(--CB1);border:1px solid var(--CL1);border-radius:var(--RD4);padding:var(--SP6)}
-.demo-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--SP6)}
-.demo-title{margin:var(--SP0);font-size:36px;line-height:1.5;font-weight:600}
-.demo-subtitle,.demo-note{margin:var(--SP0);color:var(--CT3);font-size:20px;line-height:1.5}
-.demo-kicker{font-size:20px;line-height:1.5;color:var(--CP0);font-weight:500}
-.demo-section{display:flex;flex-direction:column;gap:var(--SP6)}
-.demo-section h2{margin:var(--SP0);font-size:32px;line-height:1.5;font-weight:600}
-.demo-section h3{margin:var(--SP0);font-size:24px;line-height:1.5;font-weight:500}
-.theme-toggle{height:56px;border:1px solid var(--CL1);border-radius:var(--RD4);background:var(--CB1);color:var(--CT1);padding:var(--SP0) var(--SP6);font-size:24px;white-space:nowrap;cursor:pointer}
-.controls{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--SP6);align-items:end}
-.control{display:flex;flex-direction:column;gap:var(--SP2);min-width:0}
-.control-label{font-size:20px;color:var(--CT3);line-height:1.5}
-.range-row{display:flex;align-items:center;gap:var(--SP4)}
-.progress-range{width:100%;height:44px;margin:var(--SP0);accent-color:var(--CP0);cursor:pointer}
-.range-value{min-width:68px;color:var(--CP0);font-family:var(--font-num);font-size:20px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;text-align:right}
-.value-toggle{height:56px;display:inline-flex;align-items:center;gap:var(--SP3);padding:var(--SP0) var(--SP4);border:1px solid var(--CL1);border-radius:var(--RD4);color:var(--CT1);font-size:24px;white-space:nowrap}
-.value-toggle input{width:24px;height:24px;margin:var(--SP0);accent-color:var(--CP0)}
-.preview-stage{width:100%;min-height:176px;border:1px solid var(--CL1);border-radius:var(--RD4);padding:var(--SP7) var(--SP6);display:flex;align-items:center}
-.source-list{margin:var(--SP0);padding-left:var(--SP6);color:var(--CT3);font-size:20px;line-height:1.5}
-.bom-table{width:100%;border-collapse:collapse;font-size:20px;line-height:1.5}
-.bom-table th,.bom-table td{padding:var(--SP3) var(--SP2);border-bottom:1px solid var(--CL1);text-align:left;vertical-align:top}
-.bom-table th{color:var(--CT3);font-weight:500}
-.bom-table code{color:var(--CP0);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:20px}
-
-.gj-progress{
-  --progress:0;
-  position:relative;
-  width:100%;
-  height:32px;
-}
-.gj-progress__track{
-  position:absolute;
-  top:10px;
-  right:0;
-  left:0;
-  height:12px;
-  overflow:hidden;
-  border-radius:var(--RD9); /* 胶囊 */
-  background:var(--CB2);
-}
-.gj-progress__fill{
-  width:calc(var(--progress) * 1%);
-  height:100%;
-  border-radius:inherit; /* 跟随轨道 */
-  background:var(--CP0);
-  transition:width 220ms ease;
-}
-.gj-progress__value{
-  position:absolute;
-  top:0;
-  left:clamp(0px,calc(var(--progress) * 1% - 34px),calc(100% - 68px));
-  width:68px;
-  height:32px;
-  border-radius:var(--RD5);
-  background:var(--CB1);
-  border:2px solid var(--CP0);
-  color:var(--CP0);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:var(--font-num);
-  font-size:20px;
-  font-weight:500;
-  line-height:1;
-  font-variant-numeric:tabular-nums;
-  font-feature-settings:"tnum" 1;
-  white-space:nowrap;
-  transition:left 220ms ease;
-}
-.gj-progress.is-value-hidden .gj-progress__value{display:none}
-
-@media (max-width:620px){
-  body{padding:var(--SP4)}
-  .demo-head{flex-direction:column}
-  .theme-toggle{width:100%}
-  .controls{grid-template-columns:1fr}
-}
+<meta name="gj-bom" content="C09 进度条; Figma Step Bar 步骤条页 百分比步骤条 13034:83、步骤条/百分百子集">
+<title>C09 进度条 · 参考实现</title>
+<style>@font-face{font-family:"GJTypeDisplay";font-weight:500;src:url(data:font/ttf;base64,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) format("truetype")}
+:root{--SP0:0px;--SP1:4px;--SP2:8px;--SP3:12px;--SP4:16px;--SP5:20px;--SP6:24px;--SP7:32px;--SP8:40px;--SP9:60px;--SP10:80px;--RD0:0px;--RD1:4px;--RD2:8px;--RD3:12px;--RD4:16px;--RD5:20px;--RD6:24px;--RD7:32px;--RD8:40px;--RD9:999px;--RD10:6px;
+--CT1:#0F0F1B;--CT4:#87878D;--CB1:#FFFFFF;--CB2:#F2F4F8;--CP0:#F93838;
+--font-sans:-apple-system,"PingFang SC",system-ui,"Noto Sans SC",sans-serif;--font-num:"GJTypeDisplay",var(--font-sans)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:750px;margin:0 auto;background:var(--CB2);color:var(--CT1);font-family:var(--font-sans);padding-bottom:var(--SP9)}
+.demo{font-size:24px;line-height:36px;color:var(--CT4);padding:var(--SP7) var(--SP6) var(--SP3)}.demo b{color:var(--CT1);font-weight:500}
+/* ===== 进度条 ===== */
+.pg{height:60px;background:var(--CB1);padding:0 var(--SP6);display:flex;align-items:center}
+.pg .tk{position:relative;flex:1;height:32px}
+.pg .tk::before{content:"";position:absolute;left:0;right:0;top:10px;height:12px;border-radius:var(--RD9);background:var(--CB2)}
+.pg .fl{position:absolute;left:0;top:0;height:32px;width:calc(68px + (100% - 68px) * var(--p))}
+.pg .fl::before{content:"";position:absolute;left:0;right:0;top:10px;height:12px;border-radius:var(--RD9);background:var(--CP0)}
+.pg.p0 .fl::before{display:none}
+.pg.nov .pill{display:none}.pg.nov .fl{width:calc(100% * var(--p))}.pg.nov.p0 .fl::before{display:none}
+.pg .pill{position:absolute;right:0;top:0;width:68px;height:32px;border-radius:var(--RD9);background:var(--CB1);box-shadow:inset 0 0 0 2px var(--CP0);color:var(--CP0);font:500 20px/32px var(--font-num);text-align:center;font-variant-numeric:tabular-nums}
+.gap{height:var(--SP2)}
+.ctl{background:var(--CB1);padding:var(--SP4) var(--SP6);font-size:24px;line-height:36px;color:var(--CT4);display:flex;gap:var(--SP4);align-items:center}.ctl input{flex:1}
 </style>
 </head>
 <body>
-<main class="demo-main">
-<section class="demo-head">
-  <div>
-    <div class="demo-kicker">C09 · DS v4.1.1 · 新建无源</div>
-    <h1 class="demo-title">进度条 Progress Bar</h1>
-    <p class="demo-subtitle">百分比进度 · 进度值可显隐 · 750 基准</p>
-  </div>
-  <button class="theme-toggle" id="themeToggle" type="button">切换深色</button>
-</section>
-
-<section class="demo-section">
-  <h2>效果预览</h2>
-  <div class="controls">
-    <label class="control" for="progressRange">
-      <span class="control-label">进度 0–100%</span>
-      <span class="range-row">
-        <input class="progress-range" id="progressRange" type="range" min="0" max="100" value="62">
-        <output class="range-value" id="rangeValue" for="progressRange">62%</output>
-      </span>
-    </label>
-    <label class="value-toggle"><input id="valueToggle" type="checkbox" checked><span>显示进度值</span></label>
-  </div>
-  <div class="preview-stage">
-    <div class="gj-progress" id="playgroundProgress" role="progressbar" aria-label="百分比进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="62" style="--progress:62">
-      <div class="gj-progress__track"><div class="gj-progress__fill"></div></div>
-      <span class="gj-progress__value" aria-hidden="true">62%</span>
-    </div>
-  </div>
-  <p class="demo-note">进度连续变化，组件宽度跟随容器；进度值关闭后仅显示轨道与填充，显示时两端贴边内显、中段对齐进度尖端。</p>
-</section>
-
-<section class="demo-section">
-  <h2>用料清单 BOM</h2>
-  <table class="bom-table">
-    <thead><tr><th>角色</th><th>库内引用</th></tr></thead>
-    <tbody>
-      <tr><td>C09 进度条</td><td><code>references/components.md#九、进度条</code></td></tr>
-      <tr><td>进度填充 / 药丸描边与数字</td><td><code>var(--CP0)</code></td></tr>
-      <tr><td>药丸背景</td><td><code>var(--CB1)</code></td></tr>
-      <tr><td>轨道背景</td><td><code>[待] var(--CB2)</code> · library-index.json 未登记</td></tr>
-      <tr><td>进度值数字</td><td><code>var(--font-num)</code> · GJType Medium 500 · 20px · tnum · 行高 1</td></tr>
-      <tr><td>图标</td><td>无</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<section class="demo-section">
-  <h2>来源说明</h2>
-  <ul class="source-list">
-    <li>组件真值：references/components.md 第九章「进度条 Progress Bar」。</li>
-    <li>颜色实现：CP0、CB1、CB2；数字字体：assets/fonts/GJType-Medium.ttf。</li>
-    <li>本页采用 skill 固化值；不包含 Figma 直读数据。</li>
-  </ul>
-</section>
-</main>
-
-<script>
-(function(){
-  var range=document.getElementById("progressRange");
-  var output=document.getElementById("rangeValue");
-  var toggle=document.getElementById("valueToggle");
-  var progress=document.getElementById("playgroundProgress");
-  var value=progress.querySelector(".gj-progress__value");
-
-  function renderProgress(){
-    var current=Number(range.value);
-    progress.style.setProperty("--progress",current);
-    progress.setAttribute("aria-valuenow",String(current));
-    value.textContent=current+"%";
-    output.value=current+"%";
-    progress.classList.toggle("is-value-hidden",!toggle.checked);
-  }
-
-  range.addEventListener("input",renderProgress);
-  toggle.addEventListener("change",renderProgress);
-  document.getElementById("themeToggle").addEventListener("click",function(){
-    var root=document.documentElement;
-    var dark=root.getAttribute("data-theme")==="dark";
-    root.setAttribute("data-theme",dark?"light":"dark");
-    this.textContent=dark?"切换深色":"切换浅色";
-  });
-  renderProgress();
-})();
-</script>
+<div class="demo"><b>百分比进度条</b> · 750×60 白底,左右 24;轨道 12;进度值 68×32,右缘贴在填充末端</div>
+<div class="demo" style="padding-top:var(--SP4)">起点 0%:只显示进度值,贴轨道左端,没有红色填充</div><div class="pg p0" style="--p:0.0"><div class="tk"><div class="fl"><span class="pill">0%</span></div></div></div>
+<div class="demo" style="padding-top:var(--SP4)">小进度:填充至少 68 宽,进度值不越出左端</div><div class="pg" style="--p:0.03"><div class="tk"><div class="fl"><span class="pill">3%</span></div></div></div>
+<div class="demo" style="padding-top:var(--SP4)">中间:进度值跟着填充末端走</div><div class="pg" style="--p:0.56"><div class="tk"><div class="fl"><span class="pill">56%</span></div></div></div>
+<div class="demo" style="padding-top:var(--SP4)">终点 100%:进度值贴轨道右端,不溢出</div><div class="pg" style="--p:1.0"><div class="tk"><div class="fl"><span class="pill">100%</span></div></div></div>
+<div class="demo"><b>隐藏进度值</b> · 开关「进度值」关闭后只剩轨道 + 填充,填充宽 = 进度 × 轨道宽</div><div class="pg nov" style="--p:.56"><div class="tk"><div class="fl"><span class="pill">56%</span></div></div></div>
+<div class="demo"><b>连续进度</b> · 拖动查看(演示用,组件本身不可拖)</div><div id="live"><div class="pg" style="--p:0.37"><div class="tk"><div class="fl"><span class="pill">37%</span></div></div></div></div><div class="ctl">0<input type="range" min="0" max="100" value="37" id="r">100<label><input type="checkbox" id="sv" checked> 进度值</label></div>
+<script>const r=document.getElementById('r'),l=document.querySelector('#live .pg');r.oninput=()=>{l.style.setProperty('--p',r.value/100);l.classList.toggle('p0',r.value==0);l.querySelector('.pill').textContent=r.value+'%'};document.getElementById('sv').onchange=e=>l.classList.toggle('nov',!e.target.checked);</script>
 </body>
 </html>

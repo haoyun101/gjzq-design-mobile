@@ -11,7 +11,7 @@
   /* SP/RD · 750px */
   --SP0:0px; --SP1:4px; --SP2:8px; --SP3:12px; --SP4:16px; --SP5:20px; --SP6:24px; --SP7:32px; --SP8:40px; --SP9:60px; --SP10:80px; --RD0:0px; --RD1:4px; --RD2:8px; --RD3:12px; --RD4:16px; --RD5:20px; --RD6:24px; --RD7:32px; --RD8:40px; --RD9:999px; --RD10:6px;
 
---CB1:#FFF;--CB2:#F2F4F8;--CT1:#0F0F1B;--CT3:#55555E;--CP0:#F93838;--CL1:#EEE;
+--CB1:#FFF;--CB2:#F2F4F8;--CT1:#0F0F1B;--CT3:#55555E;--CP0:#F93838;--CL2:#EEEEEE;
 --sb:88px;--nav:88px;--tab:98px;--home:68px;
           /* 真源 design-tokens 粘入时以真值为准 */
 --pad1:var(--SP4);--pad2:var(--SP6);--gap1:var(--SP4);--gap2:var(--SP6)}
@@ -27,7 +27,7 @@ main{display:flex;flex-direction:column;gap:var(--gap,var(--SP4));padding:var(--
 .shell[data-level="2"]{--pad:var(--pad2);--gap:var(--gap2)}
 .gj-module{}                                  /* 模块占位:间距由 main 的 gap 决定,勿自加 margin-top/bottom/height 撑间距 */
 .card{background:var(--CB1);border-radius:var(--RD6);padding:var(--SP5)}  /* 卡内边距20;无 margin */
-.bottomnav{position:absolute;bottom:0;left:0;right:0;height:calc(var(--tab) + var(--home));background:var(--CB1);border-top:1px solid var(--CL1)}
+.bottomnav{position:absolute;bottom:0;left:0;right:0;height:calc(var(--tab) + var(--home));background:var(--CB1);border-top:1px solid var(--CL2)}
 .bottomnav .slot{height:var(--tab);display:flex;align-items:center;justify-content:center;color:var(--CT3);font-size:24px}
 </style><style>
 /* 本文件引用到的颜色 token(值同 assets/design-tokens.css 浅色) */

@@ -59,7 +59,7 @@
   <p class="top">国金证券客户端设计系统 · 组件参考实现</p>
   <h1>图标宫格 / Icon Grid（金刚区）</h1>
   <p class="sub">来源:佣金宝组件库 V2.0 · 直读真值重建 · 通用组件层 · C12 · 嵌套 C10 / C11 · 设计系统 v3.9.0</p>
-  <p class="onenote">规范模板:演示 icon 槽统一用 C11 占位图-图标(白版)、文案统一用占位代称「名称」;真实使用时替换为渐变 SVG 图标与实际入口名。</p>
+  <p class="onenote">规范模板:演示 icon 槽统一用 C11 图标兜底(64 用 slice_all-func_fallback-img、88 用 slice_vip-serv_fallback-img,白版)、文案统一用占位代称「名称」;真实使用时替换为渐变 SVG 图标与实际入口名。</p>
 
   <!-- 一、构件 -->
   <div class="sec">
@@ -128,7 +128,7 @@
     <div class="sech"><b>三、嵌套与使用规则</b><span>组件关系 + 选用判据</span></div>
     <div class="card">
       <ul class="rule" style="padding-left:var(--SP5);margin:var(--SP0)">
-        <li><b>嵌套关系</b>:C12 图标宫格 → icon 槽兜底 = <b>C11 占位图-图标</b>(加载中/失败);横滑排布 → <b>C10 分页符-滑动</b>。其余排布一律不嵌分页符。</li>
+        <li><b>嵌套关系</b>:C12 图标宫格 → icon 槽兜底 = <b>C11 图标兜底</b>(64 → slice_all-func_fallback-img,88 → slice_vip-serv_fallback-img;加载中/失败);横滑排布 → <b>C10 分页符-滑动</b>。其余排布一律不嵌分页符。</li>
         <li><b>列数判据</b>:入口≤4 → 4列舒展;=5 → 5列标准;6–10 → 5列×2行;超多/运营横排 → 横滑+分页符。</li>
         <li><b>文案</b>:核心 4 字最佳,超出截断省略;容量上限 64档≤5字 / 88档≤6字;末格沿用「全部功能」入口约定。</li>
         <li><b>槽位</b>:icon 为正方形固定槽位,圆角由上传图标决定,组件不强加;无点击/按压态。</li>
@@ -148,7 +148,7 @@
         <div>边距 <span class="tok">24</span></div>
         <div>行距 <span class="tok">24 (s-3)</span></div>
         <div>分页符 <span class="tok">C10 滑动 60×6 · CP0/CI4@20%</span></div>
-        <div>icon 兜底 <span class="tok">C11 占位图-图标</span></div>
+        <div>icon 兜底 <span class="tok">C11 图标兜底(64 / 88)</span></div>
       </div>
     </div>
   </div>
@@ -159,13 +159,13 @@ function gjSpatial(value,kind){var map=kind==='RD'?{"0": "RD0", "4": "RD1", "8":
 
   var LP='<path fill="{F}" d="M41.9919 25.2042C45.9698 25.2042 49.1945 21.9799 49.1945 18.0025C49.1945 14.0251 45.9698 10.8007 41.9919 10.8007C38.0141 10.8007 34.7893 14.0251 34.7893 18.0025C34.7893 21.9799 38.0141 25.2042 41.9919 25.2042Z"/>'
     +'<path fill="{F}" d="M39.5912 26.5112V36.6089C39.5912 38.2654 38.2466 39.6099 36.5899 39.6127H23.3818C21.7251 39.6099 20.3805 38.2654 20.3805 36.6089V23.4053C20.3805 21.7488 21.7251 20.4043 23.3818 20.4015H33.4808L38.2012 7.45026C25.7449 2.92329 11.9779 9.34784 7.45043 21.8027C2.92292 34.2575 9.34824 48.0228 21.8046 52.5497C34.2609 57.0767 48.0279 50.6522 52.5554 38.1973C54.4815 32.9017 54.4815 27.0983 52.5554 21.8027L39.5912 26.5112Z"/>';
-  function ph(size){
+  function ph(size){ /* C11 图标兜底:64 = slice_all-func_fallback-img(底块 54 圆角 12);88 = slice_vip-serv_fallback-img(88 圆);logo 占底块 62.5% */
     var gid='p'+Math.random().toString(36).slice(2,8);
-    var r=Math.round(size*0.182), lg=Math.round(size*0.545);
-    return '<div style="width:'+size+'px;height:'+size+'px;border-radius:'+gjSpatial(r,'RD')+';background:var(--CB2);display:flex;align-items:center;justify-content:center">'
+    var vip=size===88, inner=vip?size:Math.round(size*54/64), r=vip?999:Math.round(12*size/64), lg=Math.round(inner*0.625*100)/100;
+    return '<div style="width:'+size+'px;height:'+size+'px;display:flex;align-items:center;justify-content:center"><div style="width:'+inner+'px;height:'+inner+'px;border-radius:'+gjSpatial(r,'RD')+';background:var(--CB2);display:flex;align-items:center;justify-content:center">'
       +'<svg width="'+lg+'" height="'+lg+'" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="display:block">'
       +'<defs><linearGradient id="'+gid+'" x1="30" y1="0" x2="30" y2="60" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity="1"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0.3"/></linearGradient></defs>'
-      + LP.replace(/\{F\}/g,'url(#'+gid+')') + '</svg></div>';
+      + LP.replace(/\{F\}/g,'url(#'+gid+')') + '</svg></div></div>';
   }
   function cell(label,w){var ico=w===88?88:64,box=w===88?145:138;
     return '<div class="cell" style="width:'+box+'px">'+ph(ico)+'<div class="lab" style="width:'+box+'px">'+label+'</div></div>';}

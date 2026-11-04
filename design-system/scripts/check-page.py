@@ -122,7 +122,7 @@ def check(path):
         transp = len(re.findall(r'border-(?:top|bottom|left|right)\s*:[^;]*solid[^;]*transparent', blk))
         colored = len(re.findall(r'border-(?:top|bottom|left|right)\s*:[^;]*solid[^;]*(?:#|rgb|var\()', blk))
         if transp >= 2 and colored >= 1:
-            p0.append("CSS 三角形手画图标(border 拼三角)→ 必须改用库内图标(iconfont 箭头/三角:icon-shixinjiantou-*、sort-triangle.svg)")
+            p0.append("CSS 三角形手画图标(border 拼三角)→ 必须改用库内图标(iconfont 箭头/三角:icon-shixinjiantou-*、icf_func_sort-def.svg)")
 
     # --- P1: 内联 <path>/<polygon> 疑似手画图标 ---
     n_path = len(re.findall(r'<path\s+d=', html)) + len(re.findall(r'<poly(?:gon|line)\s', html))
@@ -148,22 +148,31 @@ def check(path):
     if off_hits:
         info.append(f"裸色 {len(off_hits)} 种来自库片段官方原值(免计):{', '.join(list(off_hits)[:6])}")
 
-    # --- P1: 字号不在 S1–S8 集合 ---
+    # --- P1: 字号不在 S-CN / S-NUM 两套集合(读 foundations §3 字号表:每行 | S{n} | 中文 字号/行高 | … | 数字 字号/行高 | … |)---
     try:
-        _sset = set(re.findall(r'\|\s*S[1-8]\s*\|\s*(\d+)\s*\|', (ROOT/"references"/"foundations.md").read_text(encoding="utf-8")))
+        _fd = (ROOT/"references"/"foundations.md").read_text(encoding="utf-8")
+        _sset = set()
+        for _row in re.findall(r'^\|\s*S\d+\s*\|.*$', _fd, re.M):
+            _sset.update(re.findall(r'(\d+)\s*/\s*\d+', _row))
     except Exception:
         _sset = set()
     if _sset:
         _bad = sorted({n for n in re.findall(r'font-size:\s*(\d+)px', html)
                        if n not in _sset and not (reuses_lib and n in OFFICIAL_FS)}, key=int, reverse=True)
         if _bad:
-            p1.append(f"字号不在 S1-S8 集合:页面出现 {', '.join(_bad[:8])}px → 应取规范字号({'/'.join(sorted(_sset,key=int,reverse=True))})")
+            p1.append(f"字号不在 S-CN / S-NUM 集合:页面出现 {', '.join(_bad[:8])}px → 应取规范字号({'/'.join(sorted(_sset,key=int,reverse=True))})")
 
-    # --- P1: 数字字体 D-DIN 未改 GJType(页面全局有 GJType 则免——D-DIN 仅参考实现 fallback)---
+    # --- P1: 字重只用 R 400 / M 500(@font-face 内的字重声明不计)---
+    _nf = re.sub(r'@font-face\s*\{[^}]*\}', '', html)
+    _heavy = sorted(set(re.findall(r'font-weight\s*:\s*(600|700|800|900|bold|bolder)\b', _nf, re.I)))
+    if _heavy:
+        p1.append(f"字重出现 {'/'.join(_heavy)} → 页面生成只用 R(400)/ M(500)(B 600 仅用户明确要求时)")
+
+    # --- P1: 数字字体 D-DIN 未改 GJTypeDisplay(页面全局有 GJTypeDisplay 则免——D-DIN 仅参考实现 fallback)---
     if not re.search(r'GJType', html) and not reuses_lib:
         for blk in re.findall(r'font-family\s*:[^;{}]*', html):
             if re.search(r'D-?DIN', blk, re.I) and 'GJType' not in blk:
-                p1.append("font-family 含 D-DIN 但无 GJType → C 端数字字体应入库为 GJType"); break
+                p1.append("font-family 含 D-DIN 但无 GJTypeDisplay → C 端数字字体应入库为 GJTypeDisplay"); break
 
     # --- P1: 数字字体未声明等宽数字 ---
     uses_num_font = bool(re.search(r'GJType|--font-num|--num|font-family\s*:[^;{}]*(?:DIN|monospace)', html, re.I))

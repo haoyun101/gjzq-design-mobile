@@ -25,12 +25,12 @@
 
 整包 / 本地 HTML 交付:
 - 在 BOM 中引用 `assets/components/bottom-info-bar.html`
-- 资产走相对路径,不要把 `agent-orb-wave.svg` 或字体 base64 贴进上下文
+- 资产走相对路径,不要把字体 base64 贴进上下文;智能体球从发布仓库拉取(`avatar-agent-orb.png`)
 
 单文件 / widget:
 - 优先判断是否真的需要高保真底导
 - 需要时用 `sandbox-header.html` 提供字体、tokens 和 sprite
-- `agent-orb-wave.svg` 约 197KB,不要 base64 内联;用相对路径、外链或占位说明
+- 智能体球用发布仓库外链 `https://raw.githubusercontent.com/haoyun101/gjzq-design-mobile/main/resources/avatars/avatar-agent-orb.png`,不要 base64 内联
 
 ## 常用类名
 

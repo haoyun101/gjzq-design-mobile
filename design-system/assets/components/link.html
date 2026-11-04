@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=750">
+<meta name="gj-bom" content="C17 链接; Figma 25268:4090; references/components.md 第十七章; assets/figma-codes.json; design-tokens.css">
+<title>C17 链接 · 参考实现</title>
+<style>
+@font-face{font-family:"GJTypeDisplay";font-weight:500;src:url(data:font/ttf;base64,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) format("truetype")}
+:root{
+  /* SP/RD · 750px */
+  --SP0:0px; --SP1:4px; --SP2:8px; --SP3:12px; --SP4:16px; --SP5:20px; --SP6:24px; --SP7:32px; --SP8:40px; --SP9:60px; --SP10:80px; --RD0:0px; --RD1:4px; --RD2:8px; --RD3:12px; --RD4:16px; --RD5:20px; --RD6:24px; --RD7:32px; --RD8:40px; --RD9:999px; --RD10:6px;
+
+  --CN1:#F93838;
+  --CT1:#0F0F1B;
+  --CT3:#55555E;
+  --CF3:#2B73FF;
+  --CS1:#F93838;
+  --CS2:#05B063;
+  --CS3:#55555E;
+  --CB1:#FFFFFF;
+  --CB2:#F2F4F8;
+  --CB3:#F2F4F8;
+  --CB13:rgba(249,56,56,0.08);
+  --CB27:rgba(5,176,99,0.08);
+  --CB54:rgba(85,85,94,0.08);
+  --CL1:#DDDDDD;
+  --font-sans:-apple-system,"PingFang SC",system-ui,"HarmonyOS Sans SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --font-num:"GJTypeDisplay",var(--font-sans);
+  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+[data-theme="dark"]{
+  --CT1:#DDDDDD;
+  --CT3:#87878D;
+  --CS3:#87878D;
+  --CB1:#161824;
+  --CB2:#0F0F1B;
+  --CB3:#1C1E2D;
+  --CL1:#55555E;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--CB2);color:var(--CT1);font-family:var(--font-sans)}
+body{width:100%;max-width:750px;margin:0 auto;padding:var(--SP6)}
+button,select{font:inherit}
+.demo-main{display:flex;flex-direction:column;gap:var(--SP6)}
+.demo-head,.demo-section{background:var(--CB1);border:1px solid var(--CL1);border-radius:var(--RD4);padding:var(--SP6)}
+.demo-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--SP6)}
+.demo-title{margin:0;font-size:36px;line-height:1.5;font-weight:500}
+.demo-subtitle,.demo-note{margin:0;color:var(--CT3);font-size:20px;line-height:1.5}
+.demo-kicker{font-size:20px;line-height:1.5;color:var(--CN1);font-weight:500}
+.demo-section{display:flex;flex-direction:column;gap:var(--SP6)}
+.demo-section h2{margin:0;font-size:32px;line-height:1.5;font-weight:500}
+.theme-toggle{height:56px;border:1px solid var(--CL1);border-radius:var(--RD4);background:var(--CB1);color:var(--CT1);padding:0 var(--SP6);font-size:24px;white-space:nowrap}
+.spec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--SP4)}
+.spec-card{min-width:0;border:1px solid var(--CL1);border-radius:var(--RD4);padding:var(--SP6);display:flex;flex-direction:column;align-items:flex-start;gap:var(--SP4)}
+.spec-card.is-wide{grid-column:1/-1;align-items:stretch}
+.spec-label{font-size:20px;line-height:1.5;color:var(--CT3)}
+.stage{width:100%;border-radius:var(--RD4);background:var(--CB1);border:1px dashed var(--CL1);padding:var(--SP6);display:flex;flex-direction:column;align-items:flex-start;gap:var(--SP4)}
+.tag-pending{display:inline-block;font-size:20px;line-height:1.5;color:var(--CN1);font-weight:500}
+.choice-row{display:flex;gap:var(--SP6);flex-wrap:wrap}
+.choice{display:flex;flex-direction:column;gap:var(--SP2);font-size:20px;line-height:1.5}
+.code-box{width:100%;border:1px solid var(--CL1);border-radius:var(--RD4);padding:var(--SP4);display:grid;grid-template-columns:auto 1fr;gap:var(--SP2) var(--SP4);font-size:20px;line-height:1.5}
+.code-box dt{color:var(--CT3)}
+.code-box dd{margin:0;font-family:var(--font-mono);word-break:break-all;color:var(--CT1)}
+.code-table-wrap{width:100%;overflow-x:auto}
+.code-table{width:100%;border-collapse:collapse;font-size:20px;line-height:1.5}
+.code-table th,.code-table td{border-bottom:1px solid var(--CL1);padding:var(--SP2);text-align:left;vertical-align:top}
+.code-table th{color:var(--CT3);font-weight:500}
+.code-table td.mono{font-family:var(--font-mono);word-break:break-all}
+
+/* ===== C17 链接 · Figma 25268:4090 ===== */
+/* 1. 个股链接 · 小号(44):宽随内容;只有一种底色 CB3 */
+.gj-stocklink{display:inline-flex;align-items:center;flex:0 0 auto;white-space:nowrap;text-decoration:none;cursor:pointer}
+.gj-stocklink--s{height:44px;gap:var(--SP4);padding:var(--SP1) var(--SP2);border-radius:var(--RD2);background:var(--CB3)}
+.gj-stocklink--s .gj-stocklink__name{color:var(--CT3);font-size:24px;line-height:36px;font-weight:400}
+.gj-stocklink--s .gj-stocklink__num{font-size:24px;line-height:36px}
+/* 2. 个股链接 · 大号(56):宽按场景拉伸;底色随涨跌平 */
+.gj-stocklink--l{display:flex;width:100%;height:56px;justify-content:space-between;padding:6px var(--SP4);border-radius:var(--RD4)}
+.gj-stocklink--l .gj-stocklink__name{color:var(--CT1);font-size:28px;line-height:44px;font-weight:400}
+.gj-stocklink--l .gj-stocklink__num{font-size:28px;line-height:44px}
+.gj-stocklink--l.is-up{background:var(--CB13)}
+.gj-stocklink--l.is-down{background:var(--CB27)}
+.gj-stocklink--l.is-flat{background:var(--CB54)}
+.gj-stocklink__num{font-family:var(--font-num);font-weight:500;font-variant-numeric:tabular-nums}
+.is-up .gj-stocklink__num,.gj-stocklink__num.is-up{color:var(--CS1)}
+.is-down .gj-stocklink__num,.gj-stocklink__num.is-down{color:var(--CS2)}
+.is-flat .gj-stocklink__num,.gj-stocklink__num.is-flat{color:var(--CS3)}
+
+/* 3. 文字链接:无底、无描边、无图标 */
+.gj-textlink{color:var(--CF3);font-weight:400;text-decoration:none;white-space:nowrap;cursor:pointer}
+.gj-textlink--24{font-size:24px;line-height:36px}
+.gj-textlink--26{font-size:26px;line-height:40px}
+/* 文案加链接:正文宽 600 自动换行;链接压在正文最后一行的右端。
+   最后一行放不下链接时,链接整体移到正文下方一行、仍右对齐(不拆字)。 */
+.gj-linkpara{display:flex;flex-direction:column;align-items:flex-end;width:600px;max-width:100%}
+.gj-linkpara__text{align-self:stretch;margin:0;color:var(--CT3);font-weight:400}
+.gj-linkpara--24 .gj-linkpara__text{font-size:24px;line-height:36px}
+.gj-linkpara--26 .gj-linkpara__text{font-size:26px;line-height:40px}
+.gj-linkpara--24 .gj-textlink{margin-top:-36px}
+.gj-linkpara--26 .gj-textlink{margin-top:-40px}
+.gj-linkpara.is-wrapped .gj-textlink{margin-top:0}
+
+@media (max-width:620px){
+  body{padding:var(--SP4)}
+  .demo-head{flex-direction:column}
+  .theme-toggle{width:100%}
+  .spec-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<main class="demo-main" data-figma-file="zCOxOb0INHc9QnSrmWVVx7" data-figma-node="25268:4090">
+<section class="demo-head">
+  <div>
+    <div class="demo-kicker">C17 · Figma 直读 25268:4090</div>
+    <h1 class="demo-title">链接</h1>
+    <p class="demo-subtitle">个股链接(小号 44 / 大号 56)· 文字链接(24 / 26 · 单个链接 / 文案加链接)· 750 基准</p>
+  </div>
+  <button class="theme-toggle" id="themeToggle" type="button">切换深色</button>
+</section>
+
+<section class="demo-section">
+  <h2>1 · 个股链接 · 小号(44)</h2>
+  <div class="spec-grid">
+    <div class="spec-card"><span class="spec-label">涨 · 显示涨跌数据</span><div class="stage"><a class="gj-stocklink gj-stocklink--s"><span class="gj-stocklink__name">中文在线</span><span class="gj-stocklink__num is-up">+7.38%</span></a></div></div>
+    <div class="spec-card"><span class="spec-label">跌 / 平</span><div class="stage"><a class="gj-stocklink gj-stocklink--s"><span class="gj-stocklink__name">人工智能</span><span class="gj-stocklink__num is-down">-7.97%</span></a><a class="gj-stocklink gj-stocklink--s"><span class="gj-stocklink__name">宁德时代</span><span class="gj-stocklink__num is-flat">+0.00%</span></a></div></div>
+    <div class="spec-card"><span class="spec-label">隐藏涨跌数据</span><div class="stage"><a class="gj-stocklink gj-stocklink--s"><span class="gj-stocklink__name">中文在线</span></a></div></div>
+  </div>
+  <p class="demo-note">高 44 · 宽随内容 · 上下 SP1 / 左右 SP2 · 名称与数字间距 SP4 · 圆角 RD2 · 底 CB3(只有这一种)· 名称 CT3 24/36 Regular · 数字 24/36 Medium,涨 CS1 / 跌 CS2 / 平 CS3。涨跌数据可隐藏。</p>
+</section>
+
+<section class="demo-section">
+  <h2>2 · 个股链接 · 大号(56)</h2>
+  <div class="spec-grid">
+    <div class="spec-card is-wide"><span class="spec-label">状态=红(涨)</span><div class="stage"><a class="gj-stocklink gj-stocklink--l is-up"><span class="gj-stocklink__name">第四范式</span><span class="gj-stocklink__num">+27.97%</span></a></div></div>
+    <div class="spec-card is-wide"><span class="spec-label">状态=绿(跌)</span><div class="stage"><a class="gj-stocklink gj-stocklink--l is-down"><span class="gj-stocklink__name">人工智能</span><span class="gj-stocklink__num">-7.97%</span></a></div></div>
+    <div class="spec-card is-wide"><span class="spec-label">状态=灰(平)</span><div class="stage"><a class="gj-stocklink gj-stocklink--l is-flat"><span class="gj-stocklink__name">宁德时代</span><span class="gj-stocklink__num">+0.00%</span></a></div></div>
+    <div class="spec-card is-wide"><span class="spec-label">放进 2 列卡片(宽 = 容器宽)</span><div class="stage" style="max-width:340px"><a class="gj-stocklink gj-stocklink--l is-up"><span class="gj-stocklink__name">第四范式</span><span class="gj-stocklink__num">+27.97%</span></a></div></div>
+  </div>
+  <p class="demo-note">高 56 · 宽按场景拉伸 · 上下 6 / 左右 SP4 · 名称左、数字右(两端对齐)· 圆角 RD4 · 底 涨 CB13 / 跌 CB27 / 平 CB54 · 名称 CT1 28/44 Regular · 数字 28/44 Medium 随涨跌平。</p>
+</section>
+
+<section class="demo-section">
+  <h2>3 · 文字链接</h2>
+  <div class="spec-grid">
+    <div class="spec-card"><span class="spec-label">单个链接 · 24/36</span><div class="stage"><a class="gj-textlink gj-textlink--24">链接文案</a></div></div>
+    <div class="spec-card"><span class="spec-label">单个链接 · 26/40</span><div class="stage"><a class="gj-textlink gj-textlink--26">链接文案</a></div></div>
+    <div class="spec-card is-wide"><span class="spec-label">文案加链接 · 24/36 · 常规(链接在正文最后一行右端)</span><div class="stage"><div class="gj-linkpara gj-linkpara--24"><p class="gj-linkpara__text">正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容</p><a class="gj-textlink gj-textlink--24">链接文案</a></div></div></div>
+    <div class="spec-card is-wide"><span class="spec-label">文案加链接 · 26/40 · 常规</span><div class="stage"><div class="gj-linkpara gj-linkpara--26"><p class="gj-linkpara__text">正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容</p><a class="gj-textlink gj-textlink--26">链接文案</a></div></div></div>
+    <div class="spec-card is-wide"><span class="spec-label">文案加链接 · 24/36 · 冲突(最后一行放不下 → 链接移到下一行右端)</span><div class="stage"><div class="gj-linkpara gj-linkpara--24"><p class="gj-linkpara__text">正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容</p><a class="gj-textlink gj-textlink--24">链接文案</a></div></div></div>
+  </div>
+  <p class="demo-note">链接色 CF3 · 正文 CT3 · Regular · 无底、无描边、无图标 · 文案加链接正文宽 600。</p>
+</section>
+
+
+</main>
+
+<script>
+(function(){
+  /* 文案加链接:最后一行与链接重叠时,链接移到下一行 */
+  function layoutParas(){
+    document.querySelectorAll(".gj-linkpara").forEach(function(p){
+      p.classList.remove("is-wrapped");
+      var text=p.querySelector(".gj-linkpara__text"),link=p.querySelector(".gj-textlink");
+      var range=document.createRange();range.selectNodeContents(text);
+      var rects=range.getClientRects();if(!rects.length)return;
+      var last=rects[rects.length-1],lr=link.getBoundingClientRect();
+      if(last.right>lr.left-8) p.classList.add("is-wrapped");
+    });
+  }
+  layoutParas();
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(layoutParas);
+  window.addEventListener("resize",layoutParas);
+
+  document.getElementById("themeToggle").addEventListener("click",function(){
+    var root=document.documentElement,dark=root.getAttribute("data-theme")==="dark";
+    root.setAttribute("data-theme",dark?"light":"dark");this.textContent=dark?"切换深色":"切换浅色";
+  });
+})();
+</script>
+</body>
+</html>

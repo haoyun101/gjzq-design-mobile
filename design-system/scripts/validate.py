@@ -80,7 +80,7 @@ def check_skill(root):
     _idx=f"{root}/assets/library-index.json"
     if os.path.exists(_idx):
         _d=_j.load(open(_idx,encoding="utf-8"))
-        _ncss=len(re.findall(r'\.icon-[a-z0-9-]+:before',open(f"{root}/assets/icons/fonts/iconfont.css",encoding="utf-8").read()))
+        _ncss=len(re.findall(r'\.icf_[A-Za-z0-9_+-]+:before',open(f"{root}/assets/icons/fonts/iconfont.css",encoding="utf-8").read()))
         _nidx=len(_d.get("icons",{}).get("iconfont",{}))
         if _ncss!=_nidx:E(f"library-index 过期:iconfont 类 css={_ncss} 索引={_nidx},请重跑 build-index.py")
         # 组件登记表 ↔ 索引 Cxx 一致性(防 C14 那类漏登)

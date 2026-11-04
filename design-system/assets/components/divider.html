@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=750">
+<meta name="gj-bom" content="C18 分割线; Figma 4276:25886 / 4090:28725; references/components.md 第十八章; assets/figma-codes.json; design-tokens.css">
+<title>C18 分割线 · 参考实现</title>
+<style>
+:root{
+  --SP0:0px; --SP1:4px; --SP2:8px; --SP3:12px; --SP4:16px; --SP5:20px; --SP6:24px; --SP7:32px; --SP8:40px; --SP9:60px; --SP10:80px; --RD0:0px; --RD1:4px; --RD2:8px; --RD3:12px; --RD4:16px; --RD5:20px; --RD6:24px; --RD7:32px; --RD8:40px; --RD9:999px; --RD10:6px;
+  --CT1:#0F0F1B;--CT4:#87878D;--CT5:#CCCCCC;--CB1:#FFFFFF;--CB2:#F2F4F8;--CL1:#DDDDDD;--CL2:#EEEEEE;
+  --font-sans:-apple-system,"PingFang SC",system-ui,"HarmonyOS Sans SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:750px;margin:0 auto;background:var(--CB2);color:var(--CT1);font-family:var(--font-sans);padding-bottom:var(--SP9)}
+.demo{font-size:24px;line-height:36px;color:var(--CT4);padding:var(--SP7) var(--SP6) var(--SP3)}
+.demo b{color:var(--CT1);font-weight:500}
+.mod{width:702px;margin:0 auto;background:var(--CB1);border-radius:var(--RD6);padding:var(--SP6)}
+.item{font-size:32px;line-height:48px;padding:var(--SP6) 0}
+
+/* ===== 分割线 =====
+   线色 --CL1 或 --CL2 均可,按页面统一;用 --divider 切换 */
+:root{--divider:var(--CL2)}
+.hr{height:0;border-top:1px solid var(--divider)}                         /* 横向分割线-常规:宽随场景 */
+.hr-text{display:flex;align-items:center;gap:var(--SP5)}                     /* 横向分割线-文字:文字与线间距 20 */
+.hr-text::before,.hr-text::after{content:"";flex:1;height:0;border-top:1px solid var(--divider)}
+.hr-text span{font-size:24px;line-height:36px;font-weight:400;color:var(--CT5);white-space:nowrap}
+.vr{width:0;align-self:center;height:50%;border-left:1px solid var(--divider)}  /* 竖向分割线:不占满时取 50% 高 */
+.cols{display:flex;align-items:stretch;height:120px}
+.cols .c{flex:1;display:flex;align-items:center;justify-content:center;font-size:28px}
+.edge-top{box-shadow:inset 0 1px 0 var(--divider)}                         /* 与容器等宽:容器内描边 */
+.bar{width:750px;height:120px;background:var(--CB1);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--CT4)}
+.sw{padding:0 var(--SP6);font-size:22px;color:var(--CT4)}
+</style>
+</head>
+<body>
+<div class="demo"><b>线色</b>:CL1 或 CL2 均可</div>
+<div class="sw"><label><input type="radio" name="c" value="CL2" checked> CL2 #EEEEEE</label>　<label><input type="radio" name="c" value="CL1"> CL1 #DDDDDD</label></div>
+<div class="demo"><b>横向分割线-常规</b>(宽随场景)</div>
+<div class="mod"><div class="item">内容一</div><div class="hr"></div><div class="item">内容二</div><div class="hr"></div><div class="item">内容三</div></div>
+<div class="demo"><b>横向分割线-文字</b>(文字 24/36 R CT5,与线间距 20)</div>
+<div class="mod"><div class="hr-text"><span>说明文案</span></div></div>
+<div class="demo"><b>竖向分割线</b>(不占满模块时取 50% 高)</div>
+<div class="mod" style="padding:0"><div class="cols"><div class="c">内容一</div><div class="vr"></div><div class="c">内容二</div><div class="vr"></div><div class="c">内容三</div></div></div>
+<div class="demo"><b>与容器等宽</b>:不另放分割线,给容器加 1px 内描边(例:底部操作条顶边)</div>
+<div class="bar edge-top">底部操作条</div>
+<script>
+document.querySelectorAll('input[name=c]').forEach(r=>r.addEventListener('change',()=>document.documentElement.style.setProperty('--divider','var(--'+r.value+')')));
+</script>
+</body>
+</html>

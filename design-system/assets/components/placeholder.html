@@ -1,162 +1,595 @@
-<!doctype html>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>占位图 Placeholder · 参考实现 · 国金证券设计系统</title>
-<style>
-  :root{
-  /* SP/RD · 750px */
-  --SP0:0px; --SP1:4px; --SP2:8px; --SP3:12px; --SP4:16px; --SP5:20px; --SP6:24px; --SP7:32px; --SP8:40px; --SP9:60px; --SP10:80px; --RD0:0px; --RD1:4px; --RD2:8px; --RD3:12px; --RD4:16px; --RD5:20px; --RD6:24px; --RD7:32px; --RD8:40px; --RD9:999px; --RD10:6px;
-
- --line:#E6E8EC; --ct1:var(--H9); --ct3:var(--H8); --ct4:var(--H7); --bg:#F6F7F9; }
-  *{box-sizing:border-box}
-  body{margin:var(--SP0);background:var(--bg);color:var(--ct1);
-    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    -webkit-font-smoothing:antialiased;padding:var(--SP7) var(--SP5) var(--SP9)}
-  .wrap{max-width:840px;margin:var(--SP0) auto}
-  .top{font-size:13px;color:var(--ct3);margin:var(--SP0) var(--SP0) var(--SP1)}
-  h1{font-size:20px;font-weight:600;margin:var(--SP0) var(--SP0) 0}
-  .sub{font-size:13px;color:var(--ct4);margin:var(--SP0) var(--SP0) var(--SP6)}
-  .note{font-size:12px;color:var(--ct4);background:var(--CB1);border:1px solid var(--line);border-radius:var(--RD2);padding:var(--SP2) var(--SP3);margin:var(--SP0) var(--SP0) var(--SP5);line-height:1.75}
-  .note b{color:var(--ct3)}
-  .card{background:var(--CB1);border:1px solid var(--line);border-radius:var(--RD3);padding:var(--SP5) var(--SP5) var(--SP4);margin:var(--SP0) var(--SP0) var(--SP5)}
-  .h{font-size:14px;font-weight:600;margin:var(--SP0) var(--SP0) var(--SP1)}
-  .grid{display:flex;flex-wrap:wrap;gap:var(--SP6);align-items:flex-end}
-  .item{text-align:center}
-  .meta{font-size:12px;color:var(--ct3);margin-top:var(--SP2);line-height:1.55}
-  .meta b{color:var(--ct1)}
-  .cap{font-size:12px;color:var(--ct3);line-height:1.85;margin:var(--SP3) var(--SP0) var(--SP0)}
-  .cap b{color:var(--ct1)}
-  .tok{display:inline-block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;background:var(--CB2);color:var(--CT3);padding:0 var(--SP1);border-radius:var(--RD1)}
-  .ph{display:flex;align-items:center;justify-content:center;overflow:hidden}
-  .b-aid{border:1px solid var(--CL2)}
-  .bg-l-flat{background:var(--CB2)}
-  .bg-d-flat{background:#1C1E2D}
-  .bg-l-grad{background:linear-gradient(180deg,var(--H1) 0%,var(--H2) 100%)}
-  .bg-d-grad{background:linear-gradient(180deg,var(--H11) 0%,var(--H9) 100%)}
-  .badge{display:inline-block;font-size:11px;color:var(--CT6);background:var(--R6);border-radius:var(--RD9);padding:0 var(--SP2);margin-left:var(--SP1);vertical-align:middle}
-</style>
-<style>
-/* 本文件引用到的颜色 token(值同 assets/design-tokens.css 浅色) */
-:root{--CB1:#FFFFFF;--CB2:#F2F4F8;--CT3:#55555E;--CT6:#FFFFFF;--H1:#FFFFFF;--H11:#161824;--H2:#F2F4F8;--H7:#87878D;--H8:#55555E;--H9:#0F0F1B;--R6:#F93838;}
-</style>
-<style>
-/* 本文件引用到的 token(值同 assets/design-tokens.css 浅色) */
-:root{--CL2:#EEEEEE;}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=750">
+<meta name="gj-bom" content="C11 占位图; Figma 图片 21362:3840 / 兜底logo 21431:1764 / 图标兜底 17973:18959 17834:52993 17973:18974 26767:5092 26767:5095; references/components.md 第十一章; assets/figma-codes.json; assets/icons/common/fallback-logo-*.svg、*_fallback-img*.svg">
+<title>C11 占位图 · 参考实现</title>
+<style>:root{--SP0:0px;--SP1:4px;--SP2:8px;--SP3:12px;--SP4:16px;--SP5:20px;--SP6:24px;--SP7:32px;--SP8:40px;--SP9:60px;--SP10:80px;--RD0:0px;--RD1:4px;--RD2:8px;--RD3:12px;--RD4:16px;--RD5:20px;--RD6:24px;--RD7:32px;--RD8:40px;--RD9:999px;--RD10:6px;
+--CT1:#0F0F1B;--CT3:#55555E;--CT4:#87878D;--CB1:#FFFFFF;--CB2:#F2F4F8;--CL1:#DDDDDD;
+--ph-w:linear-gradient(180deg,#FFFFFF 0%,#F2F4F8 100%);--ph-b:linear-gradient(180deg,#161824 0%,#0F0F1B 100%);/* 兜底底色:切图固定色,不随主题翻转 */
+--font-sans:-apple-system,"PingFang SC",system-ui,"Noto Sans SC",sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:750px;margin:0 auto;background:var(--CB2);color:var(--CT1);font-family:var(--font-sans);padding-bottom:var(--SP9)}
+.demo{font-size:24px;line-height:36px;color:var(--CT4);padding:var(--SP7) var(--SP6) var(--SP3)}.demo b{color:var(--CT1);font-weight:500}
+.grid{display:flex;flex-wrap:wrap;gap:var(--SP6);padding:0 var(--SP6);align-items:flex-start}
+.cap{font-size:20px;line-height:30px;color:var(--CT4);margin-top:var(--SP2)}
+/* ===== 图片 · 占位 ===== */
+.ph{position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none}
+.ph.w{background:var(--ph-w)}.ph.b{background:var(--ph-b)}
+.ph.img{background:repeating-linear-gradient(45deg,#E2E6EE 0 12px,#ECEFF4 12px 24px)}
+.ph .lg{border-radius:50%;overflow:hidden;flex:none;display:block}.ph .lg svg{display:block;width:100%;height:100%}
+.ph .lg.std{width:100px;height:100px}.ph .lg.lgv{width:160px;height:160px}
+.zoom{zoom:.5}
+.ico{display:inline-flex;gap:var(--SP4);padding:var(--SP4);border-radius:var(--RD2)}.ico.w{background:var(--CB1)}.ico.b{background:#161824}
+.ico svg{display:block}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <p class="top">国金证券客户端设计系统 · 组件参考实现</p>
-  <h1>占位图 / Placeholder <span style="font-size:13px;color:var(--ct4);font-weight:400">(曾用名:兜底图)</span></h1>
-  <p class="sub">来源:佣金宝组件库 V2.0 · 节点 3832:13810 · 通用组件层 · node.fills 精确还原 · 设计系统 v3.8.0</p>
-
-  <div class="note">
-    占位图形 = <b>圆盘 + 国金 logo</b> 两层(用你上传的 SVG 形状)。
-    <b>底色</b>:图标占位=纯色 <span class="tok">#F2F4F8 / #1C1E2D</span>;默认/图片占位=渐变向下 <span class="tok">#FFF→#F2F4F8 / #161824→#0F0F1B</span>。
-    <b>圆盘</b> <span class="tok">#F2F4F8 / #0F0F1B</span>。
-    <b>logo</b> = 白版 白色·不透明度 1→0.3;黑版 <span class="tok">#373746 (CL2)</span>·不透明度 1→0.3(均自上而下)。
-    浅版加细描边仅为校验图看清边界,非规范。
-  </div>
-
-  <!-- ① 图标占位 88 -->
-  <div class="card">
-    <p class="h">① 图标占位图 · 88(宫格 icon 槽兜底)<span class="badge">核心</span></p>
-    <div class="grid">
-      <div class="item">
-        <div class="ph bg-l-flat b-aid" style="width:88px;height:88px;border-radius:var(--RD4)" data-kind="icon" data-variant="l" data-logo="48"></div>
-        <div class="meta"><b>白版</b> · 88×88 · r16<br>底 #F2F4F8(纯)· logo 48</div>
-      </div>
-      <div class="item">
-        <div class="ph bg-d-flat" style="width:88px;height:88px;border-radius:var(--RD4)" data-kind="icon" data-variant="d" data-logo="48"></div>
-        <div class="meta"><b>黑版</b> · 88×88 · r16<br>底 #1C1E2D(纯)· logo 48</div>
-      </div>
-    </div>
-    <p class="cap">图标占位无圆盘,logo 直接居中于圆角矩形底;宫格 icon 加载中/失败时用此兜底。</p>
-  </div>
-
-  <!-- ② 默认占位 -->
-  <div class="card">
-    <p class="h">② 默认占位图 <span class="badge">核心</span></p>
-    <div class="grid">
-      <div class="item">
-        <div class="ph bg-l-grad b-aid" style="width:150px;height:150px;border-radius:var(--RD3)" data-kind="disc" data-variant="l" data-group="100" data-logo="62"></div>
-        <div class="meta"><b>默认 · 白版</b> · 150×150<br>圆盘 100 · logo 62</div>
-      </div>
-      <div class="item">
-        <div class="ph bg-d-grad" style="width:150px;height:150px;border-radius:var(--RD3)" data-kind="disc" data-variant="d" data-group="100" data-logo="62"></div>
-        <div class="meta"><b>默认 · 黑版</b> · 150×150</div>
-      </div>
-      <div class="item">
-        <div class="ph bg-l-grad b-aid" style="width:240px;height:133px;border-radius:var(--RD3)" data-kind="disc" data-variant="l" data-group="107" data-logo="66"></div>
-        <div class="meta"><b>放大版</b> · 360×200<br>(等比缩略示意)· 圆盘 160 · logo 99</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ③ 图片占位 -->
-  <div class="card">
-    <p class="h">③ 图片占位图 · 核心比例 + 头像 <span class="badge">核心</span></p>
-    <div class="grid">
-      <div class="item">
-        <div class="ph bg-l-grad b-aid" style="width:150px;height:150px;border-radius:10px" data-kind="disc" data-variant="l" data-group="100" data-logo="62"></div>
-        <div class="meta"><b>1 : 1</b> · 150×150</div>
-      </div>
-      <div class="item">
-        <div class="ph bg-l-grad b-aid" style="width:215px;height:148px;border-radius:10px" data-kind="disc" data-variant="l" data-group="100" data-logo="62"></div>
-        <div class="meta"><b>16 : 11</b> · 215×148</div>
-      </div>
-      <div class="item">
-        <div class="ph bg-d-grad" style="width:215px;height:148px;border-radius:10px" data-kind="disc" data-variant="d" data-group="100" data-logo="62"></div>
-        <div class="meta"><b>16 : 11 · 黑版</b></div>
-      </div>
-      <div class="item">
-        <div class="ph bg-l-flat b-aid" style="width:96px;height:96px;border-radius:var(--RD9)" data-kind="icon" data-variant="l" data-logo="52"></div>
-        <div class="meta"><b>头像占位</b> · 圆形</div>
-      </div>
-    </div>
-    <p class="cap">
-      <b>缩放规则</b>:图片显示区<b>最小边 ≥226px → 无缩放</b>(占位按切图固定尺寸居中);<b>最小边 &lt;226px → 按最短边等比缩放</b>。头像占位恒为圆形。
-    </p>
-  </div>
-
-  <!-- ④ token -->
-  <div class="card">
-    <p class="h">④ token / 真值汇总(node.fills 精确,与 skill v3.7.x 零漂移)</p>
-    <div style="display:flex;gap:var(--SP5);flex-wrap:wrap;font-size:12px;color:var(--ct3);line-height:1.6">
-      <div>图标底·白 <span class="tok">#F2F4F8</span></div>
-      <div>图标底·暗 <span class="tok">#1C1E2D</span></div>
-      <div>默认/图片底·白 <span class="tok">#FFF→#F2F4F8</span></div>
-      <div>默认/图片底·暗 <span class="tok">#161824→#0F0F1B</span></div>
-      <div>圆盘 <span class="tok">#F2F4F8 / #0F0F1B</span></div>
-      <div>logo·白 <span class="tok">白 α1→0.3</span></div>
-      <div>logo·暗 <span class="tok">#373746 α1→0.3</span></div>
-      <div>图标占位 <span class="tok">88·r16·logo48</span></div>
-    </div>
-  </div>
-</div>
-
-<script>
-  var PATHS='<path fill="{F}" d="M41.9919 25.2042C45.9698 25.2042 49.1945 21.9799 49.1945 18.0025C49.1945 14.0251 45.9698 10.8007 41.9919 10.8007C38.0141 10.8007 34.7893 14.0251 34.7893 18.0025C34.7893 21.9799 38.0141 25.2042 41.9919 25.2042Z"/>'
-    +'<path fill="{F}" d="M39.5912 26.5112V36.6089C39.5912 38.2654 38.2466 39.6099 36.5899 39.6127H23.3818C21.7251 39.6099 20.3805 38.2654 20.3805 36.6089V23.4053C20.3805 21.7488 21.7251 20.4043 23.3818 20.4015H33.4808L38.2012 7.45026C25.7449 2.92329 11.9779 9.34784 7.45043 21.8027C2.92292 34.2575 9.34824 48.0228 21.8046 52.5497C34.2609 57.0767 48.0279 50.6522 52.5554 38.1973C54.4815 32.9017 54.4815 27.0983 52.5554 21.8027L39.5912 26.5112Z"/>';
-  function logoSVG(variant,size){
-    var gid='g'+Math.random().toString(36).slice(2,8);
-    var base = variant==='d' ? '#373746' : '#FFFFFF';
-    return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="display:block">'
-      +'<defs><linearGradient id="'+gid+'" x1="30" y1="0" x2="30" y2="60" gradientUnits="userSpaceOnUse">'
-      +'<stop stop-color="'+base+'" stop-opacity="1"/><stop offset="1" stop-color="'+base+'" stop-opacity="0.3"/></linearGradient></defs>'
-      + PATHS.replace(/\{F\}/g,'url(#'+gid+')') + '</svg>';
-  }
-  document.querySelectorAll('.ph[data-kind]').forEach(function(el){
-    var v=el.dataset.variant, kind=el.dataset.kind;
-    if(kind==='icon'){ el.innerHTML=logoSVG(v, +el.dataset.logo); return; }
-    var G=+el.dataset.group, L=+el.dataset.logo;
-    var disc = v==='d' ? '#0F0F1B' : '#F2F4F8';
-    el.innerHTML='<div style="position:relative;width:'+G+'px;height:'+G+'px;display:flex;align-items:center;justify-content:center">'
-      +'<div style="position:absolute;inset:0;border-radius:50%;background:'+disc+'"></div>'
-      +'<div style="position:relative;line-height:0">'+logoSVG(v,L)+'</div></div>';
-  });
-</script>
+<div class="demo"><b>图片-{比例}-{样式}</b> · 5 比例 × 3 样式(基准宽 240;默认图片 = 真实图,此处用斜纹示意)</div>
+<div class="grid"><div><div class="ph img" style="width:240px;height:135px;"></div><div class="cap">16:9 · 默认图片</div></div><div><div class="ph img" style="width:240px;height:165px;"></div><div class="cap">16:11 · 默认图片</div></div><div><div class="ph img" style="width:240px;height:240px;"></div><div class="cap">1:1 · 默认图片</div></div><div><div class="ph img" style="width:240px;height:320px;"></div><div class="cap">3:4 · 默认图片</div></div><div><div class="ph img" style="width:240px;height:118px;"></div><div class="cap">2.03:1 · 默认图片</div></div></div>
+<div class="grid"><div><div class="ph w" style="width:240px;height:135px;"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#F2F4F8"/>
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5571 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5571 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13345_u1)"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13345_u1)"/>
+<defs>
+<linearGradient id="paint0_linear_21808_13345_u1" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13345_u1" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">16:9 · 兜底-白</div></div><div><div class="ph w" style="width:240px;height:165px;"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#F2F4F8"/>
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5571 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5571 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13345_u2)"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13345_u2)"/>
+<defs>
+<linearGradient id="paint0_linear_21808_13345_u2" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13345_u2" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">16:11 · 兜底-白</div></div><div><div class="ph w" style="width:240px;height:240px;"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#F2F4F8"/>
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5571 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5571 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13345_u3)"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13345_u3)"/>
+<defs>
+<linearGradient id="paint0_linear_21808_13345_u3" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13345_u3" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">1:1 · 兜底-白</div></div><div><div class="ph w" style="width:240px;height:320px;"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#F2F4F8"/>
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5571 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5571 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13345_u4)"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13345_u4)"/>
+<defs>
+<linearGradient id="paint0_linear_21808_13345_u4" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13345_u4" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">3:4 · 兜底-白</div></div><div><div class="ph w" style="width:240px;height:118px;"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#F2F4F8"/>
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5571 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5571 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13345_u5)"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13345_u5)"/>
+<defs>
+<linearGradient id="paint0_linear_21808_13345_u5" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13345_u5" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">2.03:1 · 兜底-白</div></div></div>
+<div class="grid"><div><div class="ph b" style="width:240px;height:135px;"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#0F0F1B"/>
+<g filter="url(#filter0_d_21808_13347_u6)">
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5572 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5572 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13347_u6)" shape-rendering="crispEdges"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13347_u6)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_d_21808_13347_u6" x="16.2298" y="16.2298" width="67.5403" height="67.5403" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="1.26008"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0588235 0 0 0 0 0.0588235 0 0 0 0 0.105882 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_21808_13347"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_21808_13347" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_21808_13347_u6" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13347_u6" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">16:9 · 兜底-黑</div></div><div><div class="ph b" style="width:240px;height:165px;"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#0F0F1B"/>
+<g filter="url(#filter0_d_21808_13347_u7)">
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5572 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5572 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13347_u7)" shape-rendering="crispEdges"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13347_u7)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_d_21808_13347_u7" x="16.2298" y="16.2298" width="67.5403" height="67.5403" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="1.26008"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0588235 0 0 0 0 0.0588235 0 0 0 0 0.105882 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_21808_13347"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_21808_13347" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_21808_13347_u7" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13347_u7" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">16:11 · 兜底-黑</div></div><div><div class="ph b" style="width:240px;height:240px;"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#0F0F1B"/>
+<g filter="url(#filter0_d_21808_13347_u8)">
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5572 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5572 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13347_u8)" shape-rendering="crispEdges"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13347_u8)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_d_21808_13347_u8" x="16.2298" y="16.2298" width="67.5403" height="67.5403" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="1.26008"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0588235 0 0 0 0 0.0588235 0 0 0 0 0.105882 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_21808_13347"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_21808_13347" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_21808_13347_u8" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13347_u8" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">1:1 · 兜底-黑</div></div><div><div class="ph b" style="width:240px;height:320px;"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#0F0F1B"/>
+<g filter="url(#filter0_d_21808_13347_u9)">
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5572 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5572 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13347_u9)" shape-rendering="crispEdges"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13347_u9)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_d_21808_13347_u9" x="16.2298" y="16.2298" width="67.5403" height="67.5403" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="1.26008"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0588235 0 0 0 0 0.0588235 0 0 0 0 0.105882 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_21808_13347"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_21808_13347" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_21808_13347_u9" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13347_u9" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">3:4 · 兜底-黑</div></div><div><div class="ph b" style="width:240px;height:118px;"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#0F0F1B"/>
+<g filter="url(#filter0_d_21808_13347_u10)">
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5572 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5572 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13347_u10)" shape-rendering="crispEdges"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13347_u10)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_d_21808_13347_u10" x="16.2298" y="16.2298" width="67.5403" height="67.5403" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="1.26008"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0588235 0 0 0 0 0.0588235 0 0 0 0 0.105882 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_21808_13347"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_21808_13347" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_21808_13347_u10" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13347_u10" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">2.03:1 · 兜底-黑</div></div></div>
+<div class="demo"><b>兜底logo-{白版|黑版}-{标准版|放大版}</b> · 圆盘 100 / 160(logo 62.5%)</div><div class="grid"><div><span class="ph" style="width:100px;height:100px;border-radius:50%"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#F2F4F8"/>
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5571 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5571 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13345_u11)"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13345_u11)"/>
+<defs>
+<linearGradient id="paint0_linear_21808_13345_u11" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13345_u11" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span><div class="cap">白版 · 标准版</div></div><div><span class="ph" style="width:160px;height:160px;border-radius:50%"><svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="160" height="160" fill="#F2F4F8"/>
+<path d="M104.983 70.0088C113.27 70.0088 119.989 63.2914 119.989 55.0052C119.989 46.7189 113.27 40.0016 104.983 40.0016C96.6959 40.0016 89.9778 46.7189 89.9778 55.0052C89.9778 63.2914 96.6959 70.0088 104.983 70.0088Z" fill="url(#paint0_linear_21431_1763_u12)"/>
+<path d="M99.9818 72.7316V93.7686C99.9818 97.2196 97.1804 100.021 93.729 100.026H66.2122C62.7607 100.021 59.9594 97.2196 59.9594 93.7686V66.261C59.9594 62.81 62.7607 60.009 66.2122 60.0031H87.2517L97.0859 33.0214C71.1352 23.5902 42.4541 36.9747 33.0217 62.9222C23.5894 88.8698 36.9755 117.547 62.9262 126.979C88.8769 136.41 117.558 123.025 126.99 97.0778C131.003 86.0452 131.003 73.9548 126.99 62.9222L99.9818 72.7316Z" fill="url(#paint1_linear_21431_1763_u12)"/>
+<defs>
+<linearGradient id="paint0_linear_21431_1763_u12" x1="80" y1="30" x2="80" y2="130" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21431_1763_u12" x1="80" y1="30" x2="80" y2="130" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span><div class="cap">白版 · 放大版</div></div><div><span class="ph" style="width:100px;height:100px;border-radius:50%"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#0F0F1B"/>
+<g filter="url(#filter0_d_21808_13347_u13)">
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5572 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5572 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13347_u13)" shape-rendering="crispEdges"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13347_u13)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_d_21808_13347_u13" x="16.2298" y="16.2298" width="67.5403" height="67.5403" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="1.26008"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0588235 0 0 0 0 0.0588235 0 0 0 0 0.105882 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_21808_13347"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_21808_13347" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_21808_13347_u13" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13347_u13" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span><div class="cap">黑版 · 标准版</div></div><div><span class="ph" style="width:160px;height:160px;border-radius:50%"><svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="160" height="160" fill="#0F0F1B"/>
+<g filter="url(#filter0_d_21431_1765_u14)">
+<path d="M104.983 70.0088C113.27 70.0088 119.989 63.2914 119.989 55.0052C119.989 46.7189 113.27 40.0016 104.983 40.0016C96.6959 40.0016 89.9778 46.7189 89.9778 55.0052C89.9778 63.2914 96.6959 70.0088 104.983 70.0088Z" fill="url(#paint0_linear_21431_1765_u14)" shape-rendering="crispEdges"/>
+<path d="M99.9818 72.7316V93.7686C99.9818 97.2196 97.1804 100.021 93.729 100.026H66.2122C62.7607 100.021 59.9594 97.2196 59.9594 93.7686V66.261C59.9594 62.81 62.7607 60.009 66.2122 60.0031H87.2517L97.0859 33.0214C71.1352 23.5902 42.4541 36.9747 33.0217 62.9222C23.5894 88.8698 36.9755 117.547 62.9262 126.979C88.8769 136.41 117.558 123.025 126.99 97.0778C131.003 86.0452 131.003 73.9548 126.99 62.9222L99.9818 72.7316Z" fill="url(#paint1_linear_21431_1765_u14)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_d_21431_1765_u14" x="25.9677" y="25.9677" width="108.065" height="108.065" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="2.01613"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0588235 0 0 0 0 0.0588235 0 0 0 0 0.105882 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_21431_1765"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_21431_1765" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_21431_1765_u14" x1="80" y1="30" x2="80" y2="130" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21431_1765_u14" x1="80" y1="30" x2="80" y2="130" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span><div class="cap">黑版 · 放大版</div></div></div>
+<div class="demo"><b>logo 切换</b> · 显示区最短边 ≤ 240 用标准版,> 240 用放大版;logo 始终居中(示意 × 0.5)</div><div class="grid zoom"><div><div class="ph w" style="width:240px;height:135px;"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#F2F4F8"/>
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5571 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5571 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13345_u15)"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13345_u15)"/>
+<defs>
+<linearGradient id="paint0_linear_21808_13345_u15" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13345_u15" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap" style="font-size:40px;line-height:60px">16:9 · 240×135 → 标准版</div></div><div><div class="ph w" style="width:702px;height:395px;"><span class="lg lgv"><svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="160" height="160" fill="#F2F4F8"/>
+<path d="M104.983 70.0088C113.27 70.0088 119.989 63.2914 119.989 55.0052C119.989 46.7189 113.27 40.0016 104.983 40.0016C96.6959 40.0016 89.9778 46.7189 89.9778 55.0052C89.9778 63.2914 96.6959 70.0088 104.983 70.0088Z" fill="url(#paint0_linear_21431_1763_u16)"/>
+<path d="M99.9818 72.7316V93.7686C99.9818 97.2196 97.1804 100.021 93.729 100.026H66.2122C62.7607 100.021 59.9594 97.2196 59.9594 93.7686V66.261C59.9594 62.81 62.7607 60.009 66.2122 60.0031H87.2517L97.0859 33.0214C71.1352 23.5902 42.4541 36.9747 33.0217 62.9222C23.5894 88.8698 36.9755 117.547 62.9262 126.979C88.8769 136.41 117.558 123.025 126.99 97.0778C131.003 86.0452 131.003 73.9548 126.99 62.9222L99.9818 72.7316Z" fill="url(#paint1_linear_21431_1763_u16)"/>
+<defs>
+<linearGradient id="paint0_linear_21431_1763_u16" x1="80" y1="30" x2="80" y2="130" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21431_1763_u16" x1="80" y1="30" x2="80" y2="130" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap" style="font-size:40px;line-height:60px">16:9 · 702×395 → 放大版</div></div></div>
+<div class="demo"><b>形状适配</b> · 兜底图本身直角,铺满区域后由区域的圆角 / 圆形裁切(overflow:hidden)</div><div class="grid"><div><div class="ph w" style="width:160px;height:160px;"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#F2F4F8"/>
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5571 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5571 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13345_u17)"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13345_u17)"/>
+<defs>
+<linearGradient id="paint0_linear_21808_13345_u17" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13345_u17" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">直角区域</div></div><div><div class="ph w" style="width:160px;height:160px;border-radius:var(--RD2)"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#F2F4F8"/>
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5571 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5571 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13345_u18)"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13345_u18)"/>
+<defs>
+<linearGradient id="paint0_linear_21808_13345_u18" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13345_u18" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">圆角 8 区域</div></div><div><div class="ph w" style="width:160px;height:160px;border-radius:var(--RD4)"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#F2F4F8"/>
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5571 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5571 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13345_u19)"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13345_u19)"/>
+<defs>
+<linearGradient id="paint0_linear_21808_13345_u19" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13345_u19" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">圆角 16 区域</div></div><div><div class="ph w" style="width:160px;height:160px;border-radius:50%"><span class="lg std"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#F2F4F8"/>
+<path d="M65.6145 43.7555C70.7941 43.7555 74.9929 39.5571 74.9929 34.3782C74.9929 29.1993 70.7941 25.001 65.6145 25.001C60.435 25.001 56.2361 29.1993 56.2361 34.3782C56.2361 39.5571 60.435 43.7555 65.6145 43.7555Z" fill="url(#paint0_linear_21808_13345_u20)"/>
+<path d="M62.4886 45.4573V58.6054C62.4886 60.7622 60.7378 62.5129 58.5806 62.5166H41.3826C39.2255 62.5129 37.4746 60.7622 37.4746 58.6054V41.4131C37.4746 39.2562 39.2255 37.5056 41.3826 37.5019H54.5323L60.6787 20.6384C44.4595 14.7439 26.5338 23.1092 20.6386 39.3264C14.7434 55.5436 23.1097 73.4672 39.3289 79.3616C55.5481 85.2561 73.4738 76.8908 79.369 60.6736C81.877 53.7782 81.877 46.2218 79.369 39.3264L62.4886 45.4573Z" fill="url(#paint1_linear_21808_13345_u20)"/>
+<defs>
+<linearGradient id="paint0_linear_21808_13345_u20" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21808_13345_u20" x1="50" y1="18.75" x2="50" y2="81.25" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span></div><div class="cap">圆形区域</div></div></div>
+<div class="demo"><b>图标兜底</b> · 图标库定好的 5 个组件(白卡 / 深卡);对不上的图标位用 图片-1:1 兜底、由图标位裁切</div>
+<div class="grid"><div><span class="ico w"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="5" y="5" width="54" height="54" rx="12" fill="#F2F4F8"/>
+<path d="M40.4318 28.628C43.2288 28.628 45.4962 26.3609 45.4962 23.5642C45.4962 20.7676 43.2288 18.5005 40.4318 18.5005C37.6349 18.5005 35.3675 20.7676 35.3675 23.5642C35.3675 26.3609 37.6349 28.628 40.4318 28.628Z" fill="url(#paint0_linear_17834_53052_u21)"/>
+<path d="M38.7438 29.5469V36.6469C38.7438 37.8116 37.7984 38.7569 36.6335 38.7589H27.3466C26.1817 38.7569 25.2363 37.8116 25.2363 36.6469V27.3631C25.2363 26.1984 26.1817 25.253 27.3466 25.251H34.4474L37.7665 16.1447C29.0081 12.9617 19.3282 17.4789 16.1448 26.2363C12.9614 34.9936 17.4792 44.6723 26.2376 47.8553C34.996 51.0383 44.6758 46.521 47.8592 37.7637C49.2136 34.0402 49.2136 29.9598 47.8592 26.2363L38.7438 29.5469Z" fill="url(#paint1_linear_17834_53052_u21)"/>
+<defs>
+<linearGradient id="paint0_linear_17834_53052_u21" x1="32" y1="15.125" x2="32" y2="48.875" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_17834_53052_u21" x1="32" y1="15.125" x2="32" y2="48.875" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span> <span class="ico b"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="5" y="5" width="54" height="54" rx="12" fill="#0F0F1B"/>
+<g filter="url(#filter0_d_17973_18958_u22)">
+<path d="M40.4318 28.628C43.2288 28.628 45.4962 26.3609 45.4962 23.5642C45.4962 20.7676 43.2288 18.5005 40.4318 18.5005C37.6349 18.5005 35.3675 20.7676 35.3675 23.5642C35.3675 26.3609 37.6349 28.628 40.4318 28.628Z" fill="url(#paint0_linear_17973_18958_u22)" shape-rendering="crispEdges"/>
+<path d="M38.7438 29.5469V36.6469C38.7438 37.8116 37.7984 38.7569 36.6335 38.7589H27.3466C26.1817 38.7569 25.2363 37.8116 25.2363 36.6469V27.3631C25.2363 26.1984 26.1817 25.253 27.3466 25.251H34.4474L37.7665 16.1447C29.0081 12.9617 19.3282 17.4789 16.1448 26.2363C12.9614 34.9936 17.4792 44.6723 26.2376 47.8553C34.996 51.0383 44.6758 46.5211 47.8592 37.7637C49.2136 34.0402 49.2136 29.9598 47.8592 26.2363L38.7438 29.5469Z" fill="url(#paint1_linear_17973_18958_u22)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_d_17973_18958_u22" x="13.7641" y="13.7641" width="36.4718" height="36.4718" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="0.680444"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0588235 0 0 0 0 0.0588235 0 0 0 0 0.105882 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_17973_18958"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_17973_18958" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_17973_18958_u22" x1="32" y1="15.125" x2="32" y2="48.875" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_17973_18958_u22" x1="32" y1="15.125" x2="32" y2="48.875" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span><div class="cap">slice_all-func_fallback-img · 64 图标</div></div></div>
+<div class="grid"><div><span class="ico w"><svg width="88" height="88" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 44C0 19.6995 19.6995 0 44 0C68.3005 0 88 19.6995 88 44C88 68.3005 68.3005 88 44 88C19.6995 88 0 68.3005 0 44Z" fill="#F2F4F8"/>
+<path d="M57.7408 38.5048C62.2988 38.5048 65.9938 34.8103 65.9938 30.2528C65.9938 25.6954 62.2988 22.0009 57.7408 22.0009C53.1828 22.0009 49.4878 25.6954 49.4878 30.2528C49.4878 34.8103 53.1828 38.5048 57.7408 38.5048Z" fill="url(#paint0_linear_17834_52993_u23)"/>
+<path d="M54.99 40.0024V51.5727C54.99 53.4708 53.4492 55.0113 51.551 55.0146H36.4167C34.5184 55.0113 32.9777 53.4708 32.9777 51.5727V36.4435C32.9777 34.5455 34.5184 33.0049 36.4167 33.0017H47.9884L53.3972 18.1618C39.1243 12.9746 23.3497 20.3361 18.162 34.6072C12.9742 48.8784 20.3365 64.6511 34.6094 69.8382C48.8823 75.0254 64.6569 67.6639 69.8447 53.3928C72.0518 47.3248 72.0518 40.6752 69.8447 34.6072L54.99 40.0024Z" fill="url(#paint1_linear_17834_52993_u23)"/>
+<defs>
+<linearGradient id="paint0_linear_17834_52993_u23" x1="44" y1="16.5" x2="44" y2="71.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_17834_52993_u23" x1="44" y1="16.5" x2="44" y2="71.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span> <span class="ico b"><svg width="88" height="88" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 44C0 19.6995 19.6995 0 44 0C68.3005 0 88 19.6995 88 44C88 68.3005 68.3005 88 44 88C19.6995 88 0 68.3005 0 44Z" fill="#F2F4F8"/>
+<path d="M57.7408 38.5048C62.2988 38.5048 65.9938 34.8103 65.9938 30.2528C65.9938 25.6954 62.2988 22.0009 57.7408 22.0009C53.1828 22.0009 49.4878 25.6954 49.4878 30.2528C49.4878 34.8103 53.1828 38.5048 57.7408 38.5048Z" fill="url(#paint0_linear_17834_52993_u24)"/>
+<path d="M54.99 40.0024V51.5727C54.99 53.4708 53.4492 55.0113 51.551 55.0146H36.4167C34.5184 55.0113 32.9777 53.4708 32.9777 51.5727V36.4435C32.9777 34.5455 34.5184 33.0049 36.4167 33.0017H47.9884L53.3972 18.1618C39.1243 12.9746 23.3497 20.3361 18.162 34.6072C12.9742 48.8784 20.3365 64.6511 34.6094 69.8382C48.8823 75.0254 64.6569 67.6639 69.8447 53.3928C72.0518 47.3248 72.0518 40.6752 69.8447 34.6072L54.99 40.0024Z" fill="url(#paint1_linear_17834_52993_u24)"/>
+<defs>
+<linearGradient id="paint0_linear_17834_52993_u24" x1="44" y1="16.5" x2="44" y2="71.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_17834_52993_u24" x1="44" y1="16.5" x2="44" y2="71.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span><div class="cap">slice_vip-serv_fallback-img · 88 VIP 服务(一张图白 / 黑页面通用)</div></div></div>
+<div class="grid"><div><span class="ico w"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4" width="40" height="40" rx="8" fill="#F2F4F8"/>
+<path d="M30.2458 21.5022C32.3176 21.5022 33.9972 19.8229 33.9972 17.7513C33.9972 15.6797 32.3176 14.0004 30.2458 14.0004C28.174 14.0004 26.4944 15.6797 26.4944 17.7513C26.4944 19.8229 28.174 21.5022 30.2458 21.5022Z" fill="url(#paint0_linear_17834_53020_u25)"/>
+<path d="M28.9954 22.1829V27.4421C28.9954 28.3049 28.2951 29.0051 27.4323 29.0066H20.553C19.6902 29.0051 18.9899 28.3049 18.9899 27.4421V20.5652C18.9899 19.7025 19.6902 19.0022 20.553 19.0008H25.8129L28.2715 12.2553C21.7838 9.89755 14.6135 13.2437 12.2554 19.7306C9.89735 26.2174 13.2439 33.3869 19.7316 35.7447C26.2192 38.1025 33.3895 34.7563 35.7476 28.2694C36.7508 25.5113 36.7508 22.4887 35.7476 19.7306L28.9954 22.1829Z" fill="url(#paint1_linear_17834_53020_u25)"/>
+<defs>
+<linearGradient id="paint0_linear_17834_53020_u25" x1="24" y1="11.5" x2="24" y2="36.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_17834_53020_u25" x1="24" y1="11.5" x2="24" y2="36.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span> <span class="ico b"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4" width="40" height="40" rx="8" fill="#0F0F1B"/>
+<g filter="url(#filter0_d_17834_53031_u26)">
+<path d="M30.2458 21.5022C32.3176 21.5022 33.9972 19.8229 33.9972 17.7513C33.9972 15.6797 32.3176 14.0004 30.2458 14.0004C28.174 14.0004 26.4944 15.6797 26.4944 17.7513C26.4944 19.8229 28.174 21.5022 30.2458 21.5022Z" fill="url(#paint0_linear_17834_53031_u26)" shape-rendering="crispEdges"/>
+<path d="M28.9954 22.1829V27.4421C28.9954 28.3049 28.2951 29.0051 27.4323 29.0066H20.553C19.6902 29.0051 18.9899 28.3049 18.9899 27.4421V20.5652C18.9899 19.7025 19.6902 19.0022 20.553 19.0008H25.8129L28.2715 12.2553C21.7838 9.89755 14.6135 13.2437 12.2554 19.7306C9.89735 26.2175 13.2439 33.3869 19.7316 35.7447C26.2192 38.1025 33.3895 34.7563 35.7476 28.2694C36.7508 25.5113 36.7508 22.4887 35.7476 19.7306L28.9954 22.1829Z" fill="url(#paint1_linear_17834_53031_u26)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_d_17834_53031_u26" x="10.4919" y="10.4919" width="27.0161" height="27.0161" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="0.504032"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0588235 0 0 0 0 0.0588235 0 0 0 0 0.105882 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_17834_53031"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_17834_53031" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_17834_53031_u26" x1="24" y1="11.5" x2="24" y2="36.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_17834_53031_u26" x1="24" y1="11.5" x2="24" y2="36.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span><div class="cap">slice_list_fallback-img · 48 切图图标</div></div></div>
+<div class="grid"><div><span class="ico w"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4" width="40" height="40" rx="8" fill="#F2F4F8"/>
+<path d="M30.2458 21.5022C32.3176 21.5022 33.9972 19.8229 33.9972 17.7513C33.9972 15.6797 32.3176 14.0004 30.2458 14.0004C28.174 14.0004 26.4944 15.6797 26.4944 17.7513C26.4944 19.8229 28.174 21.5022 30.2458 21.5022Z" fill="url(#paint0_linear_26767_5090_u27)"/>
+<path d="M28.9954 22.1829V27.4421C28.9954 28.3049 28.2951 29.0051 27.4323 29.0066H20.553C19.6902 29.0051 18.9899 28.3049 18.9899 27.4421V20.5652C18.9899 19.7025 19.6902 19.0022 20.553 19.0008H25.8129L28.2715 12.2553C21.7838 9.89755 14.6135 13.2437 12.2554 19.7306C9.89735 26.2174 13.2439 33.3869 19.7316 35.7447C26.2192 38.1025 33.3895 34.7563 35.7476 28.2694C36.7508 25.5113 36.7508 22.4887 35.7476 19.7306L28.9954 22.1829Z" fill="url(#paint1_linear_26767_5090_u27)"/>
+<defs>
+<linearGradient id="paint0_linear_26767_5090_u27" x1="24" y1="11.5" x2="24" y2="36.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_26767_5090_u27" x1="24" y1="11.5" x2="24" y2="36.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span> <span class="ico b"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4" width="40" height="40" rx="8" fill="#0F0F1B"/>
+<g filter="url(#filter0_d_26767_5091_u28)">
+<path d="M30.2458 21.5022C32.3176 21.5022 33.9972 19.8229 33.9972 17.7513C33.9972 15.6797 32.3176 14.0004 30.2458 14.0004C28.174 14.0004 26.4944 15.6797 26.4944 17.7513C26.4944 19.8229 28.174 21.5022 30.2458 21.5022Z" fill="url(#paint0_linear_26767_5091_u28)" shape-rendering="crispEdges"/>
+<path d="M28.9954 22.1829V27.4421C28.9954 28.3049 28.2951 29.0051 27.4323 29.0066H20.553C19.6902 29.0051 18.9899 28.3049 18.9899 27.4421V20.5652C18.9899 19.7025 19.6902 19.0022 20.553 19.0008H25.8129L28.2715 12.2553C21.7838 9.89755 14.6135 13.2437 12.2554 19.7306C9.89735 26.2175 13.2439 33.3869 19.7316 35.7447C26.2192 38.1025 33.3895 34.7563 35.7476 28.2694C36.7508 25.5113 36.7508 22.4887 35.7476 19.7306L28.9954 22.1829Z" fill="url(#paint1_linear_26767_5091_u28)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_d_26767_5091_u28" x="10.4919" y="10.4919" width="27.0161" height="27.0161" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="0.504032"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0588235 0 0 0 0 0.0588235 0 0 0 0 0.105882 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_26767_5091"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_26767_5091" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_26767_5091_u28" x1="24" y1="11.5" x2="24" y2="36.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_26767_5091_u28" x1="24" y1="11.5" x2="24" y2="36.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span><div class="cap">icf_nav_fallback-img · 48 导航栏 icf</div></div></div>
+<div class="grid"><div><span class="ico w"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4" width="40" height="40" rx="8" fill="#F2F4F8"/>
+<path d="M30.2458 21.5022C32.3176 21.5022 33.9972 19.8229 33.9972 17.7513C33.9972 15.6797 32.3176 14.0004 30.2458 14.0004C28.174 14.0004 26.4944 15.6797 26.4944 17.7513C26.4944 19.8229 28.174 21.5022 30.2458 21.5022Z" fill="url(#paint0_linear_26767_5093_u29)"/>
+<path d="M28.9954 22.1829V27.4421C28.9954 28.3049 28.2951 29.0051 27.4323 29.0066H20.553C19.6902 29.0051 18.9899 28.3049 18.9899 27.4421V20.5652C18.9899 19.7025 19.6902 19.0022 20.553 19.0008H25.8129L28.2715 12.2553C21.7838 9.89755 14.6135 13.2437 12.2554 19.7306C9.89735 26.2174 13.2439 33.3869 19.7316 35.7447C26.2192 38.1025 33.3895 34.7563 35.7476 28.2694C36.7508 25.5113 36.7508 22.4887 35.7476 19.7306L28.9954 22.1829Z" fill="url(#paint1_linear_26767_5093_u29)"/>
+<defs>
+<linearGradient id="paint0_linear_26767_5093_u29" x1="24" y1="11.5" x2="24" y2="36.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_26767_5093_u29" x1="24" y1="11.5" x2="24" y2="36.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span> <span class="ico b"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4" width="40" height="40" rx="8" fill="#0F0F1B"/>
+<g filter="url(#filter0_d_26767_5094_u30)">
+<path d="M30.2458 21.5022C32.3176 21.5022 33.9972 19.8229 33.9972 17.7513C33.9972 15.6797 32.3176 14.0004 30.2458 14.0004C28.174 14.0004 26.4944 15.6797 26.4944 17.7513C26.4944 19.8229 28.174 21.5022 30.2458 21.5022Z" fill="url(#paint0_linear_26767_5094_u30)" shape-rendering="crispEdges"/>
+<path d="M28.9954 22.1829V27.4421C28.9954 28.3049 28.2951 29.0051 27.4323 29.0066H20.553C19.6902 29.0051 18.9899 28.3049 18.9899 27.4421V20.5652C18.9899 19.7025 19.6902 19.0022 20.553 19.0008H25.8129L28.2715 12.2553C21.7838 9.89755 14.6135 13.2437 12.2554 19.7306C9.89735 26.2175 13.2439 33.3869 19.7316 35.7447C26.2192 38.1025 33.3895 34.7563 35.7476 28.2694C36.7508 25.5113 36.7508 22.4887 35.7476 19.7306L28.9954 22.1829Z" fill="url(#paint1_linear_26767_5094_u30)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_d_26767_5094_u30" x="10.4919" y="10.4919" width="27.0161" height="27.0161" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="0.504032"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0588235 0 0 0 0 0.0588235 0 0 0 0 0.105882 0 0 0 0.08 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_26767_5094"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_26767_5094" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_26767_5094_u30" x1="24" y1="11.5" x2="24" y2="36.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint1_linear_26767_5094_u30" x1="24" y1="11.5" x2="24" y2="36.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#373746"/>
+<stop offset="1" stop-color="#373746" stop-opacity="0.3"/>
+</linearGradient>
+</defs>
+</svg></span><div class="cap">icf_gen_fallback-img · 48 通用 icf</div></div></div>
 </body>
 </html>

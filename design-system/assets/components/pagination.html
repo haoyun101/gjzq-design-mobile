@@ -47,7 +47,7 @@
   .dots-inverse .dot.on{width:16px;background:var(--ci5)}
 
   /* 滑动分页符 */
-  .track{height:6px;width:60px;border-radius:var(--RD9);background:rgba(204,204,204,.2);position:relative;overflow:hidden}
+  .track{height:6px;width:60px;border-radius:var(--RD9);background:rgba(204,204,204,.5);position:relative;overflow:hidden}
   .bar{position:absolute;top:0;bottom:0;left:0;width:40%;border-radius:var(--RD9);background:var(--cp0)}
   @media (prefers-reduced-motion: no-preference){ .bar.play{animation:slide 2.6s cubic-bezier(.34,1.3,.64,1) infinite alternate} }
   @keyframes slide{ from{left:0} to{left:60%} }
@@ -61,7 +61,7 @@
 <div class="wrap">
   <p class="top">国金证券客户端设计系统 · 组件参考实现</p>
   <h1>分页符 / Pagination</h1>
-  <p class="sub">通用组件层 · 含动画规则 · 设计系统 v3.8.0 · 别人照此实现动画即可保持一致</p>
+  <p class="sub">通用组件层 · 含动画规则 · 别人照此实现动画即可保持一致</p>
 
   <div class="modes">
     <b>两种触发方式</b>(动画过渡一致,仅触发不同,无任何箭头/按钮控件):<br>
@@ -72,7 +72,7 @@
 
   <!-- 整页 常规 -->
   <div class="card" style="margin-top:var(--SP5)">
-    <p class="h">① 整页分页符 · 常规版</p>
+    <p class="h">① 整页分页符(浅)</p>
     <p class="hsub">浅色卡片背景 · banner / 卡片切换 / 整页轮播</p>
     <div class="stage stage-white"><div class="dots dots-regular" id="d-reg"></div></div>
     <p class="cap">
@@ -84,7 +84,7 @@
 
   <!-- 整页 反白 -->
   <div class="card">
-    <p class="h">② 整页分页符 · 反白版</p>
+    <p class="h">② 整页分页符(深)</p>
     <p class="hsub">banner / 图片 / 彩色背景之上</p>
     <div class="stage stage-color"><div class="dots dots-inverse" id="d-inv"></div></div>
     <p class="cap">同尺寸规则 · 选中 <span class="tok">#FFFFFF (CI5)</span> / 未选 <span class="tok">#0F0F1B (CI1) @20%</span>。</p>
@@ -92,11 +92,11 @@
 
   <!-- 滑动 -->
   <div class="card">
-    <p class="h">③ 滑动分页符</p>
+    <p class="h">③ 滑动分页符(浅)</p>
     <p class="hsub">横滑内容(金刚区侧滑 / 横向列表)— 指示当前可视比例</p>
     <div class="stage stage-white"><div class="track"><div class="bar play" id="bar"></div></div></div>
     <p class="cap">
-      <b>滑动槽固定 60×6</b> r999 · 槽 <span class="tok">CI4 @20%</span> · 条 <span class="tok">CP0</span> ·
+      <b>滑动槽固定 60×6</b> r999 · 槽 <span class="tok">CI4 @50%</span> · 条 <span class="tok">CP0</span> ·
       条长 = 前屏显示长度 / 内容总长度 · <b>到头/到底有回弹</b>(demo 用回弹缓动演示)<br>
       位置:卡片外 距上 16 / 距下 24;卡片内(banner)距下 8。
     </p>
