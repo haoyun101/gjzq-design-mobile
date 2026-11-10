@@ -8,10 +8,20 @@
 
 ---
 
+## v11.2 — 2026-11-10
+
+**影响文件**：`VERSION`、`SKILL.md`、`CHANGELOG.md`、`references/multi-window.md`。其余 10 个文件不变。
+
+- 更正历史条目的全包文件数表述。
+- 明确入库结论与整改状态互斥。
+- 区分 11-09 测试与 11-10 查出问题。
+
+---
+
 ## v11.1 — 2026-11-10
 
 **影响文件**:`SKILL.md` / `references/multi-window.md` / `references/process.md` / `VERSION` / `CHANGELOG.md`
-**未变**:`scripts/check-update.sh`、`references/workspace.md`、`references/execution-standard.md`、全部 6 个模板。**14 个文件不变。**
+**未变**:`scripts/check-update.sh`、`references/workspace.md`、`references/execution-standard.md`、全部 6 个模板。**全包共 14 个文件。**
 
 **起因**:用户 2026-11-10 要求对 v11.0 的新增内容自查「能不能正常用、AI 好不好执行、有没有语义重复累赘、与别处有没有歧义或重复」。查出 **12 处**,全部在本版修掉。**除一条通则升级(见下方 🔴 第 1 条)外没有新规则,其余全是把刚写的东西改对。**
 
@@ -48,7 +58,7 @@
 ## v11.0 — 2026-11-10
 
 **影响文件**:`SKILL.md` / `references/multi-window.md` / `references/process.md` / `assets/templates/handoff-package.md` / `assets/templates/intake.md` / `VERSION` / `CHANGELOG.md`
-**未变**:`scripts/check-update.sh`、`references/workspace.md`、`references/execution-standard.md`、另 4 个模板。**14 个文件不变。**
+**未变**:`scripts/check-update.sh`、`references/workspace.md`、`references/execution-standard.md`、另 4 个模板。**全包共 14 个文件。**
 
 **起因**:2026-11-09 冷启动测试的第二批(攒批 21 / 23 / 24 / 25),外加 **11-10 检查窗口对那次测试交付物的逐项核查**——后者把攒批 21 的诊断**整个推翻了**,也顺带交出了本包一直缺的「收方怎么验」。
 
@@ -79,7 +89,7 @@
 
 §5 原本只有一句「给齐 7 项,收方即可直接写库」,**没写收方要验什么**。11-10 检查窗口现场摸出一套,本版照它固化成五条**内容检**:① 形式(七项齐不齐,缺了退回不替补)② 参考实现(用被维护 skill **当前版**的脚本重跑,比对方自报)③ 数值(**自己直读 Figma 抽查**,别只看它的清单)④ 复用与色值(摘进来的既有组件样式与**库内现行值逐字比**,浅色深色都比)⑤ 渲染(每个变体与 Figma 截图逐块对,字体按 §5.2 硬规则、降级要显形)。
 
-> ⛔ 并明写一条口径:**「内容基本过关」不等于「可以入库」** —— 验完要分开给三种结论(可入库 / 内容要先改 / 形式要先补),**三者可以同时成立**。
+> ⛔ 并明写一条口径:**「内容基本过关」不等于「可以入库」** —— 验完要分开给三种结论(可入库 / 内容要先改 / 形式要先补),**两项待整改可以并存；内容与形式均通过才可入库**。
 
 ### 其余三条
 
@@ -101,7 +111,7 @@
 ## v10.1 — 2026-11-09
 
 **影响文件**:`SKILL.md` / `references/process.md` / `references/multi-window.md` / `VERSION` / `CHANGELOG.md`
-**未变**:`scripts/check-update.sh`、`references/workspace.md`、`references/execution-standard.md`、全部 6 个模板。**14 个文件不变。**
+**未变**:`scripts/check-update.sh`、`references/workspace.md`、`references/execution-standard.md`、全部 6 个模板。**全包共 14 个文件。**
 
 **起因**:2026-11-09 冷启动还原测试(另开空项目,只给 WF v10.0 + DS v5.13.3 两个包 + 一句工作指令,不给任何活动件、不给开场白、不作任何嘱咐,全程 17 轮)。本版收测试暴露的 7 条,**全是「改了没回扫 / 条件写窄 / 降级无声」,不引入新概念**。
 
