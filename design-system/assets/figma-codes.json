@@ -3,10 +3,10 @@
  "source": {
   "file": "佣金宝组件库 V2.0",
   "fileKey": "zCOxOb0INHc9QnSrmWVVx7",
-  "readAt": "2026-10-27;C23 / C24 第 3–4 轮 / C34 补读 2026-11-03",
+  "readAt": "2026-10-27;C23 / C24 第 3–4 轮 / C34 补读 2026-11-03;C12 补读 2026-11-05",
   "via": "Figma MCP 直读"
  },
- "note": "组件集 Key(setKey)= 研发「获取编码」插件给出的唯一 Key;变体 Key(variantKey)= 该变体自身的 component key。一个 DS 组件可能对应多个组件集(见 sets[].role);AI 识别时先用 setKey 定组件,再按变体属性或 variantKey 定变体。图标不收录(按图标名定位,见 assets/icons/ICONS.md)。 props 只列变体属性;开关 / 实例替换 / 文字 / 插槽等非变体属性列在 otherProps。",
+ "note": "组件集 Key(setKey)= 研发「获取编码」插件给出的唯一 Key;变体 Key(variantKey)= 该变体自身的 component key。一个 DS 组件可能对应多个组件集(见 sets[].role);AI 识别时先用 setKey 定组件,再按变体属性或 variantKey 定变体。图标不收录(按图标名定位,见 assets/icons/ICONS.md)。 props 只列变体属性;开关 / 实例替换 / 文字 / 插槽等非变体属性列在 otherProps。 查变体 Key:各组的变体表列结构不统一,一律按该组 variantColumns 找列名为「variantKey」的那一列取值——有的组按「规范名 / 状态 / 尺寸 / 样式」查行(如 C01),有的按「Figma 变体」串(如「开关=开, 状态=默认, 尺寸=M」)查行。",
  "components": {
   "C01 常规按钮": {
    "figmaName": "按钮",
@@ -2403,6 +2403,144 @@
        "黑/白版=黑版",
        "26767:5094",
        "e5d3f0fa4b33943da991064cb6b4b2d4ba1a48be"
+      ]
+     ]
+    }
+   ]
+  },
+  "C12 图标宫格": {
+   "sets": [
+    {
+     "role": "单元格",
+     "figmaName": "图标宫格基础样式",
+     "setNodeId": "3914:32550",
+     "setKey": "6a9b853c4bc879972d5e0e7d55f415a665bab21f",
+     "props": {
+      "类型": [
+       "64px图标",
+       "88px图标"
+      ]
+     },
+     "variantColumns": [
+      "Figma 变体",
+      "nodeId",
+      "variantKey"
+     ],
+     "variants": [
+      [
+       "类型=64px图标",
+       "3680:41281",
+       "8a6c02ca12eb43bed9537e2af94c7953e1b1247a"
+      ],
+      [
+       "类型=88px图标",
+       "3773:36111",
+       "3268cab73b3067e76e0690a33c5cadcc362f1d8e"
+      ]
+     ]
+    },
+    {
+     "role": "通栏 5 列",
+     "figmaName": "通栏宫格/64px*5宫格排列",
+     "setNodeId": "3944:51363",
+     "setKey": "c654b34075123801abe0f6572c2e878ac419c890",
+     "props": {
+      "类型": [
+       "5*1宫格",
+       "5*2宫格"
+      ]
+     },
+     "otherProps": [
+      "显示分页符:BOOLEAN"
+     ],
+     "variantColumns": [
+      "Figma 变体",
+      "nodeId",
+      "variantKey"
+     ],
+     "variants": [
+      [
+       "类型=5*1宫格",
+       "3914:48280",
+       "fe7c73ad29632d067416cc80f603995cf798f09b"
+      ],
+      [
+       "类型=5*2宫格",
+       "3914:48432",
+       "b411a719574a7e2ea8a20c962ac7bc01abac8ff7"
+      ]
+     ]
+    },
+    {
+     "role": "通栏 4 列",
+     "figmaName": "通栏宫格/64px*4宫格排列",
+     "setNodeId": "18360:370608",
+     "setKey": "703724d5f8f20c48829ad4357e0ed6cb7961f843",
+     "props": {
+      "类型": [
+       "4*1宫格",
+       "4*2宫格"
+      ]
+     },
+     "variantColumns": [
+      "Figma 变体",
+      "nodeId",
+      "variantKey"
+     ],
+     "variants": [
+      [
+       "类型=4*1宫格",
+       "3914:48577",
+       "69b4ace527cac34090a2815b4ddbf5781af3f4ce"
+      ],
+      [
+       "类型=4*2宫格",
+       "3914:48633",
+       "a47d1becd4f4a0d55b4da0a0efa47077c0a29204"
+      ]
+     ]
+    },
+    {
+     "role": "侧滑",
+     "figmaName": "通栏宫格/64px侧滑样式",
+     "nodeId": "18360:370583",
+     "key": "20da2982e93efb954e77e7d033ecafb6d5261594"
+    },
+    {
+     "role": "通栏 88×4",
+     "figmaName": "通栏宫格/88px*4宫格排列",
+     "nodeId": "3773:37425",
+     "key": "a36096a7bbd75f2008ee47542e07e08a201bc40a",
+     "otherProps": [
+      "显示分页符:BOOLEAN"
+     ]
+    },
+    {
+     "role": "卡片 4 列",
+     "figmaName": "卡片宫格/64px*4宫格排列",
+     "setNodeId": "18362:376527",
+     "setKey": "20a11fee592100620ba5fa79ceee42eeb62ec934",
+     "props": {
+      "类型": [
+       "4*1宫格",
+       "4*2宫格"
+      ]
+     },
+     "variantColumns": [
+      "Figma 变体",
+      "nodeId",
+      "variantKey"
+     ],
+     "variants": [
+      [
+       "类型=4*1宫格",
+       "18360:370425",
+       "a08f446f091f24880e367f37bbbe06f0c8fb6e79"
+      ],
+      [
+       "类型=4*2宫格",
+       "18362:376526",
+       "af0ef6097ea825b42ff0574209db775c393f2b16"
       ]
      ]
     }

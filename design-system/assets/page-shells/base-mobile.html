@@ -5,6 +5,9 @@
      用法:每个模块包成 <section class="gj-module">…</section> 塞进 <main>,间距自动 = data-level 对应 gap(一级16/二级24)。
      data-level="1" = 一级页面(底部 Tab 五页:首页/自选/交易/理财/我的),边距&间距 16;
      data-level="2" = 二级页面(详情/列表/表单等),边距&间距 24;data-layout="flat|stack" 平铺/堆叠。
+     data-bleed="full" = 通栏:模块左右铺满 750、白底 CB1、圆角 RD7(32),模块内左右留本级边距(一级16/二级24),模块间距不变;
+     data-bleed="list" = 通栏·列表为主:同上但无圆角(列表多的页面,如「组合交易 · 转入」);
+     圆角取值:有设计稿按设计稿;没有设计稿时,列表多的页面用 list,其他用 full。不写 = 默认卡片式(容器两侧留边距)。
      间距/边距值=foundations「间距」节单一真源(--SP4/--SP6),外壳禁自改(P0)。AI 只填模块内容。-->
 <style>
 :root{
@@ -25,6 +28,11 @@
 main{display:flex;flex-direction:column;gap:var(--gap,var(--SP4));padding:var(--SP0) var(--pad,var(--SP4)) calc(var(--tab) + var(--home) + var(--SP6))}
 .shell[data-level="1"]{--pad:var(--pad1);--gap:var(--gap1)}
 .shell[data-level="2"]{--pad:var(--pad2);--gap:var(--gap2)}
+/* 通栏:容器不留左右边距,改由模块内部留;模块白底铺满。full 圆角 RD7,list(列表为主)无圆角 */
+.shell[data-bleed] main{padding-left:var(--SP0);padding-right:var(--SP0)}
+.shell[data-bleed] .gj-module{background:var(--CB1);padding-left:var(--pad);padding-right:var(--pad)}
+.shell[data-bleed="full"] .gj-module{border-radius:var(--RD7)}
+.shell[data-bleed="list"] .gj-module{border-radius:var(--RD0)}
 .gj-module{}                                  /* 模块占位:间距由 main 的 gap 决定,勿自加 margin-top/bottom/height 撑间距 */
 .card{background:var(--CB1);border-radius:var(--RD6);padding:var(--SP5)}  /* 卡内边距20;无 margin */
 .bottomnav{position:absolute;bottom:0;left:0;right:0;height:calc(var(--tab) + var(--home));background:var(--CB1);border-top:1px solid var(--CL2)}

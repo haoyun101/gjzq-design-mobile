@@ -1,6 +1,6 @@
 # bottom-info-bar · 轻量用法说明
 
-> 目的:给 AI 生成一级页面时低成本复用 `bottom-info-bar.html`,避免默认全文读取 250KB 参考实现。真源仍是 `assets/components/bottom-info-bar.html`;本文件只写识别、状态映射和引用边界。
+> 目的:给 AI 生成一级页面时低成本复用 `bottom-info-bar.html`,避免默认全文读取参考实现。真源仍是 `assets/components/bottom-info-bar.html`;本文件只写识别、状态映射和引用边界。
 
 ## 什么时候用
 

@@ -19,6 +19,7 @@
 - **变体**:Figma 组件集的变体按属性值区分。导出文件时,文件名 = `{组件名}-{属性值}`,多个属性按 Figma 属性顺序依次连接,如 `slice_watch_signal-ena-w.svg`(状态=ena、黑/白版=w);iconfont 变体同理(`icf_func_sort-asc`)。文件名只用 ASCII 字母、数字、`_`、`-`。
 - **类名不带前缀**:iconfont 平台下载的 css 会自动加 `icon-` 前缀,skill 的 `fonts/iconfont.css` 由 `iconfont.json` 生成,**不带该前缀**,类名即图标名。
 - `slice` 图标名以 Figma 原样为准;`icf` 图标必须 iconfont、Figma、skill、站点四处一致。
+- **命名结构怎么读(还原设计稿时)**:设计稿里的切图 / 图标图层名按 `【实现方式】_【场景/类别/模块】_【图标名称_状态】` 三段读,如 `qietu_benefit_img_orig-bg` = 实现方式 `qietu` · 模块 `benefit` · 名称与状态 `img_orig-bg`。**【】里是设计师给定的固定信息,AI 不判断、不改写,原样沿用**:前缀不是 `icf` / `slice`、归属不在上面词表里、名称里带项目名(如 `AI+` 的 `+`)都照用,不报为不合规。上面的格式、受控词表与「只用 ASCII」约束的是 AI **新建 / 自己命名**的图标。
 
 ## 一、图标分类与选用规则
 

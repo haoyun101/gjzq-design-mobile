@@ -50,9 +50,10 @@
 - **任务模式:还原 / 新建**:**还原** = 有 Figma 源(节点 / 截图),用 `get_metadata` / `get_design_context` 核形态;**新建** = 无源(只说"做个 X 页"),**跳过 Figma 工具**,形态以速查卡 + `view` 参考实现为准。
 - **page-shell / 页面外壳**:`assets/page-shells/` 的页面骨架,AI 只填内容插槽、**外壳数值禁改**;模块间距交容器 `gap` 单点,别各模块自加 `margin`。
 - **data-level**:页面层级 `1|2`,切边距 & 模块间距 **SP4(16px) / SP6(24px)**(一级 / 二级)。
+- **data-bleed**(通栏):模块左右铺满 750、白底,边距改由模块内部留。`full` = 圆角 RD7(32);`list` = 列表为主、无圆角;有设计稿时圆角按设计稿。不写 = 卡片式。
 - **data-theme="dark"**:深色模式开关(容器加此属性,语义色自动切,不另写色值)。
 - **gj-module**:包每个模块的 `<section>`,塞进 `<main>`,间距由容器 `gap` 决定。
-- **速查卡**:`references/component-quickcards.md`,每组件「形态变体 + 辨识特征 + 关键值 + 复用方式」约 2KB;选组件 / 判形态**先查它**,别先吞 62KB 的 components.md。
+- **速查卡**:`references/component-quickcards.md`,每组件「形态变体 + 辨识特征 + 关键值 + 复用方式」;选组件 / 判形态**先查它**,别先吞整份 components.md。
 - **参考实现**:`assets/components/*.html`;命中库的组件必 `view` 并整段 / 按类复用,不就地重写。
 - **固化流程**:新业务组件 直读 → 两次确认 → 登记 后才可引用;**未登记禁用**。
 - **self_contained / sandbox-header**:widget 沙盒读不到磁盘 → 资产须内嵌;把 `assets/components/sandbox-header.html` 整段粘进 `<body>` 开头,iconfont / 字体 / 底导 / 小宝 / tokens 即就绪。

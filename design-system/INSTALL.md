@@ -66,7 +66,7 @@ cp 国金证券客户端设计系统-skill_v3.10.0/scripts/ci-templates/github-a
 - 出图前:让模型按**闸门 A** 产出《用料清单 BOM》(图标/组件/token → `assets/library-index.json` 库内引用)。
 - 资产(图标/组件)有增改:重跑 `python3 scripts/build-index.py` 刷新索引,再 `python3 scripts/validate.py` 自检。
 
-> 三道接入任选其一即可达到"自动执行";**②或③ 至少接一个**,否则第三层形同虚设。check-page 的 P0 = 手画图标等硬违规;P1 = 需人工复核项(emoji/裸色/D-DIN 等)。
+> 三道接入任选其一即可达到"自动执行";**②或③ 至少接一个**,否则第三层形同虚设。check-page 的 P0 = 手画图标等硬违规;P1 = 需人工复核项(emoji/裸色/非 GJTypeDisplay 数字字体等)。
 
 ## 资产服务的 MIME 类型(分发链路提醒)
 本 skill 以 zip 内嵌二进制资产(`.svg`/`.woff2`/`.ttf`)。**消费方解包后,静态服务器须按扩展名重设 content-type**,否则浏览器解码失败、图标/字体全空白:

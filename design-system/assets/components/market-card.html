@@ -9,22 +9,22 @@
   --SP0:0px; --SP1:4px; --SP2:8px; --SP3:12px; --SP4:16px; --SP5:20px; --SP6:24px; --SP7:32px; --SP8:40px; --SP9:60px; --SP10:80px; --RD0:0px; --RD1:4px; --RD2:8px; --RD3:12px; --RD4:16px; --RD5:20px; --RD6:24px; --RD7:32px; --RD8:40px; --RD9:999px; --RD10:6px;
 
 
-  --cb10:rgba(249,56,56,.05);--cb11:rgba(5,176,99,.05);--cb12:rgba(85,85,94,.05);
-  --ct1:var(--H9);--cs1:var(--R6);--cs2:var(--G6);--cs3:var(--H8);
+  --CB10:rgba(249,56,56,.05);--CB11:rgba(5,176,99,.05);--CB12:rgba(85,85,94,.05);
+  --CT1:var(--H9);--CS1:var(--R6);--CS2:var(--G6);--CS3:var(--H8);
   
   --pf:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
-  --num:"GJTypeDisplay","D-DIN","DIN Alternate",ui-monospace,monospace;
+  --num:"GJTypeDisplay","PingFang SC",system-ui,sans-serif;
 }
 *{box-sizing:border-box}
 /* C15 行情卡片 · 单卡 · 高134固定 · 圆角16 · 三状态(涨/跌/平)
    宽度=横排 flex:1 等分填充容器(撑满、右侧不留白、不写死固定宽);此 demo 容器 750、3 卡 → 各约 218 填满。
    注:扣"资金资讯144"只发生在指数组合 §3.2(那里 3 卡→170);通用卡单独展示无固定区可扣、直接填满 */
 .card{position:relative;height:134px;border-radius:var(--RD4);flex:1 1 0;min-width:0;font-family:var(--pf)}
-.card .nm{position:absolute;left:0;right:0;top:12px;text-align:center;font-weight:400;font-size:28px;line-height:42px;color:var(--ct1);white-space:nowrap}
+.card .nm{position:absolute;left:0;right:0;top:12px;text-align:center;font-weight:400;font-size:28px;line-height:42px;color:var(--CT1);white-space:nowrap}
 .card .val{position:absolute;left:0;right:0;top:58px;text-align:center;font-family:var(--num);font-weight:500;font-size:36px;line-height:36px;white-space:nowrap;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
 .card .chg{position:absolute;left:50%;transform:translateX(-50%);top:98px;font-family:var(--num);font-weight:400;font-size:24px;line-height:24px;display:flex;gap:var(--SP4);white-space:nowrap;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
-.up{color:var(--cs1)}.down{color:var(--cs2)}.flat{color:var(--cs3)}
-.c-red{background:var(--cb10)}.c-green{background:var(--cb11)}.c-grey{background:var(--cb12)}
+.up{color:var(--CS1)}.down{color:var(--CS2)}.flat{color:var(--CS3)}
+.c-red{background:var(--CB10)}.c-green{background:var(--CB11)}.c-grey{background:var(--CB12)}
 body{margin:var(--SP0);background:var(--CB2)}
 .demo{display:flex;gap:var(--SP4);width:750px;max-width:100%;margin:var(--SP5) auto;background:var(--CB1);padding:var(--SP6);border-radius:var(--RD3);box-shadow:0 4px 16px rgba(20,24,40,.06)}
 </style><style>

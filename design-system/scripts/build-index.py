@@ -186,7 +186,7 @@ tokens = {
  "蓝淡底/CB14":"--cb14 rgba(43,115,255,.08)","绿淡底/CB27":"--cb27 rgba(5,176,99,.08)",
  "指数红5%/CB10":"--cb10 rgba(249,56,56,.05)","指数绿5%/CB11":"--cb11 rgba(5,176,99,.05)","指数灰5%/CB12":"--cb12 rgba(85,85,94,.05)",
  "描边红/CL3":"--cl3 #f93838","描边橙/CL4":"--cl4 #ff8533","描边蓝/CL5":"--cl5 #2b73ff",
- "数字字体":"GJTypeDisplay(C端统一;Figma 的 D-DIN 入库一律改 GJTypeDisplay)","中文字体":"PingFang SC",
+ "数字字体":"GJTypeDisplay(本系统唯一数字字体,`--font-num`;凡阿拉伯数字串含代码 / 编号一律用它)","中文字体":"PingFang SC",
 }
 
 # SP/RD entries are generated from the numeric source, not duplicated.

@@ -42,7 +42,7 @@ for _f in glob.glob(str(ROOT/"assets"/"components"/"*.html")):
 EMOJI = re.compile("[\U0001F000-\U0001FAFF\U00002600-\U000027BF\U0001F1E6-\U0001F1FF\u2190-\u21FF\u2B00-\u2BFF]")
 EMOJI_WL = set("★☆●◆▲▼→←↑↓")  # 文档锚点/示意符号/文本分隔箭头,非图标用途,免报(真箭头图标用 iconfont icon-shixinjiantou-*)
 MOD_GAPS = {"8","16","24","32","40","48"}  # 模块级间距候选值
-ASSET_RE = re.compile(r'(?:src|href)=["\']([^"\']+)["\']|url\((?!data:)([^)]+)\)')
+ASSET_RE = re.compile(r'(?<![\w-])(?:src|href)=["\']([^"\']+)["\']|url\((?!data:)([^)]+)\)')
 
 def strip_noise(html):
     html = re.sub(r'url\(data:[^)]+\)', 'url(DATA)', html)
@@ -96,6 +96,11 @@ def check(path):
     # --- P1: 缺 BOM/用料清单(闸门 A 复核) ---
     if not is_library_file and not re.search(r'BOM|用料清单|data-bom|gj-bom', raw, re.I):
         p1.append("未发现 BOM/用料清单标记 → 动手前应列组件/图标/token 的库内引用;若 BOM 在交付说明中,确认已随件提供")
+
+    # --- P1: 页面未保留 Figma 组件编码(组件最外层应标 data-figma-key / data-figma-src) ---
+    if not is_library_file and re.search(r'<main\b|gj-module|class=["\'][^"\']*shell', html) \
+            and not re.search(r'data-figma-(?:key|src)=', html):
+        p1.append("页面里没有 Figma 组件编码 → 每个组件最外层标 data-gj-name + data-figma-key(取自 figma-codes.json);查不到编码的标 data-figma-src=\"design\"")
 
     # --- P1: 疑似页面未套 page-shell(只对页面级结构保守提示) ---
     page_like = bool(re.search(r'<main\b|gj-module|bottomnav|gj-tnav|gj-ibnav|gj-bottomnav|class=["\'][^"\']*shell', html))
@@ -168,14 +173,13 @@ def check(path):
     if _heavy:
         p1.append(f"字重出现 {'/'.join(_heavy)} → 页面生成只用 R(400)/ M(500)(B 600 仅用户明确要求时)")
 
-    # --- P1: 数字字体 D-DIN 未改 GJTypeDisplay(页面全局有 GJTypeDisplay 则免——D-DIN 仅参考实现 fallback)---
-    if not re.search(r'GJType', html) and not reuses_lib:
-        for blk in re.findall(r'font-family\s*:[^;{}]*', html):
-            if re.search(r'D-?DIN', blk, re.I) and 'GJType' not in blk:
-                p1.append("font-family 含 D-DIN 但无 GJTypeDisplay → C 端数字字体应入库为 GJTypeDisplay"); break
+    # --- P1: 数字字体只有 GJTypeDisplay 一种(D-DIN / 不带 Display 的 GJType 都不是本系统字体)---
+    for blk in re.findall(r'font-family\s*:[^;{}]*', html):
+        if re.search(r'D-?DIN|GJType(?!Display)', blk, re.I):
+            p1.append("font-family 用了 D-DIN 或 GJType → 数字字体只有 GJTypeDisplay(var(--font-num))"); break
 
     # --- P1: 数字字体未声明等宽数字 ---
-    uses_num_font = bool(re.search(r'GJType|--font-num|--num|font-family\s*:[^;{}]*(?:DIN|monospace)', html, re.I))
+    uses_num_font = bool(re.search(r'GJTypeDisplay|--font-num|--num|font-family\s*:[^;{}]*(?:DIN|monospace)', html, re.I))
     has_tnum = bool(re.search(r'font-variant-numeric\s*:\s*[^;{}]*tabular-nums|font-feature-settings\s*:\s*[^;{}]*["\']?tnum', html, re.I))
     if uses_num_font and not has_tnum:
         p1.append("发现数字字体/数字 token 但未声明 tabular-nums/tnum → 金额、价格、涨跌幅应开启等宽数字")

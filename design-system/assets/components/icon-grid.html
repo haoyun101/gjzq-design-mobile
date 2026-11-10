@@ -8,33 +8,33 @@
   /* SP/RD · 750px */
   --SP0:0px; --SP1:4px; --SP2:8px; --SP3:12px; --SP4:16px; --SP5:20px; --SP6:24px; --SP7:32px; --SP8:40px; --SP9:60px; --SP10:80px; --RD0:0px; --RD1:4px; --RD2:8px; --RD3:12px; --RD4:16px; --RD5:20px; --RD6:24px; --RD7:32px; --RD8:40px; --RD9:999px; --RD10:6px;
 
- --line:#E6E8EC; --ct1:var(--H9); --ct3:var(--H8); --ct4:var(--H7); --bg:#F6F7F9; --cp0:var(--R6); --ci4:var(--H6); }
+ --line:#E6E8EC; --CT1:var(--H9); --CT3:var(--H8); --CT4:var(--H7); --bg:#F6F7F9; --CP0:var(--R6); --CI4:var(--H6); }
   *{box-sizing:border-box}
-  body{margin:var(--SP0);background:var(--bg);color:var(--ct1);
+  body{margin:var(--SP0);background:var(--bg);color:var(--CT1);
     font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
     -webkit-font-smoothing:antialiased;padding:var(--SP7) var(--SP5) var(--SP9)}
   .wrap{max-width:760px;margin:var(--SP0) auto}
-  .top{font-size:13px;color:var(--ct3);margin:var(--SP0) var(--SP0) var(--SP1)}
+  .top{font-size:13px;color:var(--CT3);margin:var(--SP0) var(--SP0) var(--SP1)}
   h1{font-size:20px;font-weight:600;margin:var(--SP0) var(--SP0) 0}
-  .sub{font-size:13px;color:var(--ct4);margin:var(--SP0) var(--SP0) var(--SP1)}
-  .onenote{font-size:12px;color:var(--ct4);margin:var(--SP0) var(--SP0) var(--SP6)}
+  .sub{font-size:13px;color:var(--CT4);margin:var(--SP0) var(--SP0) var(--SP1)}
+  .onenote{font-size:12px;color:var(--CT4);margin:var(--SP0) var(--SP0) var(--SP6)}
   /* 一级:章 */
   .sec{margin:var(--SP0) var(--SP0) var(--SP7)}
-  .sech{display:flex;align-items:baseline;gap:var(--SP2);margin:var(--SP0) var(--SP0) var(--SP1);padding-left:var(--SP3);border-left:4px solid var(--cp0)}
-  .sech b{font-size:16px;font-weight:600;color:var(--ct1)}
-  .sech span{font-size:12px;color:var(--ct4)}
-  .secsub{font-size:12px;color:var(--ct4);margin:var(--SP0) var(--SP0) var(--SP3);padding-left:var(--SP4)}
+  .sech{display:flex;align-items:baseline;gap:var(--SP2);margin:var(--SP0) var(--SP0) var(--SP1);padding-left:var(--SP3);border-left:4px solid var(--CP0)}
+  .sech b{font-size:16px;font-weight:600;color:var(--CT1)}
+  .sech span{font-size:12px;color:var(--CT4)}
+  .secsub{font-size:12px;color:var(--CT4);margin:var(--SP0) var(--SP0) var(--SP3);padding-left:var(--SP4)}
   /* 二级:卡 */
   .card{background:var(--CB1);border:1px solid var(--line);border-radius:var(--RD3);padding:var(--SP4) var(--SP5) var(--SP3);margin:var(--SP0) var(--SP0) var(--SP3)}
-  .h{font-size:13px;font-weight:600;margin:var(--SP0) var(--SP0) var(--SP1);color:var(--ct1)}
-  .hsub{font-size:12px;color:var(--ct4);margin:var(--SP0) var(--SP0) var(--SP3)}
-  .cap{font-size:12px;color:var(--ct3);line-height:1.8;margin:var(--SP2) var(--SP0) var(--SP0)}
-  .cap b{color:var(--ct1)}
+  .h{font-size:13px;font-weight:600;margin:var(--SP0) var(--SP0) var(--SP1);color:var(--CT1)}
+  .hsub{font-size:12px;color:var(--CT4);margin:var(--SP0) var(--SP0) var(--SP3)}
+  .cap{font-size:12px;color:var(--CT3);line-height:1.8;margin:var(--SP2) var(--SP0) var(--SP0)}
+  .cap b{color:var(--CT1)}
   .tok{display:inline-block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;background:var(--CB2);color:var(--CT3);padding:0 var(--SP1);border-radius:var(--RD1)}
   .badge{display:inline-block;font-size:11px;color:var(--CT6);background:var(--R6);border-radius:var(--RD9);padding:0 var(--SP2);margin-left:var(--SP1);vertical-align:middle}
   .badge.g{background:var(--H6)}
-  .rule{font-size:12px;color:var(--ct3);line-height:1.9;margin:var(--SP0)}
-  .rule b{color:var(--ct1)}
+  .rule{font-size:12px;color:var(--CT3);line-height:1.9;margin:var(--SP0)}
+  .rule b{color:var(--CT1)}
   .rule li{margin:0 var(--SP0)}
   .cell{display:flex;flex-direction:column;align-items:center}
   .lab{font-family:"PingFang SC",sans-serif;color:var(--CT3);text-align:center;line-height:36px;font-size:24px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:var(--SP2)}
@@ -45,8 +45,8 @@
   .scroller::-webkit-scrollbar{height:0}
   .ccell{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;width:84px;scroll-snap-align:start}
   .clab{font-size:14px;color:var(--CT3);margin-top:var(--SP1);text-align:center;white-space:nowrap}
-  .track{height:6px;width:60px;border-radius:var(--RD9);background:rgba(204,204,204,.2);position:relative;margin:var(--SP3) auto 0}
-  .bar{position:absolute;top:0;bottom:0;left:0;width:42%;border-radius:var(--RD9);background:var(--cp0);transition:left .1s linear}
+  .track{height:6px;width:60px;border-radius:var(--RD9);background:rgba(204,204,204,.5);position:relative;margin:var(--SP3) auto 0}
+  .bar{position:absolute;top:0;bottom:0;left:0;width:42%;border-radius:var(--RD9);background:var(--CP0);transition:left .1s linear}
   .bar.rb{transition:left .34s cubic-bezier(.34,1.3,.64,1)}
 </style>
 <style>
@@ -68,11 +68,11 @@
       <div style="display:flex;gap:var(--SP9);align-items:flex-end;flex-wrap:wrap">
         <div style="text-align:center">
           <div class="cell" style="width:138px" data-cell="64" data-label="名称"></div>
-          <div style="font-size:12px;color:var(--ct3);margin-top:var(--SP2)"><b style="color:var(--ct1)">64px 档</b> · 盒 138×108 · icon 64 · 文案≤5字</div>
+          <div style="font-size:12px;color:var(--CT3);margin-top:var(--SP2)"><b style="color:var(--CT1)">64px 档</b> · 盒 138×108 · icon 64 · 文案≤5字</div>
         </div>
         <div style="text-align:center">
           <div class="cell" style="width:145px" data-cell="88" data-label="名称"></div>
-          <div style="font-size:12px;color:var(--ct3);margin-top:var(--SP2)"><b style="color:var(--ct1)">88px 档</b> · 盒 145×132 · icon 88 · 文案≤6字</div>
+          <div style="font-size:12px;color:var(--CT3);margin-top:var(--SP2)"><b style="color:var(--CT1)">88px 档</b> · 盒 145×132 · icon 88 · 文案≤6字</div>
         </div>
       </div>
       <p class="cap">icon = <b>固定正方形槽位</b>(圆角随上传图标自带)· icon↔文案 <span class="tok">8 / s-1</span> · 文案 <span class="tok">CT3 #55555E · S7 24/36</span> 居中单行 · <b>无点击/按压态</b>。</p>
@@ -81,45 +81,62 @@
 
   <!-- 二、排布变体 -->
   <div class="sec">
-    <div class="sech"><b>二、排布变体 / Layout Variants</b><span>单元格的全部组合方式 · 除「横滑」外均无分页符</span></div>
-    <p class="secsub">基准 750 通栏:列间距 3 · 左右边距 24 · 行距 24(s-3)· 行高 64档108 / 88档132</p>
+    <div class="sech"><b>二、排布变体 / Layout Variants</b><span>单元格的全部组合方式 · 5 列与 88×4 按页滑时带分页符,其余不带</span></div>
+    <p class="secsub">基准 750 通栏:左右边距 24 · 行距 24 · 列间距 5列 3 / 4列 50 / 侧滑 20 · 行高 64档108 / 88档132</p>
 
     <div class="card">
-      <p class="h">2.1 通栏 · 5 列 × 1 行(标准金刚区)<span class="badge g">无分页符</span></p>
+      <p class="h">2.1 通栏 · 5 列 × 1 行(标准金刚区)<span class="badge g">按页滑时带分页符</span></p>
       <p class="hsub">5×138 + 4×3 + 2×24 = 750 恰好通栏 · 入口=5 的默认款</p>
       <div class="sb" id="sb-51"></div>
     </div>
 
     <div class="card">
-      <p class="h">2.2 通栏 · 5 列 × 2 行<span class="badge g">无分页符</span></p>
+      <p class="h">2.2 通栏 · 5 列 × 2 行<span class="badge g">按页滑时带分页符</span></p>
       <p class="hsub">入口 6–10 · 行距 24</p>
       <div class="sb" id="sb-52"></div>
     </div>
 
     <div class="card">
-      <p class="h">2.3 通栏 · 4 列(等分撑满)<span class="badge g">无分页符</span></p>
-      <p class="hsub">入口≤4,更舒展</p>
+      <p class="h">2.3 通栏 · 4 列 × 1 行<span class="badge g">无分页符</span></p>
+      <p class="hsub">一行固定 4 个 · 格 138 · 列间距 50 · 4×138 + 3×50 + 2×24 = 750</p>
       <div class="sb" id="sb-41"></div>
     </div>
 
     <div class="card">
-      <p class="h">2.4 通栏 · 88px × 4 列<span class="badge g">无分页符</span></p>
+      <p class="h">2.3b 通栏 · 4 列 × 2 行<span class="badge g">无分页符</span></p>
+      <p class="hsub">同 4 列 × 1 行,两行 · 行距 24</p>
+      <div class="sb" id="sb-42"></div>
+    </div>
+
+    <div class="card">
+      <p class="h">2.4 通栏 · 88px × 4 列<span class="badge g">按页滑时带分页符</span></p>
       <p class="hsub">重点/运营入口 · cell 145</p>
       <div class="sb" id="sb-88"></div>
     </div>
 
     <div class="card">
       <p class="h">2.5 卡片宫格 · 718<span class="badge g">无分页符</span></p>
-      <p class="hsub">白卡 r32 嵌灰底容器(置于 16 边距页)</p>
+      <p class="hsub">白卡 r32 嵌灰底容器(置于 16 边距页)· 一行最多 4 个 · 格宽 = 卡片宽四等分(718 ÷ 4 ≈ 180)· 卡内左右不另留边距</p>
       <div class="sb" id="sb-card"></div>
     </div>
 
     <div class="card">
-      <p class="h">2.6 横滑 · 单行超一屏<span class="badge">带分页符 · 可滑动</span></p>
-      <p class="hsub">唯一带分页符的排布 · 嵌套 C10 分页符-滑动 · <b>左右拖动下面这排试试</b></p>
-      <div class="scroller" id="scroller"></div>
-      <div class="track"><div class="bar" id="bar"></div></div>
-      <p class="cap">滑动槽固定 60×6 r999 · 槽 <span class="tok">CI4 @20%</span> · 条 <span class="tok">CP0</span> · 条长 = 前屏 / 总长 · 到头/到底<b>回弹</b> · 右侧露出半格暗示可滑。</p>
+      <p class="h">2.5b 卡片宫格 · 718 · 两行<span class="badge g">无分页符</span></p>
+      <p class="hsub">同上,两行 · 行距 24</p>
+      <div class="sb" id="sb-card2"></div>
+    </div>
+
+    <div class="card">
+      <p class="h">2.6 侧滑 · 单行超一屏<span class="badge g">无分页符 · 逐格滑动</span></p>
+      <p class="hsub">一个图标一个图标地滑 · 格 138 · 列间距 20 · 左 24 起 · 最右一格只露出一部分,暗示可滑 · <b>左右拖动下面这排试试</b></p>
+      <div class="sb" id="sb-side"></div>
+    </div>
+
+    <div class="card">
+      <p class="h">2.7 按页滑 · 多个图标整块翻页<span class="badge">带分页符 · 可滑动</span></p>
+      <p class="hsub">以 5 列 × 1 行为例,一页 5 个整块翻 · 嵌套 C10 滑动分页符(宫格下方居中,间距 12)· <b>左右拖动试试</b></p>
+      <div class="sb" id="sb-page"></div>
+      <p class="cap">滑动槽固定 60×6 r999 · 槽 <span class="tok">CI4 @50%</span> · 条 <span class="tok">CP0</span> · 条长 = 前屏 / 总长 · 到头/到底<b>回弹</b>。入口一屏放得下时不带分页符。</p>
     </div>
   </div>
 
@@ -128,8 +145,9 @@
     <div class="sech"><b>三、嵌套与使用规则</b><span>组件关系 + 选用判据</span></div>
     <div class="card">
       <ul class="rule" style="padding-left:var(--SP5);margin:var(--SP0)">
-        <li><b>嵌套关系</b>:C12 图标宫格 → icon 槽兜底 = <b>C11 图标兜底</b>(64 → slice_all-func_fallback-img,88 → slice_vip-serv_fallback-img;加载中/失败);横滑排布 → <b>C10 分页符-滑动</b>。其余排布一律不嵌分页符。</li>
-        <li><b>列数判据</b>:入口≤4 → 4列舒展;=5 → 5列标准;6–10 → 5列×2行;超多/运营横排 → 横滑+分页符。</li>
+        <li><b>嵌套关系</b>:C12 图标宫格 → icon 槽兜底 = <b>C11 图标兜底</b>(64 → slice_all-func_fallback-img,88 → slice_vip-serv_fallback-img;加载中/失败);按页滑的排布 → <b>C10 滑动分页符</b>。侧滑、4 列与卡片宫格不嵌分页符。</li>
+        <li><b>分页符</b>:侧滑(一个图标一个图标地滑)不带;按页滑(多个图标整块翻页)才带,适用于 5×1 / 5×2 / 88×4;一屏放得下、不用滑时不带;4 列与卡片宫格不带。</li>
+        <li><b>列数判据</b>:入口 4 → 4列(多一行用 4列×2行);=5 → 5列标准;6–10 → 5列×2行;超一屏 → 侧滑(逐格、无分页符)或按页滑(整块、带分页符);放在卡片里 → 卡片宫格(一行最多 4 个)。</li>
         <li><b>文案</b>:核心 4 字最佳,超出截断省略;容量上限 64档≤5字 / 88档≤6字;末格沿用「全部功能」入口约定。</li>
         <li><b>槽位</b>:icon 为正方形固定槽位,圆角由上传图标决定,组件不强加;无点击/按压态。</li>
       </ul>
@@ -138,16 +156,17 @@
 
   <!-- 四、token -->
   <div class="sec">
-    <div class="sech"><b>四、token / 真值汇总</b><span>与 skill v3.8.0 零漂移</span></div>
+    <div class="sech"><b>四、token / 真值汇总</b><span>与 components.md 第十二章一致</span></div>
     <div class="card">
-      <div style="display:flex;gap:var(--SP5);flex-wrap:wrap;font-size:12px;color:var(--ct3);line-height:1.6">
+      <div style="display:flex;gap:var(--SP5);flex-wrap:wrap;font-size:12px;color:var(--CT3);line-height:1.6">
         <div>文案 <span class="tok">CT3 #55555E · S7 24/36</span></div>
         <div>icon 底 <span class="tok">CB3 #F2F4F8</span></div>
         <div>icon↔文案 <span class="tok">8 (s-1)</span></div>
-        <div>列间距 <span class="tok">3</span></div>
+        <div>列间距 <span class="tok">5列 3 · 4列 50 · 侧滑 20</span></div>
         <div>边距 <span class="tok">24</span></div>
-        <div>行距 <span class="tok">24 (s-3)</span></div>
-        <div>分页符 <span class="tok">C10 滑动 60×6 · CP0/CI4@20%</span></div>
+        <div>行距 <span class="tok">24</span></div>
+        <div>卡片格宽 <span class="tok">卡片宽 ÷ 4</span></div>
+        <div>分页符(按页滑) <span class="tok">C10 滑动 60×6 · CP0/CI4@50% · 距宫格 12</span></div>
         <div>icon 兜底 <span class="tok">C11 图标兜底(64 / 88)</span></div>
       </div>
     </div>
@@ -171,7 +190,7 @@ function gjSpatial(value,kind){var map=kind==='RD'?{"0": "RD0", "4": "RD1", "8":
     return '<div class="cell" style="width:'+box+'px">'+ph(ico)+'<div class="lab" style="width:'+box+'px">'+label+'</div></div>';}
   function rowHTML(labels,w,gap,justify){return '<div class="row" style="gap:'+gjSpatial(gap,'SP')+';'+(justify?'justify-content:'+justify+';width:100%':'')+'">'+labels.map(function(l){return cell(l,w);}).join('')+'</div>';}
   function scaleBox(id,inner,natH,S,natW){natW=natW||750;var el=document.getElementById(id);
-    el.style.width=(natW*S)+'px'; el.style.height=(natH*S)+'px';
+    el.style.width=(natW*S+2)+'px'; el.style.height=(natH*S+2)+'px'; /* +2:1px 虚线框上下各占 1px,不留会裁掉底边内容 */
     el.innerHTML='<div class="si" style="width:'+natW+'px;transform:scale('+S+')">'+inner+'</div>';}
 
   document.querySelectorAll('.cell[data-cell]').forEach(function(el){
@@ -182,14 +201,24 @@ function gjSpatial(value,kind){var map=kind==='RD'?{"0": "RD0", "4": "RD1", "8":
   function nm(n){var a=[];for(var i=0;i<n;i++)a.push('名称');return a;}
   scaleBox('sb-51','<div style="padding:var(--SP0) var(--SP6)">'+rowHTML(nm(5),64,3)+'</div>',108,S);
   scaleBox('sb-52','<div style="padding:var(--SP0) var(--SP6);display:flex;flex-direction:column;gap:var(--SP6)">'+rowHTML(nm(5),64,3)+rowHTML(nm(5),64,3)+'</div>',240,S);
-  scaleBox('sb-41','<div style="padding:var(--SP0) var(--SP6)">'+rowHTML(nm(4),64,0,'space-between')+'</div>',108,S);
+  scaleBox('sb-41','<div style="padding:var(--SP0) var(--SP6)">'+rowHTML(nm(4),64,50)+'</div>',108,S);
+  scaleBox('sb-42','<div style="padding:var(--SP0) var(--SP6);display:flex;flex-direction:column;gap:var(--SP6)">'+rowHTML(nm(4),64,50)+rowHTML(nm(4),64,50)+'</div>',240,S);
   scaleBox('sb-88','<div style="padding:var(--SP0) var(--SP6)">'+rowHTML(nm(4),88,0,'space-between')+'</div>',132,S);
-  var cardInner='<div style="padding:var(--SP4)"><div style="background:var(--CB1);border-radius:var(--RD7);padding:var(--SP6)">'+rowHTML(nm(4),64,0,'space-between')+'</div></div>';
-  scaleBox('sb-card','<div style="background:var(--CB2);width:750px">'+cardInner+'</div>',196,S);
+  /* 卡片宫格:一行最多 4 个,格宽 = 卡片宽四等分(718/4),卡内左右不另留边距 */
+  function cardRow(n){var h='<div class="row" style="width:718px">';for(var i=0;i<n;i++)h+='<div style="flex:0 0 25%;display:flex;justify-content:center">'+cell('名称',64)+'</div>';return h+'</div>';}
+  function cardBox(rows){var r=[];for(var i=0;i<rows;i++)r.push(cardRow(4));
+    return '<div style="background:var(--CB2);width:750px;padding:var(--SP4)"><div style="background:var(--CB1);border-radius:var(--RD7);padding:var(--SP6) var(--SP0);display:flex;flex-direction:column;gap:var(--SP6)">'+r.join('')+'</div></div>';}
+  scaleBox('sb-card',cardBox(1),188,S);
+  scaleBox('sb-card2',cardBox(2),320,S);
 
-  var labels7=nm(10);   // 2.6 横滑
+  // 2.6 侧滑:真值(格 138、间距 20、左 24 起),逐格吸附,无分页符
+  scaleBox('sb-side','<div class="scroller" id="side" style="gap:var(--SP5);padding:var(--SP0) var(--SP6);scroll-padding-left:var(--SP6);scroll-snap-type:x proximity">'
+    +nm(8).map(function(l){return '<div style="flex:0 0 auto;scroll-snap-align:start">'+cell(l,64)+'</div>';}).join('')+'</div>',108,S);
+  // 2.7 按页滑:一页 5 个(同 5 列 × 1 行)整块翻页,下方 C10 滑动分页符,间距 12
+  var page=function(){return '<div style="flex:0 0 750px;scroll-snap-align:start;padding:var(--SP0) var(--SP6)">'+rowHTML(nm(5),64,3)+'</div>';};
+  scaleBox('sb-page','<div class="scroller" id="scroller" style="gap:var(--SP0);padding:var(--SP0);scroll-snap-type:x mandatory">'+page()+page()+'</div>'
+    +'<div class="track" style="margin:var(--SP3) auto var(--SP0)"><div class="bar" id="bar"></div></div>',126,S);
   var sc=document.getElementById('scroller'), bar=document.getElementById('bar');
-  sc.innerHTML=labels7.map(function(l){return '<div class="ccell">'+ph(56)+'<div class="clab">'+l+'</div></div>';}).join('');
   function updateBar(){var max=sc.scrollWidth-sc.clientWidth;var ratio=sc.clientWidth/sc.scrollWidth;
     var w=Math.max(ratio*100,18);var pos=max>0?sc.scrollLeft/max:0;
     bar.style.width=w+'%';bar.style.left=(pos*(100-w))+'%';}
