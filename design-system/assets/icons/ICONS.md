@@ -16,7 +16,7 @@
   - `slice`:`all-func` 全部功能 · `list` 列表 · `op-home` 首页金刚区运营 · `trade-pg` 交易页面 · `bot-nav` 底部导航栏 · `watch` 自选 · `title` 标题 · `flag` 国旗 · `notify-br` 通知栏 · `qa` 问答 · `wp-benefit` 财富宝权益 · `inv-calendar` 投资日历 · `other` 其他 · `hold-curr` 持仓币种 · `VIP-card` VIP 服务卡片 · `vip-serv` VIP 服务
 - **名称**:英文缩写,多个词用 `-` 连接;带尺寸的加后缀(如 `slice_title_hot-news-32px`)。
 - **中文名**:写在 Figma 组件描述里(用于检索);skill 记在 `fonts/iconfont.css` 行尾注释与 `library-index.json` 的 `gloss`。
-- **变体**:Figma 组件集的变体按属性值区分。导出文件时,文件名 = `{组件名}-{属性值}`,多个属性按 Figma 属性顺序依次连接,如 `slice_watch_signal-ena-w.svg`(状态=ena、黑/白版=w);iconfont 变体同理(`icf_func_sort-asc`)。文件名只用 ASCII 字母、数字、`_`、`-`。
+- **变体**:Figma 组件集的变体按属性值区分。导出文件时,文件名 = `{组件名}-{属性值}`,多个属性按 Figma 属性顺序依次连接,如 `slice_watch_signal-ena-w.svg`(状态=ena、皮肤=w);iconfont 变体同理(`icf_func_sort-asc`)。文件名只用 ASCII 字母、数字、`_`、`-`。
 - **类名不带前缀**:iconfont 平台下载的 css 会自动加 `icon-` 前缀,skill 的 `fonts/iconfont.css` 由 `iconfont.json` 生成,**不带该前缀**,类名即图标名。
 - `slice` 图标名以 Figma 原样为准;`icf` 图标必须 iconfont、Figma、skill、站点四处一致。
 - **命名结构怎么读(还原设计稿时)**:设计稿里的切图 / 图标图层名按 `【实现方式】_【场景/类别/模块】_【图标名称_状态】` 三段读,如 `qietu_benefit_img_orig-bg` = 实现方式 `qietu` · 模块 `benefit` · 名称与状态 `img_orig-bg`。**【】里是设计师给定的固定信息,AI 不判断、不改写,原样沿用**:前缀不是 `icf` / `slice`、归属不在上面词表里、名称里带项目名(如 `AI+` 的 `+`)都照用,不报为不合规。上面的格式、受控词表与「只用 ASCII」约束的是 AI **新建 / 自己命名**的图标。
@@ -82,15 +82,15 @@ Figma 组件 `slice_other_toast`(18542:31411)四个变体,100×100 白色,用于
 
 
 ### 图标兜底(`common/`)
-Figma 图标页里定好的图标兜底组件,图标加载中 / 失败时替代原图标;`-w` 白版、`-b` 黑版。用法规则见 C11 占位图。
+Figma 图标页里定好的图标兜底组件,图标加载中 / 失败时替代原图标;`-w` 白肤、`-b` 黑肤。用法规则见 C11 占位图。
 
 | 文件 | 尺寸 | Figma 组件 |
 |---|---|---|
 | `common/slice_all-func_fallback-img-w.svg` / `-b.svg` | 64 | `slice_all-func_fallback-img` |
 | `common/slice_vip-serv_fallback-img.svg` | 88 | `slice_vip-serv_fallback-img`(白 / 黑页面通用) |
 | `common/slice_list_fallback-img-w.svg` / `-b.svg` | 48 | `slice_list_fallback-img` |
-| `common/icf_nav_fallback-img-w.svg` / `-b.svg` | 48 | `icf_nav_fallback-img` |
-| `common/icf_gen_fallback-img-w.svg` / `-b.svg` | 48 | `icf_gen_fallback-img` |
+| `common/slice_nav_fallback-img-w.svg` / `-b.svg` | 48 | `slice_nav_fallback-img` |
+| `common/slice_gen_fallback-img-w.svg` / `-b.svg` | 48 | `slice_gen_fallback-img` |
 
 兜底logo(圆盘用;母组件为方形,使用时由容器裁成圆):`common/fallback-logo-{w|b}-{std|lg}.svg`,标准版 100 / 放大版 160,Figma `兜底logo` 21431:1764。
 
@@ -121,7 +121,7 @@ Figma 图标页里定好的图标兜底组件,图标加载中 / 失败时替代�
 | `market/slice_watch_chart-off.svg` / `-chart-on.svg` | 列表表头-左 · 走势图关 / 开,32px |
 | `market/slice_watch_add-stk.svg` | 自选按钮 · 添加股票 |
 | `market/slice_watch_img-recog.svg` | 自选按钮 · 图片识股 |
-| `market/slice_watch_signal-{ena\|off\|disab}-{w\|b}.svg` | 自选 tab 信号:开启 / 关闭 / 禁用 × 白版 / 黑版 |
+| `market/slice_watch_signal-{ena\|off\|disab}-{w\|b}.svg` | 自选 tab 信号:开启 / 关闭 / 禁用 × 白肤 / 黑肤 |
 | `market/shishi.svg` | 实时(异动活跃)红波形,32×32 |
 
 ### 底部导航栏(`bottom-nav/`)

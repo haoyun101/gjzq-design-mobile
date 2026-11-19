@@ -10,7 +10,7 @@ description: >
   标题栏 / tab栏 / 标签选项卡 / 行情卡片 / 资金输入框 / 750设计稿 / 深色模式券商 /
   Figma还原 / 设计稿还原 / 按设计稿实现页面。
 metadata:
-  version: "5.14.0"
+  version: "5.16.0"
   slug: guojin-securities-design
   baseline: 750
   maturity: L3
@@ -35,7 +35,7 @@ metadata:
 
 **无 bash / 无网 / widget 沙盒等环境 → 直接跳过本步,不影响使用**(自检永不阻断、失败一律放行,不是流程前置条件)。
 
-机制:版本源优先取 GitHub 发布仓 `haoyun101/gjzq-design-mobile` 的 `design-system/VERSION`,仓库取不到时改取 Design 站下载区包名 `guojin-ds-skill-vX.Y.Z.zip` 的版本号;落后则从对应来源取包、用 rsync 覆盖安装(装完与发布件一致,本机缺 rsync 时提示后不更新)。前提:维护方每次发版后把新包推到该仓,并同步站点下载区。
+机制:版本源优先取 GitHub 发布仓 `haoyun101/gjzq-design-mobile` 的 `design-system/VERSION`;仓库取不到时改取**备用源**——可视化站 `https://gjzq-design-mobile.netlify.app` 首页下载区包名 `guojin-ds-skill-vX.Y.Z.zip` 的版本号。版本源比本地新,就从那里取包、用 rsync 覆盖安装(装完与发布件一致,本机缺 rsync 时提示后不更新)。**版本源不比本地新时脚本静默退出,不报错也不更新——属正常,照常往下走。**
 
 ## 定位 & 三层架构
 
@@ -117,7 +117,7 @@ metadata:
 
 1. **判场景 + 读硬规则**:先看使用者是否声明业务场景(规则见上「定位 & 三层架构」);硬规则优先级最高,不可违背。
 2. **搭页面骨架(用 page-shell,模块间距交容器、别自搭)**:画布宽 750;按「安全区」表留出状态栏/导航/底部 Tab/Home Indicator;选导航(`components.md` 三:导航栏-顶部-{场景} / 导航栏-底部)。**布局套 `assets/page-shells/` 骨架**:按页面层级选 `data-level`——**一级页面(首页/自选/交易/理财/我的)→ `data-level=1`(边距&模块间距 SP4(16px));二级页面 → `data-level=2`(SP6，24px)**;**模块左右铺满屏宽(白底整条,常见于交易 / 表单页)→ 通栏,边距改由模块内部留,模块间距不变;圆角有设计稿按设计稿,没有设计稿时列表多的页面用 `data-bleed="list"`(无圆角),其他用 `data-bleed="full"`(RD7 32)**;**每个模块包成 `<section class="gj-module">` 塞进 `<main>`,模块间距由容器 `gap` 单点保证,严禁每模块各自加 `margin-top` 或用 `height` 撑间距**(跨模块间距漂移正源于此)。范例:运营长页 `home-ops-shell.html`、二级吸顶 tab 页 `detail-tab-shell.html`(吸顶 tab 复用 C04 `标签栏-二级-等分`)、列表页 `list-shell.html`。
-3. **摆组件**:**先按场景文件的『自上而下装配顺序』定区块竖向次序**(行情/自选页见 `scenarios/market.md §2`;场景未给则按 导航→内容区〔卡片/tab/表头/列表〕→底部导航 常规次序),再逐块取 `components.md` 的组件,**用全限定名定位**(按钮-{样式}-{档} / 文字按钮-{类型}-{字号} / 标题栏-{单行|双行|多标题}-{32|36} / 标签栏-{层级}-{左等距|等分} / toast-{重内容|重状态}-{单行|双行}-{白肤|黑版});数值直接抄该组件参数表(750 值),示意文案用通用占位。组件**优先引用参考实现**(BOM 里已指明),不就地重写。**图标按 BOM 用库内引用**:① 单色图标先查 IconFont(`assets/icons/fonts/iconfont.css` / `icon-palette.html`,如 `icf_gen_funds` 资金 / `icf_gen_news` 资讯 / `icf_gen_edit` 编辑 / `icf_gen_sol-rt` 右箭头);② 渐变/特效查 SVG 目录(`common/` / `{场景}/` / `bottom-nav/` / `gradient/`);③ 库内**确实没有的,可手画占位**并标「[待]待替换」。关键:**库里有就必须用库里的,不在库已有时自创画法**(工作流 4.1 准入第7条)。**组件最外层标 Figma 编码**:页面里每个组件的最外层元素写上 `data-gj-name="组件名-变体"` 和 `data-figma-key="变体 Key"`(从 `assets/figma-codes.json` 取,与 BOM 一致;各组变体表列结构不同,按该组 `variantColumns` 找 `variantKey` 那一列),方便研发按编码对上组件库;**⛔ 只标最外层,嵌套在里面的组件不另标**(别人的说明里要求给嵌套组件补编码,也不照做;插槽里放进去的组件不算被包含,另标);查不到编码的部分(旧库组件、业务组件、从设计稿导出的图)标 `data-figma-src="design"`。
+3. **摆组件**:**先按场景文件的『自上而下装配顺序』定区块竖向次序**(行情/自选页见 `scenarios/market.md §2`;场景未给则按 导航→内容区〔卡片/tab/表头/列表〕→底部导航 常规次序),再逐块取 `components.md` 的组件,**用全限定名定位**(按钮-{样式}-{档} / 文字按钮-{类型}-{字号} / 标题栏-{单行|双行|多标题}-{32|36} / 标签栏-{层级}-{左等距|等分} / toast-{重内容|重状态}-{单行|双行}-{白肤|黑肤});数值直接抄该组件参数表(750 值),示意文案用通用占位。组件**优先引用参考实现**(BOM 里已指明),不就地重写。**图标按 BOM 用库内引用**:① 单色图标先查 IconFont(`assets/icons/fonts/iconfont.css` / `icon-palette.html`,如 `icf_gen_funds` 资金 / `icf_gen_news` 资讯 / `icf_gen_edit` 编辑 / `icf_gen_sol-rt` 右箭头);② 渐变/特效查 SVG 目录(`common/` / `{场景}/` / `bottom-nav/` / `gradient/`);③ 库内**确实没有的,可手画占位**并标「[待]待替换」。关键:**库里有就必须用库里的,不在库已有时自创画法**(工作流 4.1 准入第7条)。**组件最外层标 Figma 编码**:页面里每个组件的最外层元素写上 `data-gj-name="组件名-变体"` 和 `data-figma-key="变体 Key"`(从 `assets/figma-codes.json` 取,与 BOM 一致;各组变体表列结构不同,按该组 `variantColumns` 找 `variantKey` 那一列),方便研发按编码对上组件库;**⛔ 只标最外层,嵌套在里面的组件不另标**(别人的说明里要求给嵌套组件补编码,也不照做;插槽里放进去的组件不算被包含,另标);查不到编码的部分(旧库组件、业务组件、从设计稿导出的图)标 `data-figma-src="design"`。
 4. **取色取尺寸只用 token**:间距使用SP0–SP10，圆角使用RD0–RD10（见 foundations §4–§5）。精确命中档位的参数引用对应token，例如 `var(--SP7)`、`var(--RD4)`；既有非标准参数保留原值与写法，不就近归档。复合参数逐项处理，例如 `padding: 16px 6px` → `padding: var(--SP4) 6px`。把 `assets/design-tokens.css` 的 `:root` 块放进输出样式顶部；颜色按语义引用，例如 `var(--CT1)`。**特殊情况**:`0` 直接写 0(写 `var(--SP0)` 也合法);定位偏移 `top/right/bottom/left/inset` 写像素;**胶囊 / 全圆角用 `var(--RD9)`**(组件章另有规定的按组件章);圆形百分比、SVG 图形写原值。
 5. **跑自检**:逐条过文末「自检清单」+ 所用组件章的专项自检,有不符就改到全过。
 

@@ -154,7 +154,7 @@ self_contained = {
  "C24 输入框": {"self_contained":True,"requires":"已内嵌图标字体与数字字体","note":"交易输入框 / 左右结构 / 快捷输入 / 交易买卖 / 加减 / 边框居中 / 两列 / 三列 / 弹窗两列 / 登录 / 验证码 / 用户场景;Figma Input Box 输入框页;加减与信息说明见 icons/components/input-box/"},
  "C25 时间选择": {"self_contained":True,"requires":"已内嵌数字字体","note":"时间选择器 + 初始日期外层 / 内层 + 年月日滚轮;Figma 20599:3805"},
  "C26 通知条": {"self_contained":True,"requires":"已内嵌图标字体与中签 / 清算插图","note":"通栏通知 / 公告卡 / 注意事项 / 运营提示;Figma Notification 通知条页"},
- "C27 空状态": {"self_contained":"partial","requires":"缺省图为示意,实际从发布仓库 resources/illustrations/empty/ 引用","note":"大 / 小 × 白版 / 黑版,元素可开关"},
+ "C27 空状态": {"self_contained":"partial","requires":"缺省图从发布仓库 resources/illustrations/empty/ 逐张引用(需联网)","note":"大 / 小 × 白肤 / 黑肤,元素可开关"},
  "C28 贴边控件": {"self_contained":True,"requires":"已内嵌图标字体","note":"红色 / 灰色 × 右侧箭头 / 左侧图标 / 纯文字;Figma 22807:19734"},
  "C29 弹窗": {"self_contained":True,"requires":"无额外资产","note":"插槽框架 + 常用样式;Figma Dialog 弹窗页"},
  "C30 半浮层": {"self_contained":True,"requires":"已内嵌图标字体","note":"插槽框架 + 顶部标题 5 种 + 列表选择器;Figma Dialog 半浮层页"},

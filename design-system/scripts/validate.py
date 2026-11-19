@@ -106,6 +106,16 @@ def check_skill(root):
         if _hit:_resid.append(f"{os.path.relpath(_f,root)}(注释 {','.join(map(str,_hit))} 但 CSS 用了 {','.join(str(d//2) for d in _hit)})")
     if _resid:
         E("参考实现 375 ÷2 残留(组件本体尺寸被减半):"+" / ".join(_resid)+" → 改回 750 标注值")
+    # 参考实现里整份内嵌的 design-tokens 副本必须与 assets/design-tokens.css 一致(:root + 深色覆盖两块原样)
+    _tk=open(f"{root}/assets/design-tokens.css",encoding="utf-8").read().rstrip()
+    _tb=_tk[_tk.index(":root {"):]
+    _stale=[]
+    for _f in sorted(glob.glob(f"{root}/assets/components/**/*.html",recursive=True)):
+        _s=open(_f,encoding="utf-8").read()
+        if ("design-tokens.css(数值真源)" in _s or "/* —— design tokens —— */" in _s) and _tb not in _s:
+            _stale.append(os.path.relpath(_f,root))
+    if _stale:
+        E("内嵌 token 副本与 design-tokens.css 不同步:"+" / ".join(_stale)+" → 用 design-tokens.css 的 :root 与深色覆盖两块整段替换")
 
 def check_site(root):
     pages=glob.glob(f"{root}/*.html")

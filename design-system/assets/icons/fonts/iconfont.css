@@ -83,6 +83,6 @@
 .icf_nav_share:before { content: "\e623"; } /* 分享 */
 .icf_nav_side:before { content: "\e66c"; } /* 侧边栏/更多 */
 .icf_nav_src:before { content: "\e668"; } /* 搜索 */
-.icf_nav_sw-b:before { content: "\e622"; } /* 切换黑版 */
+.icf_nav_sw-b:before { content: "\e622"; } /* 切换黑肤 */
 .icf_nav_sw-care:before { content: "\e667"; } /* 关怀版切换/适老版 */
-.icf_nav_sw-w:before { content: "\e666"; } /* 切换白版 */
+.icf_nav_sw-w:before { content: "\e666"; } /* 切换白肤 */

@@ -7,17 +7,19 @@
 <title>C24 输入框 · 参考实现</title>
 <style>/* ============================================================
  * 国金证券客户端设计系统 · design-tokens.css(数值真源)
- * version: v4.1.1 · 750 设计稿基准
+ * 750 设计稿基准 · 版本见包根 VERSION(本文件不另写版本号)
  * 唯一颜色/尺寸来源。ALWAYS 用 var(--xxx),NEVER 硬编码色值。
  * 深色模式:容器加 [data-theme="dark"] 即自动切换语义色。
  * ============================================================ */
 
 :root {
-  /* SP/RD · 750px */
+  /* SP / RD · 750px */
   --SP0:0px; --SP1:4px; --SP2:8px; --SP3:12px; --SP4:16px; --SP5:20px; --SP6:24px; --SP7:32px; --SP8:40px; --SP9:60px; --SP10:80px; --RD0:0px; --RD1:4px; --RD2:8px; --RD3:12px; --RD4:16px; --RD5:20px; --RD6:24px; --RD7:32px; --RD8:40px; --RD9:999px; --RD10:6px;
+  /* OP · 不透明度(Figma「不透明度」组;值为 0–1) */
+  --OP0:0; --OP1:0.05; --OP2:0.08; --OP3:0.1; --OP4:0.15; --OP5:0.2; --OP6:0.3; --OP7:0.4; --OP8:0.5; --OP9:0.6; --OP10:0.7; --OP11:0.8; --OP12:0.9; --OP13:1;
 
 
-  /* ---------- 原子色盘:7 彩色族×19阶 + 灰18阶,锚点在第6阶 ---------- */
+  /* ---------- 原子色盘:7 彩色族×19阶 + 灰 13 阶(H1–H11、H13、H14,与 Figma 一致;H12 不存在),锚点在第6阶 ---------- */
   /* R · 品牌红(★R6 主色/涨红) */
   --R1:#FFF2F0; --R2:#FFE0DB; --R3:#FFBAB3; --R4:#FF928A; --R5:#FF6661; --R6:#F93838; --R7:#D4242A; --R8:#AD151F; --R9:#870916; --R10:#610612; --R11:#281B26; --R12:#551313; --R13:#7E1C1C; --R14:#A72626; --R15:#D02F2F; --R16:#FA6060; --R17:#FB8888; --R18:#FDAFAF; --R19:#FED7D7;
   /* O · 辅色橙 */
@@ -33,7 +35,7 @@
   /* P · 辅色紫(智能体) */
   --P1:#F4F0FF; --P2:#EEE8FF; --P3:#CEBFFF; --P4:#AB96FF; --P5:#866EFF; --P6:#5E44FF; --P7:#4130D9; --P8:#281EB3; --P9:#15118C; --P10:#0B0B66; --P11:#100C2D; --P12:#201757; --P13:#2F2281; --P14:#3F2EAB; --P15:#4F39D5; --P16:#7E69FF; --P17:#9E8FFF; --P18:#BFB4FF; --P19:#DFDAFF;
   /* H · 基础灰(★H9 主文本) */
-  --H1:#FFFFFF; --H2:#F2F4F8; --H3:#E2E8F2; --H4:#EEEEEE; --H5:#DDDDDD; --H6:#CCCCCC; --H7:#87878D; --H8:#55555E; --H9:#0F0F1B; --H10:#000000; --H11:#161824; --H12:#0F0F1B; --H13:#21212D; --H14:#373746; --H15:#55555E; --H16:#87878D; --H17:#87878D; --H18:#DDDDDD;
+  --H1:#FFFFFF; --H2:#F2F4F8; --H3:#E2E8F2; --H4:#EEEEEE; --H5:#DDDDDD; --H6:#CCCCCC; --H7:#87878D; --H8:#55555E; --H9:#0F0F1B; --H10:#000000; --H11:#161824; --H13:#21212D; --H14:#373746;
   /* ---------- 品牌渐变 ---------- */
   --grad-red:linear-gradient(180deg, var(--CP1) 0%, var(--CP0) 100%);
   --grad-ai:linear-gradient(135deg, var(--CP2) 0%, var(--CP3) 100%);
@@ -51,7 +53,7 @@
   --font-num:"GJTypeDisplay", var(--font-sans); /* 仅数字与数字符号 */
 
   /* ===================================================
-   * 语义 token(白版/默认)— 按用途取用,而非按颜色
+   * 语义 token(白肤/默认)— 按用途取用,而非按颜色
    * =================================================== */
   /* 01 品牌色 · CP · Brand */
   --CP0:var(--R6); /* 品牌色(对应色盘 R6) */
@@ -89,6 +91,7 @@
   --CL6:var(--P6); /* 紫色边框 */
   --CL8:rgba(43,115,255,0.5); /* 市场情绪选中边框 */
   --CL9:var(--B6); /* 分时图背景 */
+  --CL10:var(--R3); /* 分时图背景;skill 另用于胶囊 tab、时间轴节点、搜索框的描边 */
   /* 06 按钮色 · CN · Button / Action */
   --CN1:var(--R6); /* 交易买 / 默认主按钮 / 按钮操作(操作按钮与操作文字的红) */
   --CN2:var(--R7); /* 交易买 - 按下 */
@@ -111,6 +114,13 @@
   --CI3:var(--H7); /* 辅助图标，搭配辅助文本及提示说明 */
   --CI4:var(--H6); /* 弱图标 / 失效图标，搭配弱文本及失效文本 */
   --CI5:var(--H1); /* 反白图标，搭配反白文字 */
+  --CI6:rgba(0,0,0,0.3); /* 弹窗关闭按钮;skill 另用于输入框 / 搜索框清除图标 */
+  --CI7:#FFEDEE; /* 金刚区图标背景渐变色之一 */
+  --CI8:#FCFDFF; /* 金刚区图标背景渐变色之一 */
+  --CI9:var(--B1); /* 金刚区图标背景渐变色之一 */
+  --CI10:var(--B11); /* 金刚区图标边框色 */
+  --CI11:var(--B11); /* 列表图标边框色 */
+  --CI12:var(--H6); /* Figma 用途写「待确认」;skill 用于深色灰标签与 28号字标签灰底(未登录 / 不可用) */
   /* 08 图表色 · CH · Chart */
   --CH1:var(--R6); /* 主品牌色 / 高亮 (图表) */
   --CH2:var(--R5); /* 红 - 浅一阶 */
@@ -127,6 +137,7 @@
   --CH13:var(--J3); /* 金 - 主 */
   --CH14:var(--J2); /* 金 - 浅 */
   /* 09 背景色 · CB · Background */
+  --CB0:var(--H10); /* 基础背景色;skill 另用于弹窗长文滚动条(15%)、安全键盘 Home 条 */
   --CB1:var(--H1); /* 卡片背景色 */
   --CB2:var(--H2); /* 页面背景色 */
   --CB3:var(--H2); /* 二层卡片 / 二级未选中 Tab */
@@ -145,14 +156,13 @@
   --CB10:rgba(249,56,56,0.05); /* 指数涨背景 */
   --CB11:rgba(5,176,99,0.05); /* 指数跌背景 */
   --CB12:rgba(85,85,94,0.05); /* 指数平背景 */
-  --CB36:rgba(255,112,21,0.05); /* 自选底部通知条 / 交易公告背景 */
   --CB13:rgba(249,56,56,0.08); /* 红色透明标签背景 */
   --CB14:rgba(43,115,255,0.08); /* 蓝色透明标签背景 */
   --CB15:rgba(255,112,21,0.08); /* 橙色透明标签背景 */
   --CB16:rgba(94,68,255,0.08); /* 紫色透明标签背景 */
-  --CB27:rgba(5,176,99,0.08); /* 自选个股列表跌 / 理财热点 / 指数定投气泡背景 */
   --CB17:rgba(43,115,255,0.1); /* 自选 / 行情图表蓝色走势线背景色 */
   --CB18:rgba(0,0,0,0.8); /* 深色浮层背景 */
+  --CB49:rgba(0,0,0,0.8); /* 运营弹窗背景遮罩 */
   --CB19:rgba(0,0,0,0.6); /* 常规遮罩色 */
   --CB20:rgba(249,56,56,0.25); /* 自选分时上涨 / 国金策略涨 */
   --CB21:rgba(5,176,99,0.25); /* 自选分时下跌 / 国金策略跌 */
@@ -161,6 +171,7 @@
   --CB24:rgba(5,176,99,0); /* 自选分时下跌渐变端 */
   --CB25:rgba(85,85,94,0); /* 自选分时平渐变端 */
   --CB26:rgba(255,255,255,0); /* 自选个股列表涨跌背景渐变端 */
+  --CB27:rgba(5,176,99,0.08); /* 自选个股列表跌 / 理财热点 / 指数定投气泡背景 */
   --CB28:#E3FAF9; /* 市场情绪-大盘情绪-偏低背景 */
   --CB29:rgba(249,56,56,0.1); /* 国金策略指数色值展示卡片背景 */
   --CB30:rgba(249,56,56,0.15); /* 国金策略指数色值展示卡片背景 */
@@ -168,50 +179,55 @@
   --CB32:rgba(5,176,99,0.1); /* 国金策略指数色值展示卡片背景 */
   --CB33:rgba(5,176,99,0.15); /* 国金策略指数色值展示卡片背景 */
   --CB34:rgba(5,176,99,0.2); /* 国金策略指数色值展示卡片背景 */
+  --CB36:rgba(255,112,21,0.05); /* 自选底部通知条 / 交易公告背景 */
   --CB38:#F6FBFF; /* 智能体相关的通用渐变背景色 */
   --CB39:#FFF9FF; /* 智能体相关的通用渐变背景色 */
   --CB40:#F3F5FF; /* 智能体相关的通用渐变背景色 */
   --CB42:#F6F5FF; /* 智能体相关卡片浅紫渐变背景色 */
-  /* —— v5.0.0 补齐:Figma「色值规范」15999:8100 有、本文件原缺 —— */
-  --CB0:var(--H10);
-  --CB46:var(--H1);
-  --CB47:var(--H2);
-  --CB48:var(--H1);
-  --CB49:rgba(0,0,0,0.8);
-  --CB50:rgba(255,255,255,0.5);
-  --CB51:#E0EDFE;
-  --CB52:var(--H2);
-  --CB53:var(--H3);
-  --CB54:rgba(85,85,94,0.08);
-  --CL10:var(--R3);
-  --CI6:rgba(0,0,0,0.3);
-  --CI7:#FFEDEE;
-  --CI8:#FCFDFF;
-  --CI9:var(--B1);
-  --CI10:var(--B11);
-  --CI11:var(--B11);
-  --CI12:var(--H6); /* 规范编号 CI12,备注「待确认」;Figma 变量名误作 Cl12 */
+  --CB46:var(--H1); /* 智能体卡片背景;skill 另用于悬浮入口展开底 */
+  --CB47:var(--H2); /* 智能体背景灰色 */
+  --CB48:var(--H1); /* 智能体输入框 */
+  --CB50:rgba(255,255,255,0.5); /* 智能体半透明气泡与描边 */
+  --CB51:#E0EDFE; /* 智能体背景渐变色之一 */
+  --CB52:var(--H2); /* 智能体背景渐变色之一 */
+  --CB53:var(--H3); /* 开关默认未打开背景色;skill 另用于安全键盘字母键盘功能键 */
+  --CB54:rgba(85,85,94,0.08); /* 个股标签平灰色;skill 用于个股链接「平」底、贴边控件灰色底 */
 }
 
 /* ===================================================
  * 深色模式覆盖(仅 57 个 token 需切换,其余不变)
  * =================================================== */
 [data-theme="dark"] {
+  /* 02 文字色 */
   --CT1:var(--H5); /* 主要文本 / 标题 */
   --CT2:#BBBBBB; /* 大面积主要文本的黑肤特殊处理（例：资讯） */
   --CT3:var(--H7); /* 次要文本 / 副标题 */
   --CT5:var(--H8); /* 弱文本 / 失效文本 */
+  --CT7:var(--H1); /* 顶部标题栏文字 */
+  /* 03 涨跌色 */
   --CS3:var(--H7); /* 平灰 */
+  /* 05 线框色 */
   --CL1:var(--H8); /* 一级分割线 / 默认描边 */
   --CL2:var(--H14); /* 常规分割线 */
   --CL9:var(--H5); /* 分时图背景 */
+  --CL10:var(--R13); /* 分时图背景 */
+  /* 06 按钮色 */
   --CN12:var(--R11); /* 浅色主按钮背景色 */
   --CN13:var(--R12); /* 浅色主按钮背景色 - 按下 */
   --CN14:var(--H9); /* 灰色辅助按钮背景色 */
   --CN15:var(--H13); /* 灰色辅助按钮背景色 - 按下 */
+  /* 07 图标色 */
   --CI1:var(--H5); /* 主要图标 */
   --CI2:var(--H7); /* 次要图标，搭配次要文本 */
   --CI4:var(--H8); /* 弱图标 / 失效图标，搭配弱文本及失效文本 */
+  --CI6:rgba(255,255,255,0.3); /* 弹窗关闭按钮 */
+  --CI7:rgba(255,237,238,0.1); /* 金刚区图标背景渐变色之一 */
+  --CI8:rgba(252,253,255,0.05); /* 金刚区图标背景渐变色之一 */
+  --CI9:rgba(240,247,255,0); /* 金刚区图标背景渐变色之一 */
+  --CI10:var(--H5); /* 金刚区图标边框色 */
+  --CI11:var(--H7); /* 列表图标边框色 */
+  --CI12:#52557D; /* Figma 用途写「待确认」 */
+  /* 09 背景色 */
   --CB1:var(--H11); /* 卡片背景色 */
   --CB2:var(--H9); /* 页面背景色 */
   --CB3:#1C1E2D; /* 二层卡片 / 二级未选中 Tab */
@@ -227,34 +243,24 @@
   --CB45:var(--B12); /* 蓝色标签背景（深） */
   --CB9:var(--G11); /* 绿色标签背景 */
   --CB37:#2D2724; /* 金色标签背景 */
+  --CB12:rgba(135,135,141,0.05); /* 指数平背景 */
+  --CB17:var(--H5); /* 自选 / 行情图表蓝色走势线背景色 */
+  --CB18:#282A35; /* 深色浮层背景 */
   --CB22:rgba(135,135,141,0.25); /* 自选分时平 */
   --CB25:rgba(135,135,141,0); /* 自选分时平渐变端 */
-  --CB17:var(--H5); /* 自选 / 行情图表蓝色走势线背景色 */
   --CB26:rgba(22,24,36,0); /* 自选个股列表涨跌背景渐变端 */
   --CB28:#062B31; /* 市场情绪-大盘情绪-偏低背景 */
   --CB38:#222338; /* 智能体相关的通用渐变背景色 */
   --CB39:#281B28; /* 智能体相关的通用渐变背景色 */
   --CB40:#1D2032; /* 智能体相关的通用渐变背景色 */
   --CB42:#302F50; /* 智能体相关卡片浅紫渐变背景色 */
-  --CT7:var(--H1); /* 顶部标题栏文字 */
-  --CB18:#282A35; /* 深色浮层背景 */
-  --CB12:rgba(135,135,141,0.05); /* 指数平背景 */
-  /* —— v5.0.0 补齐 —— */
-  --CB46:#1E2148;
-  --CB47:#2A2D56;
-  --CB48:rgba(255,255,255,0.06);
-  --CB50:rgba(255,255,255,0.08);
-  --CB51:#080924;
-  --CB52:#080924;
+  --CB46:#1E2148; /* 智能体卡片背景 */
+  --CB47:#2A2D56; /* 智能体背景灰色 */
+  --CB48:rgba(255,255,255,0.06); /* 智能体输入框 */
+  --CB50:rgba(255,255,255,0.08); /* 智能体半透明气泡与描边 */
+  --CB51:#080924; /* 智能体背景渐变色之一 */
+  --CB52:#080924; /* 智能体背景渐变色之一 */
   --CB53:var(--H8); /* 开关默认未打开背景色;2026-10-26 用户定 H8,Figma 已同步 */
-  --CL10:var(--R13);
-  --CI6:rgba(255,255,255,0.3);
-  --CI7:rgba(255,237,238,0.1);
-  --CI8:rgba(252,253,255,0.05);
-  --CI9:rgba(240,247,255,0);
-  --CI10:var(--H5);
-  --CI11:var(--H7);
-  --CI12:#52557D;
 }</style>
 <style>
 @font-face{font-family:"GJTypeDisplay";font-weight:400;src:url(data:font/ttf;base64,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)}

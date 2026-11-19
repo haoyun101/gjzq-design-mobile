@@ -371,7 +371,7 @@
       "icf_nav_sw-b": {
         "class": "icf_nav_sw-b",
         "unicode": "e622",
-        "gloss": "切换黑版"
+        "gloss": "切换黑肤"
       },
       "icf_nav_sw-care": {
         "class": "icf_nav_sw-care",
@@ -381,7 +381,7 @@
       "icf_nav_sw-w": {
         "class": "icf_nav_sw-w",
         "unicode": "e666",
-        "gloss": "切换白版"
+        "gloss": "切换白肤"
       }
     },
     "svg": {
@@ -392,14 +392,14 @@
       "common/icf_func_sort-asc.svg": "",
       "common/icf_func_sort-def.svg": "",
       "common/icf_func_sort-desc.svg": "",
-      "common/icf_gen_fallback-img-b.svg": "",
-      "common/icf_gen_fallback-img-w.svg": "",
-      "common/icf_nav_fallback-img-b.svg": "",
-      "common/icf_nav_fallback-img-w.svg": "",
       "common/slice_all-func_fallback-img-b.svg": "",
       "common/slice_all-func_fallback-img-w.svg": "",
+      "common/slice_gen_fallback-img-b.svg": "",
+      "common/slice_gen_fallback-img-w.svg": "",
       "common/slice_list_fallback-img-b.svg": "",
       "common/slice_list_fallback-img-w.svg": "",
+      "common/slice_nav_fallback-img-b.svg": "",
+      "common/slice_nav_fallback-img-w.svg": "",
       "common/slice_news_follow.svg": "",
       "common/slice_other_live-24px.svg": "",
       "common/slice_other_toast-failure.svg": "",
@@ -699,8 +699,8 @@
       "html": "assets/components/empty.html",
       "quickcard": "references/component-quickcards.md#C27",
       "self_contained": "partial",
-      "requires": "缺省图为示意,实际从发布仓库 resources/illustrations/empty/ 引用",
-      "note": "大 / 小 × 白版 / 黑版,元素可开关"
+      "requires": "缺省图从发布仓库 resources/illustrations/empty/ 逐张引用(需联网)",
+      "note": "大 / 小 × 白肤 / 黑肤,元素可开关"
     },
     "C28 贴边控件": {
       "ref": "references/components.md#二十八、贴边控件",

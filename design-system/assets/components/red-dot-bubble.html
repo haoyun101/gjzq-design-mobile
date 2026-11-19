@@ -28,7 +28,7 @@
   --CB1:#FFFFFF;
   --CB2:#F2F4F8;
   --CB18:rgba(0,0,0,0.8);
-  --CL1:#DDDDDD;
+  --CL1:#DDDDDD; --CL2:#EEEEEE;
   --font-sans:-apple-system,"PingFang SC",system-ui,"HarmonyOS Sans SC","Noto Sans SC","Microsoft YaHei",sans-serif;
   --font-num:"GJTypeDisplay",var(--font-sans);
   --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
@@ -42,7 +42,7 @@
   --CB1:#161824;
   --CB2:#0F0F1B;
   --CB18:#282A35;
-  --CL1:#55555E;
+  --CL1:#55555E; --CL2:#373746;
 }
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--CB2);color:var(--CT1);font-family:var(--font-sans)}
@@ -63,6 +63,7 @@ button,select{font:inherit}
 .spec-card.is-wide{grid-column:1/-1}
 .spec-label{font-size:20px;line-height:1.5;color:var(--CT3)}
 .row{display:flex;align-items:center;gap:var(--SP7);flex-wrap:wrap}
+.stage.on-card{background:var(--CB1);box-shadow:inset 0 0 0 1px var(--CL2)}
 .stage{width:100%;border-radius:var(--RD4);background:var(--CB2);padding:var(--SP8) var(--SP6);display:flex;align-items:center;justify-content:center;gap:var(--SP8);flex-wrap:wrap}
 .choice{display:flex;flex-direction:column;align-items:flex-start;gap:var(--SP2)}
 .choice b{font-size:20px;line-height:1.5;font-weight:500}
@@ -78,11 +79,11 @@ button,select{font:inherit}
 .iconfont{font-family:"iconfont"!important;font-style:normal;font-weight:400!important;speak:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .icf_gen_more-ctr::before{content:"\e650"}
 .icf_gen_more-rt::before{content:"\e653"}
-/* 宿主图标占位(仅演示,不属于 C16) */
-.demo-icon{position:relative;display:inline-block;flex:0 0 auto;border-radius:var(--RD3);background:var(--CL1)}
-.demo-icon--48{width:48px;height:48px}
-.demo-icon--64{width:64px;height:64px}
-.demo-icon--88{width:88px;height:88px;border-radius:var(--RD9)}
+/* 宿主图标:用 C11 图标兜底(48 slice_list / 64 slice_all-func / 88 slice_vip-serv,同 Figma「图标+气泡」默认),实际换业务图标 */
+.gj-iconbox{position:relative;display:inline-block;flex:0 0 auto}.gj-iconbox>img{display:block;width:100%;height:100%}
+.gj-iconbox--48{width:48px;height:48px}
+.gj-iconbox--64{width:64px;height:64px}
+.gj-iconbox--88{width:88px;height:88px}
 
 /* ===== C16 红点与气泡 · Figma 25086:10964 ===== */
 /* 描边一律「内描边」(Figma stroke INSIDE),用 inset 阴影实现,不改变外框尺寸 */
@@ -109,15 +110,15 @@ button,select{font:inherit}
 
 /* 4. 图标挂载(位置相对宿主图标左上角) */
 .gj-mount{position:absolute}
-.demo-icon--48 > .gj-dot{left:36px;top:2px}
-.demo-icon--48 > .gj-count{left:34px;top:-12px}
-.demo-icon--48 > .gj-tip{left:16px;top:-16px}
-.demo-icon--64 > .gj-dot{left:50px;top:2px}
-.demo-icon--64 > .gj-count{left:44px;top:-6px}
-.demo-icon--64 > .gj-tip{left:24px;top:-14px}
-.demo-icon--88 > .gj-dot{left:70px;top:6px}
-.demo-icon--88 > .gj-count{left:64px;top:-2px}
-.demo-icon--88 > .gj-tip{left:30px;top:-16px}
+.gj-iconbox--48 > .gj-dot{left:36px;top:2px}
+.gj-iconbox--48 > .gj-count{left:34px;top:-12px}
+.gj-iconbox--48 > .gj-tip{left:16px;top:-16px}
+.gj-iconbox--64 > .gj-dot{left:50px;top:2px}
+.gj-iconbox--64 > .gj-count{left:44px;top:-12px}
+.gj-iconbox--64 > .gj-tip{left:24px;top:-14px}
+.gj-iconbox--88 > .gj-dot{left:70px;top:6px}
+.gj-iconbox--88 > .gj-count{left:64px;top:0}
+.gj-iconbox--88 > .gj-tip{left:30px;top:-16px}
 
 /* 5. 引导气泡 */
 .gj-guide{display:inline-flex;align-items:center;flex:0 0 auto}
@@ -209,23 +210,23 @@ button,select{font:inherit}
 <section class="demo-section">
   <h2>4 · 图标挂载</h2>
   <div class="spec-grid">
-    <div class="spec-card is-wide"><span class="spec-label">48 导航图标</span><div class="stage">
-      <span class="demo-icon demo-icon--48"><span class="gj-dot gj-dot--icon gj-mount"></span></span>
-      <span class="demo-icon demo-icon--48"><span class="gj-count gj-count--icon is-single gj-mount">3</span></span>
-      <span class="demo-icon demo-icon--48"><span class="gj-tip gj-tip--normal gj-mount">示例</span></span>
+    <div class="spec-card is-wide"><span class="spec-label">48 导航图标</span><div class="stage on-card">
+      <span class="gj-iconbox gj-iconbox--48"><img src="../icons/common/slice_list_fallback-img-w.svg" alt=""><span class="gj-dot gj-dot--icon gj-mount"></span></span>
+      <span class="gj-iconbox gj-iconbox--48"><img src="../icons/common/slice_list_fallback-img-w.svg" alt=""><span class="gj-count gj-count--icon is-single gj-mount">3</span></span>
+      <span class="gj-iconbox gj-iconbox--48"><img src="../icons/common/slice_list_fallback-img-w.svg" alt=""><span class="gj-tip gj-tip--normal gj-mount">示例</span></span>
     </div></div>
-    <div class="spec-card is-wide"><span class="spec-label">64 一级图标</span><div class="stage">
-      <span class="demo-icon demo-icon--64"><span class="gj-dot gj-dot--icon gj-mount"></span></span>
-      <span class="demo-icon demo-icon--64"><span class="gj-count gj-count--icon gj-mount">50</span></span>
-      <span class="demo-icon demo-icon--64"><span class="gj-tip gj-tip--normal gj-mount">示例文</span></span>
+    <div class="spec-card is-wide"><span class="spec-label">64 一级图标</span><div class="stage on-card">
+      <span class="gj-iconbox gj-iconbox--64"><img src="../icons/common/slice_all-func_fallback-img-w.svg" alt=""><span class="gj-dot gj-dot--icon gj-mount"></span></span>
+      <span class="gj-iconbox gj-iconbox--64"><img src="../icons/common/slice_all-func_fallback-img-w.svg" alt=""><span class="gj-count gj-count--icon gj-mount">50</span></span>
+      <span class="gj-iconbox gj-iconbox--64"><img src="../icons/common/slice_all-func_fallback-img-w.svg" alt=""><span class="gj-tip gj-tip--normal gj-mount">示例文</span></span>
     </div></div>
-    <div class="spec-card is-wide"><span class="spec-label">88 增值图标</span><div class="stage">
-      <span class="demo-icon demo-icon--88"><span class="gj-dot gj-dot--icon gj-mount"></span></span>
-      <span class="demo-icon demo-icon--88"><span class="gj-count gj-count--icon gj-mount">99+</span></span>
-      <span class="demo-icon demo-icon--88"><span class="gj-tip gj-tip--normal gj-mount">示例文字</span></span>
+    <div class="spec-card is-wide"><span class="spec-label">88 增值图标</span><div class="stage on-card">
+      <span class="gj-iconbox gj-iconbox--88"><img src="../icons/common/slice_vip-serv_fallback-img.svg" alt=""><span class="gj-dot gj-dot--icon gj-mount"></span></span>
+      <span class="gj-iconbox gj-iconbox--88"><img src="../icons/common/slice_vip-serv_fallback-img.svg" alt=""><span class="gj-count gj-count--icon gj-mount">99+</span></span>
+      <span class="gj-iconbox gj-iconbox--88"><img src="../icons/common/slice_vip-serv_fallback-img.svg" alt=""><span class="gj-tip gj-tip--normal gj-mount">示例文字</span></span>
     </div></div>
   </div>
-  <p class="demo-note">三种提示互斥,一个图标只挂一种。灰块是宿主图标占位,不属于本组件。</p>
+  <p class="demo-note">三种提示互斥,一个图标只挂一种。宿主图标用 C11 图标兜底(同 Figma 默认),实际换业务图标;挂载位置照抄,与图标内容无关。</p>
 </section>
 
 <section class="demo-section">

@@ -167,8 +167,9 @@ def check(path):
         if _bad:
             p1.append(f"字号不在 S-CN / S-NUM 集合:页面出现 {', '.join(_bad[:8])}px → 应取规范字号({'/'.join(sorted(_sset,key=int,reverse=True))})")
 
-    # --- P1: 字重只用 R 400 / M 500(@font-face 内的字重声明不计)---
+    # --- P1: 字重只用 R 400 / M 500(@font-face 内的字重声明不计;系统状态栏时间 .gj-sb-time 固定 B 600,不计)---
     _nf = re.sub(r'@font-face\s*\{[^}]*\}', '', html)
+    _nf = re.sub(r'\.gj-sb-time\s*\{[^}]*\}', '', _nf)
     _heavy = sorted(set(re.findall(r'font-weight\s*:\s*(600|700|800|900|bold|bolder)\b', _nf, re.I)))
     if _heavy:
         p1.append(f"字重出现 {'/'.join(_heavy)} → 页面生成只用 R(400)/ M(500)(B 600 仅用户明确要求时)")
